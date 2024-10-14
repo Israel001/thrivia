@@ -28,7 +28,10 @@ Widget spacedDivider = const Column(
 );
 
 Widget verticalSpace(double height) => SizedBox(height: height);
+Widget horiontalSpace(double width) => SizedBox(width: width);
 
+bool lightMode(BuildContext context) =>
+    Theme.of(context).brightness == Brightness.light;
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 

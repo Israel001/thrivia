@@ -1,9 +1,13 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:thrivia_app/app/app.router.dart';
+import 'package:thrivia_app/main.dart';
 import 'package:thrivia_app/ui/common/app_colors.dart';
 import 'package:thrivia_app/ui/common/ui_helpers.dart';
 
+import '../../../app/app.locator.dart';
 import '../../common/constants.dart';
 import 'onboarding_viewmodel.dart';
 
@@ -22,7 +26,7 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
         (onboardingText.length * 12);
     final dotsSize = Size(dotsWidth, 6);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      // backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
@@ -37,27 +41,31 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
               gradient: LinearGradient(
                 begin: Alignment(-0.00, -1.00),
                 end: Alignment(0, 1),
-                colors: AppColors.blackLinear2,
+                colors: lightMode(context)
+                    ? AppColors.lightLinear
+                    : AppColors.blackLinear2,
               ),
             ),
             child: SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints.loose(Size(double.infinity, 812)),
                 child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 25.0, right: 25.0, top: 46, bottom: 50),
+                  padding: const EdgeInsets.only(top: 46, bottom: 50),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       //top badge
-                      Image.asset(
-                        theme.brightness == Brightness.light
-                            ? AppImages.logoLight
-                            : AppImages.logoDark,
-                        // width: 111,
-                        height: 50,
-                        fit: BoxFit.contain,
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25),
+                        child: Image.asset(
+                          theme.brightness == Brightness.light
+                              ? AppImages.logoLight
+                              : AppImages.logoDark,
+                          // width: 111,
+                          height: 50,
+                          fit: BoxFit.contain,
+                        ),
                       ),
                       Spacer(),
                       Align(
@@ -66,26 +74,41 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                           // mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
-                            Body(
-                              pageChanged: (newIndex) {
-                                viewModel.changePage(newIndex);
-                              },
-                            ),
+                            Stack(
+                              children: [
+                                Body(
+                                  pageChanged: (newIndex) {
+                                    viewModel.changePage(newIndex);
+                                  },
+                                ),
 
-                            //dots
-                            DotsIndicator(
-                              dotsCount: onboardingText.length,
-                              position: viewModel.pageIndex,
-                              decorator: DotsDecorator(
-                                size: dotsSize,
-                                activeSize: dotsSize,
-                                // activeSize: const Size(18.0, 9.0),
-                                activeColor: AppColors.k_272816C,
-                                activeShape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50.0)),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(50.0)),
-                              ),
+                                //dots
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 74,
+                                  child: Padding(
+                                    padding:
+                                        EdgeInsets.symmetric(horizontal: 25),
+                                    child: DotsIndicator(
+                                      dotsCount: onboardingText.length,
+                                      position: viewModel.pageIndex,
+                                      decorator: DotsDecorator(
+                                        size: dotsSize,
+                                        activeSize: dotsSize,
+                                        // activeSize: const Size(18.0, 9.0),
+                                        activeColor: AppColors.k_272816C,
+                                        activeShape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50.0)),
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(50.0)),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
 
                             //get started
@@ -98,7 +121,7 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                                 Text(
                                   'Already have an account? ',
                                   style: TextStyle(
-                                    color: Colors.white,
+                                    color: AppColors.white,
                                     fontSize: 12,
                                     fontFamily: 'Onest',
                                     fontWeight: FontWeight.w400,
@@ -137,68 +160,92 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
       OnboardingViewModel();
 }
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
   final void Function(int) pageChanged;
+
   const Body({
     super.key,
     required this.pageChanged,
   });
 
   @override
+  State<Body> createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+  final PageController _pageController = PageController();
+  final _navigationService = locator<NavigationService>();
+
+  @override
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: SizedBox(
-        height: 260,
+        height: 216,
         child: PageView(
-          onPageChanged: pageChanged,
+          controller: _pageController,
+          clipBehavior: Clip.hardEdge,
+          onPageChanged: widget.pageChanged,
           padEnds: true,
           children: onboardingText
-              .map((pageText) => Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      // title
-                      Text(
-                        pageText["title"]! as String,
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontFamily: 'Onest',
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      verticalSpace(16),
-                      //subtitle
-                      SizedBox(
-                        height: 75,
-                        child: Text(
-                          pageText["subtitle"]! as String,
+              .map((pageText) => Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        // title
+                        Text(
+                          pageText["title"]! as String,
                           style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 13,
+                            color: AppColors.white,
+                            fontSize: 28,
                             fontFamily: 'Onest',
-                            fontWeight: FontWeight.w400,
+                            fontWeight: FontWeight.w500,
                           ),
-                          softWrap: true,
                         ),
-                      ),
-                      verticalSpace(16),
-
-                      //button
-                      ElevatedButton(
-                          onPressed: () {},
+                        verticalSpace(16),
+                        //subtitle
+                        SizedBox(
+                          height: 75,
                           child: Text(
-                            pageText["button_text"] as String,
-                            textAlign: TextAlign.center,
+                            pageText["subtitle"]! as String,
                             style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
+                              color: AppColors.white,
+                              fontSize: 13,
                               fontFamily: 'Onest',
                               fontWeight: FontWeight.w400,
-                              height: 0,
                             ),
-                          ))
-                    ],
+                            softWrap: true,
+                          ),
+                        ),
+                        verticalSpace(30),
+
+                        //button
+                        ElevatedButton(
+                            onPressed: () {
+                              var lastPage = pageText["position"] as int >=
+                                  onboardingText.length - 1;
+                              if (lastPage) {
+                                _navigationService.navigateToOnboarding4View();
+                              } else {
+                                _pageController.nextPage(
+                                    duration: Durations.medium1,
+                                    curve: Curves.easeIn);
+                              }
+                            },
+                            child: Text(
+                              pageText["button_text"] as String,
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 14,
+                                fontFamily: 'Onest',
+                                fontWeight: FontWeight.w400,
+                                height: 0,
+                              ),
+                            ))
+                      ],
+                    ),
                   ))
               .toList(),
         ),

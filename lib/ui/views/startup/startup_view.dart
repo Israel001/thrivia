@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 import 'package:thrivia_app/ui/common/constants.dart';
 import 'package:thrivia_app/ui/common/ui_helpers.dart';
@@ -25,16 +26,21 @@ class StartupView extends StackedView<StartupViewModel> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                theme.brightness == Brightness.light
-                    ? AppImages.logoLight
-                    : AppImages.logoDark,
+                lightMode(context) ? AppImages.logoLight : AppImages.logoDark,
                 width: 250,
                 height: 70,
               ),
               const SizedBox(height: 16),
-              Text('Financial freedom through community',
-                  textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodySmall),
+              Text(
+                'Financial freedom through community',
+                textAlign: TextAlign.center,
+                style: GoogleFonts.onest(
+                  // color: Theme.of(context).,
+                  fontSize: 12,
+
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
             ],
           ),
         ),

@@ -29,6 +29,12 @@ abstract class AppColors {
     Color(0xff010101),
   ];
 
+  static final List<Color> lightLinear = <Color>[
+    Color(0x66010101).withOpacity(0.3),
+    Color(0xcc010101).withOpacity(0.3),
+    Color(0xff010101).withOpacity(0.3),
+  ];
+
   /// blackLinear2 figma style properties
   /// linear gradient
   /// start,stop hex: (#1d2128,#1d2128,#010101)
@@ -69,6 +75,10 @@ abstract class AppColors {
   ];
 
 //figma colors
+  static const Color white = Colors.white;
+  static const Color black = Colors.black;
+
+  static const Color k_1c2027 = Color(0xFF1C2027);
   static const Color k_272816C = Color(0xff27816c);
   static const Color k_2E9178 = Color(0xFF2E9178);
   static const Color k_939090 = Color(0xFF939090);
