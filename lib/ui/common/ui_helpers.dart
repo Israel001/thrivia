@@ -2,6 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import 'constants.dart';
+
 const double _tinySize = 5.0;
 const double _smallSize = 10.0;
 const double _mediumSize = 25.0;
@@ -32,6 +34,9 @@ Widget horiontalSpace(double width) => SizedBox(width: width);
 
 bool lightMode(BuildContext context) =>
     Theme.of(context).brightness == Brightness.light;
+
+String appLogoPath(context) =>
+    lightMode(context) ? AppImages.logoLight : AppImages.logoDark;
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;
 double screenHeight(BuildContext context) => MediaQuery.of(context).size.height;
 

@@ -19,14 +19,42 @@ abstract class AppTheme {
     onPrimary: AppColors.white,
     // primary: AppColors.k_272816C,
   );
+  static get darkTheme => _appTheme(darkColorScheme);
+  static get lightTheme => _appTheme(lightColorScheme);
 
-  static final lightTheme = ThemeData.from(
-          colorScheme: lightColorScheme,
-          textTheme: textTheme,
-          useMaterial3: true)
-      .copyWith(
-          scaffoldBackgroundColor: AppColors.white,
-          elevatedButtonTheme: elevatedButtonTheme);
+  static _appTheme(ColorScheme colorScheme) => ThemeData.from(
+              colorScheme: darkColorScheme,
+              textTheme: textTheme,
+              useMaterial3: true)
+          .copyWith(
+        elevatedButtonTheme: elevatedButtonTheme,
+        scaffoldBackgroundColor: AppColors.k_1c2027,
+        inputDecorationTheme: inputDecorationTheme,
+      );
+
+  // static final lightTheme = ThemeData.from(
+  //         colorScheme: lightColorScheme,
+  //         textTheme: textTheme,
+  //         useMaterial3: true)
+  //     .copyWith(
+  //         scaffoldBackgroundColor: AppColors.white,
+  //         elevatedButtonTheme: elevatedButtonTheme,
+  //         inputDecorationTheme: InputDecorationTheme());
+
+  static InputDecorationTheme inputDecorationTheme =
+      InputDecorationTheme().copyWith(
+    floatingLabelBehavior: FloatingLabelBehavior.auto,
+    floatingLabelStyle: textTheme.bodySmall!.copyWith(color: Color(0xFF939090)),
+    labelStyle: textTheme.bodyMedium,
+    // labelStyle: ,
+    contentPadding: EdgeInsets.zero,
+    border: InputBorder.none,
+    errorBorder: InputBorder.none,
+    enabledBorder: InputBorder.none,
+    focusedBorder: InputBorder.none,
+    disabledBorder: InputBorder.none,
+    focusedErrorBorder: InputBorder.none,
+  );
 
   static ElevatedButtonThemeData elevatedButtonTheme = ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
@@ -39,12 +67,4 @@ abstract class AppTheme {
             ),
             borderRadius: BorderRadius.circular(50),
           )));
-
-  static final darkTheme = ThemeData.from(
-          colorScheme: darkColorScheme,
-          textTheme: textTheme,
-          useMaterial3: true)
-      .copyWith(
-          elevatedButtonTheme: elevatedButtonTheme,
-          scaffoldBackgroundColor: AppColors.k_1c2027);
 }

@@ -11,7 +11,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.0.10+1
-  google_fonts: 6.2.0
+  # google_fonts: 6.2.0
+  google_fonts: ^6.2.0
   stacked: ^3.4.0
   stacked_services: ^1.1.0
 
@@ -29,4 +30,5 @@ flutter:
   assets:
   - assets/images/
   - assets/images/svg/
+  - assets/images/svg/icons/
 

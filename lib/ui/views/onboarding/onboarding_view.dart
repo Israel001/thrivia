@@ -1,10 +1,13 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+
 import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/main.dart';
 import 'package:thrivia_app/ui/common/app_colors.dart';
+import 'package:thrivia_app/ui/common/primary_button.dart';
 import 'package:thrivia_app/ui/common/ui_helpers.dart';
 
 import '../../../app/app.locator.dart';
@@ -115,29 +118,8 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
 
                             verticalSpaceMedium,
                             // already have an account
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Already have an account? ',
-                                  style: TextStyle(
-                                    color: AppColors.white,
-                                    fontSize: 12,
-                                    fontFamily: 'Onest',
-                                    fontWeight: FontWeight.w400,
-                                  ),
-                                ),
-                                Text(
-                                  'Log in',
-                                  style: TextStyle(
-                                    color: AppColors.k_272816C,
-                                    fontSize: 12,
-                                    fontFamily: 'Onest',
-                                    fontWeight: FontWeight.w700,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                                ),
-                              ],
+                            SwitchSignInType(
+                              onLoginPage: false,
                             ),
                           ],
                         ),
@@ -158,6 +140,45 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
     BuildContext context,
   ) =>
       OnboardingViewModel();
+}
+
+class SwitchSignInType extends StatelessWidget {
+  final bool onLoginPage;
+  const SwitchSignInType({
+    Key? key,
+    required this.onLoginPage,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          onLoginPage ? "Don’t have an account? " : 'Already have an account? ',
+          style: theme.textTheme.bodySmall,
+        ),
+        GestureDetector(
+          onTap: () {
+            final navigator = locator<NavigationService>();
+            onLoginPage
+                ? navigator.replaceWithCreateAccountView()
+                : navigator.replaceWithLoginView();
+          },
+          child: Text(
+            onLoginPage ? "Create one" : 'Log in',
+            style: theme.textTheme.bodySmall!.copyWith(
+              color: AppColors.k_272816C,
+              fontWeight: FontWeight.w700,
+              decorationColor: AppColors.k_272816C,
+              decoration: TextDecoration.underline,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }
 
 class Body extends StatefulWidget {
@@ -221,29 +242,20 @@ class _BodyState extends State<Body> {
                         verticalSpace(30),
 
                         //button
-                        ElevatedButton(
-                            onPressed: () {
-                              var lastPage = pageText["position"] as int >=
-                                  onboardingText.length - 1;
-                              if (lastPage) {
-                                _navigationService.navigateToOnboarding4View();
-                              } else {
-                                _pageController.nextPage(
-                                    duration: Durations.medium1,
-                                    curve: Curves.easeIn);
-                              }
-                            },
-                            child: Text(
-                              pageText["button_text"] as String,
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 14,
-                                fontFamily: 'Onest',
-                                fontWeight: FontWeight.w400,
-                                height: 0,
-                              ),
-                            ))
+                        PrimaryButton(
+                          onPressed: () {
+                            var lastPage = pageText["position"] as int >=
+                                onboardingText.length - 1;
+                            if (lastPage) {
+                              _navigationService.navigateToOnboarding4View();
+                            } else {
+                              _pageController.nextPage(
+                                  duration: Durations.medium1,
+                                  curve: Curves.easeIn);
+                            }
+                          },
+                          label: pageText["button_text"] as String,
+                        ),
                       ],
                     ),
                   ))

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
+import 'package:thrivia_app/services/user_manager_service.dart';
 import 'package:thrivia_app/ui/common/constants.dart';
 import 'package:thrivia_app/ui/common/ui_helpers.dart';
 
@@ -45,6 +46,7 @@ class Onboarding4View extends StackedView<Onboarding4ViewModel> {
                 title: "Cooperative member",
                 subtitle:
                     "I am an existing member of a cooperative or I am interested in becoming a member of an existing cooperative",
+                onTap: () => viewModel.goToCreateAccount(UserType.member),
               ),
               verticalSpace(36),
 
@@ -52,6 +54,7 @@ class Onboarding4View extends StackedView<Onboarding4ViewModel> {
                 title: "Cooperative owner",
                 subtitle:
                     "I own an existing cooperative society or I am interested owing a cooperative society",
+                onTap: () => viewModel.goToCreateAccount(UserType.owner),
               ),
               verticalSpace(36),
             ],
@@ -69,18 +72,24 @@ class Onboarding4View extends StackedView<Onboarding4ViewModel> {
 }
 
 class MemberTypeCard extends StatelessWidget {
-  final String title, subtitle;
+  final String title;
+  final String subtitle;
+
+  final VoidCallback onTap;
   const MemberTypeCard({
     super.key,
-    required this.subtitle,
     required this.title,
+    required this.subtitle,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(8),
-      onTap: () {},
+      onTap: () {
+        onTap();
+      },
       child: Container(
         height: 85,
         alignment: Alignment.center,
