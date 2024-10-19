@@ -44,22 +44,21 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
               gradient: LinearGradient(
                 begin: Alignment(-0.00, -1.00),
                 end: Alignment(0, 1),
-                colors: lightMode(context)
-                    ? AppColors.lightLinear
-                    : AppColors.blackLinear2,
+                colors: AppColors.blackLinear2,
               ),
             ),
             child: SingleChildScrollView(
               child: ConstrainedBox(
                 constraints: BoxConstraints.loose(Size(double.infinity, 812)),
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 46, bottom: 50),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      //top badge
-                      Padding(
+                child: Stack(
+                  // mainAxisAlignment: MainAxisAlignment.start,
+                  // crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    //top badge
+                    Positioned(
+                      top: 50,
+                      height: 50,
+                      child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 25),
                         child: Image.asset(
                           theme.brightness == Brightness.light
@@ -70,62 +69,78 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                           fit: BoxFit.contain,
                         ),
                       ),
-                      Spacer(),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Column(
-                          // mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Stack(
-                              children: [
-                                Body(
-                                  pageChanged: (newIndex) {
-                                    viewModel.changePage(newIndex);
-                                  },
-                                ),
+                    ),
+                    // Spacer(),
 
-                                //dots
-                                Positioned(
-                                  left: 0,
-                                  right: 0,
-                                  bottom: 74,
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 25),
-                                    child: DotsIndicator(
-                                      dotsCount: onboardingText.length,
-                                      position: viewModel.pageIndex,
-                                      decorator: DotsDecorator(
-                                        size: dotsSize,
-                                        activeSize: dotsSize,
-                                        // activeSize: const Size(18.0, 9.0),
-                                        activeColor: AppColors.k_272816C,
-                                        activeShape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(50.0)),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(50.0)),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                    Positioned.fill(
+                      child: Body(
+                        pageIndex: viewModel.pageIndex,
+                        pageChanged: (newIndex) {
+                          viewModel.changePage(newIndex);
+                        },
+                      ),
+                    ),
 
-                            //get started
+                    Positioned(
+                      right: 25,
+                      left: 25,
+                      height: 50,
+                      bottom: 100,
+                      child: PrimaryButton(
+                        onPressed: () {
+                          viewModel.nextPage();
+                        },
+                        label: onboardingText[viewModel.pageIndex]
+                            ["button_text"] as String,
+                      ),
+                    ),
 
-                            verticalSpaceMedium,
-                            // already have an account
-                            SwitchSignInType(
-                              onLoginPage: false,
-                            ),
-                          ],
+                    //dots
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 180,
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 25),
+                        child: DotsIndicator(
+                          dotsCount: onboardingText.length,
+                          position: viewModel.pageIndex,
+                          decorator: DotsDecorator(
+                            size: dotsSize,
+                            activeSize: dotsSize,
+                            // activeSize: const Size(18.0, 9.0),
+                            activeColor: AppColors.k_272816C,
+                            activeShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0)),
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(50.0)),
+                          ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+
+                    // already have an account
+                    Positioned(
+                      right: 25,
+                      left: 25,
+                      bottom: 46,
+                      child: SwitchSignInType(
+                        onLoginPage: false,
+                      ),
+                    ),
+                    // Align(
+                    //   alignment: Alignment.bottomCenter,
+                    //   child: Column(
+                    //     // mainAxisSize: MainAxisSize.min,
+                    //     mainAxisAlignment: MainAxisAlignment.end,
+                    //     children: [
+
+                    //       //get started
+
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
                 ),
               ),
             ),
@@ -183,10 +198,12 @@ class SwitchSignInType extends StatelessWidget {
 
 class Body extends StatefulWidget {
   final void Function(int) pageChanged;
+  final int pageIndex;
 
   const Body({
     super.key,
     required this.pageChanged,
+    required this.pageIndex,
   });
 
   @override
@@ -198,18 +215,25 @@ class _BodyState extends State<Body> {
   final _navigationService = locator<NavigationService>();
 
   @override
+  void didUpdateWidget(covariant Body oldWidget) {
+    // TODO: implement didUpdateWidget
+    super.didUpdateWidget(oldWidget);
+    _pageController.animateToPage(widget.pageIndex,
+        duration: Durations.medium1, curve: Curves.easeIn);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: SizedBox(
-        height: 216,
-        child: PageView(
-          controller: _pageController,
-          clipBehavior: Clip.hardEdge,
-          onPageChanged: widget.pageChanged,
-          padEnds: true,
-          children: onboardingText
-              .map((pageText) => Padding(
+    return PageView(
+      controller: _pageController,
+      clipBehavior: Clip.hardEdge,
+      onPageChanged: widget.pageChanged,
+      padEnds: true,
+      children: onboardingText
+          .map((pageText) => Column(
+                children: [
+                  Spacer(),
+                  Padding(
                     padding: EdgeInsets.symmetric(horizontal: 25),
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
@@ -237,31 +261,18 @@ class _BodyState extends State<Body> {
                               fontWeight: FontWeight.w400,
                             ),
                             softWrap: true,
+                            textAlign: TextAlign.center,
                           ),
                         ),
-                        verticalSpace(30),
+                        verticalSpace(200),
 
                         //button
-                        PrimaryButton(
-                          onPressed: () {
-                            var lastPage = pageText["position"] as int >=
-                                onboardingText.length - 1;
-                            if (lastPage) {
-                              _navigationService.navigateToOnboarding4View();
-                            } else {
-                              _pageController.nextPage(
-                                  duration: Durations.medium1,
-                                  curve: Curves.easeIn);
-                            }
-                          },
-                          label: pageText["button_text"] as String,
-                        ),
                       ],
                     ),
-                  ))
-              .toList(),
-        ),
-      ),
+                  ),
+                ],
+              ))
+          .toList(),
     );
   }
 }

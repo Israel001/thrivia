@@ -7,11 +7,11 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/ui/views/onboarding/onboarding_view.dart';
 import 'package:thrivia_app/ui/views/onboarding4/onboarding4_view.dart';
 import 'package:thrivia_app/ui/views/create_account/create_account_view.dart';
-import 'package:thrivia_app/services/user_manager_service.dart';
 import 'package:thrivia_app/ui/views/login/login_view.dart';
 
 import 'package:thrivia_app/ui/views/home/home_view.dart';
 
+import 'package:thrivia_app/services/auth_service.dart';
 // @stacked-import
 
 @StackedApp(
@@ -29,7 +29,7 @@ import 'package:thrivia_app/ui/views/home/home_view.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: DialogService),
     LazySingleton(classType: NavigationService),
-    LazySingleton(classType: UserManagerService),
+    LazySingleton(classType: AuthService),
 // @stacked-service
   ],
   bottomsheets: [

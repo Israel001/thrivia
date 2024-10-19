@@ -66,18 +66,6 @@ class StackedRouter extends _i1.RouterBase {
       Routes.loginView,
       page: _i7.LoginView,
     ),
-    _i1.RouteDef(
-      Routes.homeView,
-      page: _i2.HomeView,
-    ),
-    _i1.RouteDef(
-      Routes.homeView,
-      page: _i2.HomeView,
-    ),
-    _i1.RouteDef(
-      Routes.homeView,
-      page: _i2.HomeView,
-    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{

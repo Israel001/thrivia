@@ -4,7 +4,7 @@ import 'package:thrivia_app/app/app.locator.dart';
 import '../helpers/test_helpers.dart';
 
 void main() {
-  group('UserManagerServiceTest -', () {
+  group('AuthServiceTest -', () {
     setUp(() => registerServices());
     tearDown(() => locator.reset());
   });

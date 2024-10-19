@@ -2,7 +2,7 @@ import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:thrivia_app/services/user_manager_service.dart';
+import 'package:thrivia_app/services/auth_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -12,6 +12,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<BottomSheetService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<UserManagerService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -19,6 +20,7 @@ void registerServices() {
   getAndRegisterBottomSheetService();
   getAndRegisterDialogService();
   getAndRegisterUserManagerService();
+  getAndRegisterAuthService();
 // @stacked-mock-register
 }
 
@@ -72,10 +74,10 @@ MockDialogService getAndRegisterDialogService() {
   return service;
 }
 
-MockUserManagerService getAndRegisterUserManagerService() {
-  _removeRegistrationIfExists<UserManagerService>();
-  final service = MockUserManagerService();
-  locator.registerSingleton<UserManagerService>(service);
+MockAuthService getAndRegisterAuthService() {
+  _removeRegistrationIfExists<AuthService>();
+  final service = MockAuthService();
+  locator.registerSingleton<AuthService>(service);
   return service;
 }
 // @stacked-mock-create

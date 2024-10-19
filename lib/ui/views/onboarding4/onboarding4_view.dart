@@ -2,7 +2,6 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import 'package:thrivia_app/services/user_manager_service.dart';
 import 'package:thrivia_app/ui/common/constants.dart';
 import 'package:thrivia_app/ui/common/ui_helpers.dart';
 
@@ -46,7 +45,7 @@ class Onboarding4View extends StackedView<Onboarding4ViewModel> {
                 title: "Cooperative member",
                 subtitle:
                     "I am an existing member of a cooperative or I am interested in becoming a member of an existing cooperative",
-                onTap: () => viewModel.goToCreateAccount(UserType.member),
+                onTap: () => viewModel.goToCreateAccount(),
               ),
               verticalSpace(36),
 
@@ -54,7 +53,7 @@ class Onboarding4View extends StackedView<Onboarding4ViewModel> {
                 title: "Cooperative owner",
                 subtitle:
                     "I own an existing cooperative society or I am interested owing a cooperative society",
-                onTap: () => viewModel.goToCreateAccount(UserType.owner),
+                onTap: () => viewModel.goToCreateAccount(),
               ),
               verticalSpace(36),
             ],
