@@ -12,6 +12,7 @@ import 'package:thrivia_app/ui/views/login/login_view.dart';
 import 'package:thrivia_app/ui/views/home/home_view.dart';
 
 import 'package:thrivia_app/services/auth_service.dart';
+import 'package:thrivia_app/ui/views/forgot_password/forgot_password_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -23,6 +24,7 @@ import 'package:thrivia_app/services/auth_service.dart';
     MaterialRoute(page: CreateAccountView),
     MaterialRoute(page: LoginView),
 
+    MaterialRoute(page: ForgotPasswordView),
 // @stacked-route
   ],
   dependencies: [

@@ -27,7 +27,7 @@ class CreateAccountViewModel extends FormViewModel {
   }
 }
 
-class FormValidators {
+abstract class FormValidators {
   // static String? firstNameET,
   //     lastNameET,
   //     phoneET,
