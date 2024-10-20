@@ -31,12 +31,20 @@ import 'create_account_view.form.dart';
       validator: FormValidators.validateEmail,
     ),
     FormTextField(
-      name: "password",
+      name: "pin",
       validator: FormValidators.validatePassword,
     ),
     FormTextField(
-      name: "password_confirm",
+      name: "pin_confirm",
       validator: FormValidators.validateConfirmPassword,
+    ),
+    FormTextField(
+      name: "bvn",
+      validator: FormValidators.validateBVNANDNIN,
+    ),
+    FormTextField(
+      name: "nin",
+      validator: FormValidators.validateBVNANDNIN,
     ),
   ],
 )
@@ -138,27 +146,47 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                 CustomInputField(
                   iconPath: AppImagesSVG.lock,
                   child: TextFormField(
-                    decoration: InputDecoration()
-                        .copyWith(labelText: "Create password"),
-                    controller: passwordController,
+                    decoration:
+                        InputDecoration().copyWith(labelText: "Create pin"),
+                    controller: pinController,
                   ),
-                  errorText: viewModel.passwordValidationMessage,
+                  errorText: viewModel.pinConfirmValidationMessage,
                 ),
 
                 //confirm password
                 CustomInputField(
                   iconPath: AppImagesSVG.lock,
                   child: TextFormField(
-                    decoration: InputDecoration()
-                        .copyWith(labelText: "Confirm password"),
-                    controller: passwordConfirmController,
+                    decoration:
+                        InputDecoration().copyWith(labelText: "Confirm pin"),
+                    controller: pinConfirmController,
                   ),
-                  errorText: viewModel.passwordConfirmValidationMessage,
+                  errorText: viewModel.pinConfirmValidationMessage,
+                ),
+
+                //BVN
+                CustomInputField(
+                  iconPath: AppImagesSVG.lock,
+                  child: TextFormField(
+                    decoration: InputDecoration().copyWith(labelText: "BVN"),
+                    controller: bvnController,
+                  ),
+                  errorText: viewModel.bvnValidationMessage,
+                ),
+
+                //NIN
+                CustomInputField(
+                  iconPath: AppImagesSVG.lock,
+                  child: TextFormField(
+                    decoration: InputDecoration().copyWith(labelText: "NIN"),
+                    controller: ninController,
+                  ),
+                  errorText: viewModel.ninValidationMessage,
                 ),
                 verticalSpace(53),
                 PrimaryButton(
                     onPressed: () {
-                      viewModel.validateForm();
+                      viewModel.buttonPress();
                     },
                     label: "Create account"),
                 verticalSpace(24),

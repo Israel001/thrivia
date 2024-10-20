@@ -1,6 +1,31 @@
 import 'package:stacked/stacked.dart';
+import 'package:thrivia_app/app/app.locator.dart';
+import 'package:thrivia_app/services/auth_service.dart';
+import 'package:thrivia_app/ui/views/create_account/create_account_view.form.dart';
 
-class CreateAccountViewModel extends FormViewModel {}
+class CreateAccountViewModel extends FormViewModel {
+  final _authService = locator<AuthService>();
+
+  _createAccount() {
+    final createUser = CreateUserAPI(
+        firstName: firstNameValue!,
+        lastName: lastNameValue!,
+        email: emailAddressValue!,
+        phoneNumber: phoneNumberValue!,
+        password: pinValue!,
+        bvn: bvnValue!,
+        nin: ninValue!);
+    _authService.createAccount(createUser);
+  }
+
+  void buttonPress() {
+    final formValid = validateForm();
+    if (hasAnyValidationMessage) {
+      return;
+    }
+    _createAccount();
+  }
+}
 
 class FormValidators {
   // static String? firstNameET,
@@ -32,9 +57,21 @@ class FormValidators {
       return "Please enter a valid phone number";
     }
     // This regex matches phone numbers with optional country code, area code, and allows for various formats
-    final phoneRegex = RegExp(r'^\+?[\d\s()-]{10,}$');
+    final phoneRegex = RegExp(r'^\+?[\d\s()-]{11}$');
     if (!phoneRegex.hasMatch(value)) {
       return "Invalid phone number format";
+    }
+    return null;
+  }
+
+  static String? validateBVNANDNIN(String? value) {
+    if (value == null || value.isEmpty) {
+      return "Please enter a valid value";
+    }
+    // This regex matches phone numbers with optional country code, area code, and allows for various formats
+    final phoneRegex = RegExp(r'^\+?[\d\s()-]{11}$');
+    if (!phoneRegex.hasMatch(value)) {
+      return "Invalid input";
     }
     return null;
   }
@@ -53,22 +90,12 @@ class FormValidators {
 
   static String? validatePassword(String? value) {
     if (value == null || value.isEmpty) {
-      return "Please enter a password";
+      return "Please enter a valid pin";
     }
-    if (value.length < 8) {
-      return "Password must be at least 8 characters long";
-    }
-    if (!value.contains(RegExp(r'[A-Z]'))) {
-      return "Password must contain at least one uppercase letter";
-    }
-    if (!value.contains(RegExp(r'[a-z]'))) {
-      return "Password must contain at least one lowercase letter";
-    }
-    if (!value.contains(RegExp(r'[0-9]'))) {
-      return "Password must contain at least one number";
-    }
-    if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-      return "Password must contain at least one special character";
+    // This regex matches phone numbers with optional country code, area code, and allows for various formats
+    final phoneRegex = RegExp(r'^\+?[\d\s()-]{11}$');
+    if (!phoneRegex.hasMatch(value)) {
+      return "Invalid input";
     }
     _currentPassword = value;
     return null;

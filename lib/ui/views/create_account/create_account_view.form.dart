@@ -16,8 +16,10 @@ const String FirstNameValueKey = 'firstName';
 const String LastNameValueKey = 'lastName';
 const String PhoneNumberValueKey = 'phoneNumber';
 const String EmailAddressValueKey = 'emailAddress';
-const String PasswordValueKey = 'password';
-const String PasswordConfirmValueKey = 'password_confirm';
+const String PinValueKey = 'pin';
+const String PinConfirmValueKey = 'pin_confirm';
+const String BvnValueKey = 'bvn';
+const String NinValueKey = 'nin';
 
 final Map<String, TextEditingController>
     _CreateAccountViewTextEditingControllers = {};
@@ -30,8 +32,10 @@ final Map<String, String? Function(String?)?>
   LastNameValueKey: FormValidators.validateName,
   PhoneNumberValueKey: FormValidators.validatePhoneNumber,
   EmailAddressValueKey: FormValidators.validateEmail,
-  PasswordValueKey: FormValidators.validatePassword,
-  PasswordConfirmValueKey: FormValidators.validateConfirmPassword,
+  PinValueKey: FormValidators.validatePassword,
+  PinConfirmValueKey: FormValidators.validateConfirmPassword,
+  BvnValueKey: FormValidators.validateBVNANDNIN,
+  NinValueKey: FormValidators.validateBVNANDNIN,
 };
 
 mixin $CreateAccountView {
@@ -43,19 +47,24 @@ mixin $CreateAccountView {
       _getFormTextEditingController(PhoneNumberValueKey);
   TextEditingController get emailAddressController =>
       _getFormTextEditingController(EmailAddressValueKey);
-  TextEditingController get passwordController =>
-      _getFormTextEditingController(PasswordValueKey);
-  TextEditingController get passwordConfirmController =>
-      _getFormTextEditingController(PasswordConfirmValueKey);
+  TextEditingController get pinController =>
+      _getFormTextEditingController(PinValueKey);
+  TextEditingController get pinConfirmController =>
+      _getFormTextEditingController(PinConfirmValueKey);
+  TextEditingController get bvnController =>
+      _getFormTextEditingController(BvnValueKey);
+  TextEditingController get ninController =>
+      _getFormTextEditingController(NinValueKey);
 
   FocusNode get firstNameFocusNode => _getFormFocusNode(FirstNameValueKey);
   FocusNode get lastNameFocusNode => _getFormFocusNode(LastNameValueKey);
   FocusNode get phoneNumberFocusNode => _getFormFocusNode(PhoneNumberValueKey);
   FocusNode get emailAddressFocusNode =>
       _getFormFocusNode(EmailAddressValueKey);
-  FocusNode get passwordFocusNode => _getFormFocusNode(PasswordValueKey);
-  FocusNode get passwordConfirmFocusNode =>
-      _getFormFocusNode(PasswordConfirmValueKey);
+  FocusNode get pinFocusNode => _getFormFocusNode(PinValueKey);
+  FocusNode get pinConfirmFocusNode => _getFormFocusNode(PinConfirmValueKey);
+  FocusNode get bvnFocusNode => _getFormFocusNode(BvnValueKey);
+  FocusNode get ninFocusNode => _getFormFocusNode(NinValueKey);
 
   TextEditingController _getFormTextEditingController(
     String key, {
@@ -85,8 +94,10 @@ mixin $CreateAccountView {
     lastNameController.addListener(() => _updateFormData(model));
     phoneNumberController.addListener(() => _updateFormData(model));
     emailAddressController.addListener(() => _updateFormData(model));
-    passwordController.addListener(() => _updateFormData(model));
-    passwordConfirmController.addListener(() => _updateFormData(model));
+    pinController.addListener(() => _updateFormData(model));
+    pinConfirmController.addListener(() => _updateFormData(model));
+    bvnController.addListener(() => _updateFormData(model));
+    ninController.addListener(() => _updateFormData(model));
 
     _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
@@ -102,8 +113,10 @@ mixin $CreateAccountView {
     lastNameController.addListener(() => _updateFormData(model));
     phoneNumberController.addListener(() => _updateFormData(model));
     emailAddressController.addListener(() => _updateFormData(model));
-    passwordController.addListener(() => _updateFormData(model));
-    passwordConfirmController.addListener(() => _updateFormData(model));
+    pinController.addListener(() => _updateFormData(model));
+    pinConfirmController.addListener(() => _updateFormData(model));
+    bvnController.addListener(() => _updateFormData(model));
+    ninController.addListener(() => _updateFormData(model));
 
     _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
@@ -117,8 +130,10 @@ mixin $CreateAccountView {
           LastNameValueKey: lastNameController.text,
           PhoneNumberValueKey: phoneNumberController.text,
           EmailAddressValueKey: emailAddressController.text,
-          PasswordValueKey: passwordController.text,
-          PasswordConfirmValueKey: passwordConfirmController.text,
+          PinValueKey: pinController.text,
+          PinConfirmValueKey: pinConfirmController.text,
+          BvnValueKey: bvnController.text,
+          NinValueKey: ninController.text,
         }),
     );
 
@@ -166,9 +181,11 @@ extension ValueProperties on FormStateHelper {
       this.formValueMap[PhoneNumberValueKey] as String?;
   String? get emailAddressValue =>
       this.formValueMap[EmailAddressValueKey] as String?;
-  String? get passwordValue => this.formValueMap[PasswordValueKey] as String?;
-  String? get passwordConfirmValue =>
-      this.formValueMap[PasswordConfirmValueKey] as String?;
+  String? get pinValue => this.formValueMap[PinValueKey] as String?;
+  String? get pinConfirmValue =>
+      this.formValueMap[PinConfirmValueKey] as String?;
+  String? get bvnValue => this.formValueMap[BvnValueKey] as String?;
+  String? get ninValue => this.formValueMap[NinValueKey] as String?;
 
   set firstNameValue(String? value) {
     this.setData(
@@ -218,27 +235,45 @@ extension ValueProperties on FormStateHelper {
     }
   }
 
-  set passwordValue(String? value) {
+  set pinValue(String? value) {
     this.setData(
-      this.formValueMap..addAll({PasswordValueKey: value}),
+      this.formValueMap..addAll({PinValueKey: value}),
+    );
+
+    if (_CreateAccountViewTextEditingControllers.containsKey(PinValueKey)) {
+      _CreateAccountViewTextEditingControllers[PinValueKey]?.text = value ?? '';
+    }
+  }
+
+  set pinConfirmValue(String? value) {
+    this.setData(
+      this.formValueMap..addAll({PinConfirmValueKey: value}),
     );
 
     if (_CreateAccountViewTextEditingControllers.containsKey(
-        PasswordValueKey)) {
-      _CreateAccountViewTextEditingControllers[PasswordValueKey]?.text =
+        PinConfirmValueKey)) {
+      _CreateAccountViewTextEditingControllers[PinConfirmValueKey]?.text =
           value ?? '';
     }
   }
 
-  set passwordConfirmValue(String? value) {
+  set bvnValue(String? value) {
     this.setData(
-      this.formValueMap..addAll({PasswordConfirmValueKey: value}),
+      this.formValueMap..addAll({BvnValueKey: value}),
     );
 
-    if (_CreateAccountViewTextEditingControllers.containsKey(
-        PasswordConfirmValueKey)) {
-      _CreateAccountViewTextEditingControllers[PasswordConfirmValueKey]?.text =
-          value ?? '';
+    if (_CreateAccountViewTextEditingControllers.containsKey(BvnValueKey)) {
+      _CreateAccountViewTextEditingControllers[BvnValueKey]?.text = value ?? '';
+    }
+  }
+
+  set ninValue(String? value) {
+    this.setData(
+      this.formValueMap..addAll({NinValueKey: value}),
+    );
+
+    if (_CreateAccountViewTextEditingControllers.containsKey(NinValueKey)) {
+      _CreateAccountViewTextEditingControllers[NinValueKey]?.text = value ?? '';
     }
   }
 
@@ -254,12 +289,18 @@ extension ValueProperties on FormStateHelper {
   bool get hasEmailAddress =>
       this.formValueMap.containsKey(EmailAddressValueKey) &&
       (emailAddressValue?.isNotEmpty ?? false);
-  bool get hasPassword =>
-      this.formValueMap.containsKey(PasswordValueKey) &&
-      (passwordValue?.isNotEmpty ?? false);
-  bool get hasPasswordConfirm =>
-      this.formValueMap.containsKey(PasswordConfirmValueKey) &&
-      (passwordConfirmValue?.isNotEmpty ?? false);
+  bool get hasPin =>
+      this.formValueMap.containsKey(PinValueKey) &&
+      (pinValue?.isNotEmpty ?? false);
+  bool get hasPinConfirm =>
+      this.formValueMap.containsKey(PinConfirmValueKey) &&
+      (pinConfirmValue?.isNotEmpty ?? false);
+  bool get hasBvn =>
+      this.formValueMap.containsKey(BvnValueKey) &&
+      (bvnValue?.isNotEmpty ?? false);
+  bool get hasNin =>
+      this.formValueMap.containsKey(NinValueKey) &&
+      (ninValue?.isNotEmpty ?? false);
 
   bool get hasFirstNameValidationMessage =>
       this.fieldsValidationMessages[FirstNameValueKey]?.isNotEmpty ?? false;
@@ -269,11 +310,14 @@ extension ValueProperties on FormStateHelper {
       this.fieldsValidationMessages[PhoneNumberValueKey]?.isNotEmpty ?? false;
   bool get hasEmailAddressValidationMessage =>
       this.fieldsValidationMessages[EmailAddressValueKey]?.isNotEmpty ?? false;
-  bool get hasPasswordValidationMessage =>
-      this.fieldsValidationMessages[PasswordValueKey]?.isNotEmpty ?? false;
-  bool get hasPasswordConfirmValidationMessage =>
-      this.fieldsValidationMessages[PasswordConfirmValueKey]?.isNotEmpty ??
-      false;
+  bool get hasPinValidationMessage =>
+      this.fieldsValidationMessages[PinValueKey]?.isNotEmpty ?? false;
+  bool get hasPinConfirmValidationMessage =>
+      this.fieldsValidationMessages[PinConfirmValueKey]?.isNotEmpty ?? false;
+  bool get hasBvnValidationMessage =>
+      this.fieldsValidationMessages[BvnValueKey]?.isNotEmpty ?? false;
+  bool get hasNinValidationMessage =>
+      this.fieldsValidationMessages[NinValueKey]?.isNotEmpty ?? false;
 
   String? get firstNameValidationMessage =>
       this.fieldsValidationMessages[FirstNameValueKey];
@@ -283,10 +327,14 @@ extension ValueProperties on FormStateHelper {
       this.fieldsValidationMessages[PhoneNumberValueKey];
   String? get emailAddressValidationMessage =>
       this.fieldsValidationMessages[EmailAddressValueKey];
-  String? get passwordValidationMessage =>
-      this.fieldsValidationMessages[PasswordValueKey];
-  String? get passwordConfirmValidationMessage =>
-      this.fieldsValidationMessages[PasswordConfirmValueKey];
+  String? get pinValidationMessage =>
+      this.fieldsValidationMessages[PinValueKey];
+  String? get pinConfirmValidationMessage =>
+      this.fieldsValidationMessages[PinConfirmValueKey];
+  String? get bvnValidationMessage =>
+      this.fieldsValidationMessages[BvnValueKey];
+  String? get ninValidationMessage =>
+      this.fieldsValidationMessages[NinValueKey];
 }
 
 extension Methods on FormStateHelper {
@@ -298,11 +346,14 @@ extension Methods on FormStateHelper {
       this.fieldsValidationMessages[PhoneNumberValueKey] = validationMessage;
   setEmailAddressValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[EmailAddressValueKey] = validationMessage;
-  setPasswordValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[PasswordValueKey] = validationMessage;
-  setPasswordConfirmValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[PasswordConfirmValueKey] =
-          validationMessage;
+  setPinValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[PinValueKey] = validationMessage;
+  setPinConfirmValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[PinConfirmValueKey] = validationMessage;
+  setBvnValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[BvnValueKey] = validationMessage;
+  setNinValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[NinValueKey] = validationMessage;
 
   /// Clears text input fields on the Form
   void clearForm() {
@@ -310,8 +361,10 @@ extension Methods on FormStateHelper {
     lastNameValue = '';
     phoneNumberValue = '';
     emailAddressValue = '';
-    passwordValue = '';
-    passwordConfirmValue = '';
+    pinValue = '';
+    pinConfirmValue = '';
+    bvnValue = '';
+    ninValue = '';
   }
 
   /// Validates text input fields on the Form
@@ -321,8 +374,10 @@ extension Methods on FormStateHelper {
       LastNameValueKey: getValidationMessage(LastNameValueKey),
       PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
       EmailAddressValueKey: getValidationMessage(EmailAddressValueKey),
-      PasswordValueKey: getValidationMessage(PasswordValueKey),
-      PasswordConfirmValueKey: getValidationMessage(PasswordConfirmValueKey),
+      PinValueKey: getValidationMessage(PinValueKey),
+      PinConfirmValueKey: getValidationMessage(PinConfirmValueKey),
+      BvnValueKey: getValidationMessage(BvnValueKey),
+      NinValueKey: getValidationMessage(NinValueKey),
     });
   }
 }
@@ -346,6 +401,8 @@ void updateValidationData(FormStateHelper model) =>
       LastNameValueKey: getValidationMessage(LastNameValueKey),
       PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
       EmailAddressValueKey: getValidationMessage(EmailAddressValueKey),
-      PasswordValueKey: getValidationMessage(PasswordValueKey),
-      PasswordConfirmValueKey: getValidationMessage(PasswordConfirmValueKey),
+      PinValueKey: getValidationMessage(PinValueKey),
+      PinConfirmValueKey: getValidationMessage(PinConfirmValueKey),
+      BvnValueKey: getValidationMessage(BvnValueKey),
+      NinValueKey: getValidationMessage(NinValueKey),
     });

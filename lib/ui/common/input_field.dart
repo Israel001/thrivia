@@ -27,63 +27,73 @@ class CustomInputField extends StatelessWidget {
         children: [
           SizedBox(
             // height: 44,
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                //image
-                Container(
-                  width: 40,
-                  alignment: Alignment.center,
-                  height: 48,
-                  // padding:
-                  //     const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
-
-                  decoration: BoxDecoration(
-                    border: Border(
-                      // left: BorderSide(color: Colors.white),
-                      // top: BorderSide(color: Colors.white),
-                      right: borderSide,
-                      bottom: borderSide,
-                    ),
-                  ),
-                  child: SvgPicture.asset(
-                    iconPath,
-                    width: 16,
-                    height: 16,
-                    colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-                  ),
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border(
+                  // left: BorderSide(color: Colors.white),
+                  // top: BorderSide(color: Colors.white),
+                  // right: borderSide,
+                  bottom: borderSide,
                 ),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  //image
+                  Container(
+                    width: 40,
+                    alignment: Alignment.center,
+                    height: 48,
+                    // padding:
+                    //     const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
 
-                // Container(
-                //   width: 0.5,
-                //   // height: double.infinity,
-                //   color: borderSide.color,
-                // ),
-                // input field
-                Expanded(
-                  child: Container(
-                    // height: 44,
-                    alignment: Alignment.centerLeft,
-                    padding: const EdgeInsets.only(
-                      // top: 13,
-                      left: 17,
-                      right: 17,
-                      // bottom: 13,
-                    ),
                     decoration: BoxDecoration(
                       border: Border(
                         // left: BorderSide(color: Colors.white),
                         // top: BorderSide(color: Colors.white),
-                        // right: BorderSide(color: Colors.white),
+                        right: borderSide,
                         bottom: borderSide,
                       ),
                     ),
-                    child: SizedBox(child: child),
+                    child: SvgPicture.asset(
+                      iconPath,
+                      width: 16,
+                      height: 16,
+                      colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
+                    ),
                   ),
-                ),
-              ],
+
+                  Container(
+                    width: 0.5,
+                    // height: double.infinity,
+                    color: borderSide.color,
+                  ),
+                  // input field
+                  Expanded(
+                    child: Container(
+                      // height: 44,
+                      alignment: Alignment.centerLeft,
+                      padding: const EdgeInsets.only(
+                        // top: 13,
+                        left: 17,
+                        right: 17,
+                        // bottom: 13,
+                      ),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          // left: BorderSide(color: Colors.white),
+                          // top: BorderSide(color: Colors.white),
+                          // right: BorderSide(color: Colors.white),
+                          bottom: borderSide,
+                        ),
+                      ),
+                      child: SizedBox(child: child),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           if (errorText != null)

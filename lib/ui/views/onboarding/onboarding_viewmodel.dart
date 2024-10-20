@@ -18,6 +18,7 @@ class OnboardingViewModel extends BaseViewModel {
   void nextPage() {
     if (_pageIndex == 2) {
       _navigatorService.navigateToCreateAccountView();
+      return;
     }
     _pageIndex = _pageIndex + 1;
     rebuildUi();
