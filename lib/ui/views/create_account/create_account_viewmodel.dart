@@ -7,7 +7,7 @@ class CreateAccountViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
 
   _createAccount() {
-    final createUser = CreateUserAPI(
+    final createUser = CreateUserRequest(
         firstName: firstNameValue!,
         lastName: lastNameValue!,
         email: emailAddressValue!,
@@ -69,7 +69,7 @@ abstract class FormValidators {
       return "Please enter a valid value";
     }
     // This regex matches phone numbers with optional country code, area code, and allows for various formats
-    final phoneRegex = RegExp(r'^\+?[\d\s()-]{11}$');
+    final phoneRegex = RegExp(r'^[\d]{11}$');
     if (!phoneRegex.hasMatch(value)) {
       return "Invalid input";
     }
@@ -93,7 +93,7 @@ abstract class FormValidators {
       return "Please enter a valid pin";
     }
     // This regex matches phone numbers with optional country code, area code, and allows for various formats
-    final phoneRegex = RegExp(r'^\+?[\d\s()-]{11}$');
+    final phoneRegex = RegExp(r'^[\d]{6}$');
     if (!phoneRegex.hasMatch(value)) {
       return "Invalid input";
     }

@@ -150,7 +150,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                         InputDecoration().copyWith(labelText: "Create pin"),
                     controller: pinController,
                   ),
-                  errorText: viewModel.pinConfirmValidationMessage,
+                  errorText: viewModel.pinValidationMessage,
                 ),
 
                 //confirm password
