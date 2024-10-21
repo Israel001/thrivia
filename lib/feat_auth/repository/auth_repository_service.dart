@@ -8,10 +8,9 @@ import '../../common/api_constants.dart';
 
 class AuthRepository {
   final dio = locator<DioService>().dio;
+
   FutureOr<CreateAccountResponse> createAccount(
       CreateUserRequest newUser) async {
-    // return;
-
     final response = await dio.postUri(
         Uri.https(
           ApiConstants.authority,
@@ -28,7 +27,7 @@ class AuthRepository {
     throw Exception("Could not create account ${response.statusMessage}");
   }
 
-  FutureOr<void> loginUser(LoginUserRequest userLogin) async {
+  FutureOr<dynamic> loginUser(LoginUserRequest userLogin) async {
     // return;
 
     final response = await dio.postUri(
@@ -38,7 +37,15 @@ class AuthRepository {
         ),
         data: userLogin.toRawJson());
 
-    if (response.statusCode == 201) {}
+    if (response.statusCode == 201) {
+      try {
+        final accessToken = response.data;
+        return accessToken;
+      } catch (e) {
+        final tokenRequest = CreateAccountResponse.fromJson(response.data);
+        return tokenRequest;
+      }
+    }
   }
 
   FutureOr<String> verifyOTP(VerifyOTPRequest tokenData) async {
@@ -50,11 +57,23 @@ class AuthRepository {
         data: tokenData.toRawJson());
 
     if (response.statusCode == 201) {
-      final accessToken = response.data['access_token'] as String;
+      final accessToken = response.data;
       return accessToken;
     }
     throw Exception("Could not verify token: ${response.statusMessage}");
   }
 
-  FutureOr<void> sendOTP(SendOTPRequest sendOTPData) async {}
+  FutureOr<String> sendOTP(SendOTPRequest sendOTPData) async {
+    final response = await dio.postUri(
+        Uri.https(
+          ApiConstants.authority,
+          ApiConstants.authSendOTP,
+        ),
+        data: sendOTPData.toRawJson());
+
+    if (response.statusCode == 201) {
+      return response.data;
+    }
+    throw Exception("Could not send token: ${response.statusMessage}");
+  }
 }

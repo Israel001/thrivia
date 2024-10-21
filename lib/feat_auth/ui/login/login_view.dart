@@ -5,8 +5,8 @@ import 'package:thrivia_app/feat_auth/ui/create_account/create_account_viewmodel
 import 'package:thrivia_app/feat_auth/ui/login/login_view.form.dart';
 
 import '../../../common/constants.dart';
-import '../../../common/input_field.dart';
-import '../../../common/primary_button.dart';
+import '../../../ui/widgets/input_field.dart';
+import '../../../ui/widgets/primary_button.dart';
 import '../../../common/ui_helpers.dart';
 import '../../../feat_onboarding/ui/onboarding/onboarding_view.dart';
 import 'login_viewmodel.dart';

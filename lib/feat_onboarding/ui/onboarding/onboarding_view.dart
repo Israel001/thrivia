@@ -7,7 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/main.dart';
 import 'package:thrivia_app/common/app_colors.dart';
-import 'package:thrivia_app/common/primary_button.dart';
+import 'package:thrivia_app/ui/widgets/primary_button.dart';
 import 'package:thrivia_app/common/ui_helpers.dart';
 
 import '../../../app/app.locator.dart';

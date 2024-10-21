@@ -9,7 +9,13 @@ enum Role { MANAGER, USER }
 
 final roleValues = EnumValues({"MANAGER": Role.MANAGER, "USER": Role.USER});
 
-enum AuthState { loggedIn, logggedOut, pendingOTP, newUser }
+enum AuthState {
+  loggedIn,
+  logggedOut,
+  pendingVerifyOTP,
+  pendingPasswordResetOTP,
+  newUser
+}
 
 class EnumValues<T> {
   Map<String, T> map;

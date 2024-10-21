@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:thrivia_app/common/constants.dart';
-import 'package:thrivia_app/common/input_field.dart';
-import 'package:thrivia_app/common/primary_button.dart';
+import 'package:thrivia_app/ui/widgets/input_field.dart';
+import 'package:thrivia_app/ui/widgets/primary_button.dart';
 import 'package:thrivia_app/common/ui_helpers.dart';
 import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart';
 
