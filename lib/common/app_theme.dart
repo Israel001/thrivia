@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:thrivia_app/ui/common/app_colors.dart';
+import 'package:thrivia_app/common/app_colors.dart';
 
 abstract class AppTheme {
   static final textTheme = TextTheme(

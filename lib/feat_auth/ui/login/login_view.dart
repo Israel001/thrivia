@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
-import 'package:thrivia_app/ui/views/create_account/create_account_viewmodel.dart';
-import 'package:thrivia_app/ui/views/login/login_view.form.dart';
+import 'package:thrivia_app/feat_auth/ui/create_account/create_account_viewmodel.dart';
+import 'package:thrivia_app/feat_auth/ui/login/login_view.form.dart';
 
-import '../../common/constants.dart';
-import '../../common/input_field.dart';
-import '../../common/primary_button.dart';
-import '../../common/ui_helpers.dart';
-import '../onboarding/onboarding_view.dart';
+import '../../../common/constants.dart';
+import '../../../common/input_field.dart';
+import '../../../common/primary_button.dart';
+import '../../../common/ui_helpers.dart';
+import '../../../feat_onboarding/ui/onboarding/onboarding_view.dart';
 import 'login_viewmodel.dart';
 
 @FormView(

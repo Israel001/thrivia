@@ -2,8 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
-import 'package:thrivia_app/ui/common/constants.dart';
-import 'package:thrivia_app/ui/common/ui_helpers.dart';
+import 'package:thrivia_app/common/constants.dart';
+import 'package:thrivia_app/common/ui_helpers.dart';
 
 import 'onboarding4_viewmodel.dart';
 

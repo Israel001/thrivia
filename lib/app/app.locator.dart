@@ -6,12 +6,15 @@
 
 // ignore_for_file: public_member_api_docs, implementation_imports, depend_on_referenced_packages
 
+import 'package:dio/dio.dart';
 import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
 import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
-import '../services/auth_service.dart';
+import '../feat_auth/repository/auth_repository_service.dart';
+import '../feat_auth/services/auth_service.dart';
+import '../services/dio_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -28,4 +31,6 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => NavigationService());
   locator.registerLazySingleton(() => AuthService());
+  locator.registerLazySingleton(() => AuthRepository());
+  locator.registerLazySingleton(() => DioService(dio: Dio()));
 }

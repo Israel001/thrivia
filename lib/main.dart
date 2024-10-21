@@ -4,7 +4,7 @@ import 'package:thrivia_app/app/app.dialogs.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.router.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:thrivia_app/ui/common/app_theme.dart';
+import 'package:thrivia_app/common/app_theme.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

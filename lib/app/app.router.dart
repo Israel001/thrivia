@@ -9,15 +9,17 @@ import 'package:flutter/material.dart' as _i9;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i10;
-import 'package:thrivia_app/ui/views/create_account/create_account_view.dart'
+import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.dart'
     as _i6;
-import 'package:thrivia_app/ui/views/forgot_password/forgot_password_view.dart'
+import 'package:thrivia_app/feat_auth/ui/forgot_password/forgot_password_view.dart'
     as _i8;
-import 'package:thrivia_app/ui/views/home/home_view.dart' as _i2;
-import 'package:thrivia_app/ui/views/login/login_view.dart' as _i7;
-import 'package:thrivia_app/ui/views/onboarding/onboarding_view.dart' as _i4;
-import 'package:thrivia_app/ui/views/onboarding4/onboarding4_view.dart' as _i5;
-import 'package:thrivia_app/ui/views/startup/startup_view.dart' as _i3;
+import 'package:thrivia_app/feat_auth/ui/login/login_view.dart' as _i7;
+import 'package:thrivia_app/feat_home/ui/home/home_view.dart' as _i2;
+import 'package:thrivia_app/feat_home/ui/role_select/onboarding4_view.dart'
+    as _i5;
+import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart'
+    as _i4;
+import 'package:thrivia_app/feat_startup/ui/splash/startup_view.dart' as _i3;
 
 class Routes {
   static const homeView = '/home-view';

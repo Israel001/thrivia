@@ -3,8 +3,8 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
-import 'package:thrivia_app/ui/common/constants.dart';
-import 'package:thrivia_app/ui/common/ui_helpers.dart';
+import 'package:thrivia_app/common/constants.dart';
+import 'package:thrivia_app/common/ui_helpers.dart';
 
 import 'startup_viewmodel.dart';
 
