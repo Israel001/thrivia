@@ -41,4 +41,7 @@ abstract class AppImagesSVG {
   static const String lock = "assets/images/svg/icons/lock.svg";
 
   static const String thriviaLogo = "assets/images/svg/thrivia-logo.svg";
+
+  static const String community = "assets/images/svg/icons/community.svg";
+  static const String home = "assets/images/svg/icons/home.svg";
 }

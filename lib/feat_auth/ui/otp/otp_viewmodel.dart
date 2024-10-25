@@ -2,12 +2,15 @@ import 'dart:async';
 
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.locator.dart';
+import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/feat_auth/data_models/verify_o_t_p_request.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 
 class OtpViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
+  final _navigationService = locator<NavigationService>();
   static String? validator(String? value) {
     return null;
   }
@@ -122,11 +125,12 @@ class OtpViewModel extends FormViewModel {
         // Example validation
         // Navigate to next screen or handle success
         print('OTP Verified Successfully');
+        _navigationService.navigateTo(Routes.homeView);
       } else {
-        errorMessage = 'Invalid OTP. Please try again.';
+        setValidationMessage('Invalid OTP. Please try again.');
       }
     } catch (e) {
-      errorMessage = 'Something went wrong. Please try again.';
+      setValidationMessage('Something went wrong. Please try again.');
     } finally {
       setBusy(false);
       notifyListeners();
