@@ -1,3 +1,4 @@
+import 'package:thrivia_app/feat_auth/ui/otp/otp_view.dart';
 import 'package:thrivia_app/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:thrivia_app/ui/dialogs/info_alert/info_alert_dialog.dart';
 
@@ -15,6 +16,7 @@ import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 import 'package:thrivia_app/feat_auth/ui/forgot_password/forgot_password_view.dart';
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/services/dio_service.dart';
+
 // @stacked-import
 
 @StackedApp(
@@ -27,6 +29,7 @@ import 'package:thrivia_app/services/dio_service.dart';
     MaterialRoute(page: LoginView),
 
     MaterialRoute(page: ForgotPasswordView),
+    MaterialRoute(page: OtpView),
 // @stacked-route
   ],
   dependencies: [

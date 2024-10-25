@@ -1,13 +1,17 @@
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.locator.dart';
+import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/feat_auth/data_models/create_user_request.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.form.dart';
+import 'package:thrivia_app/feat_home/ui/role_select/onboarding4_viewmodel.dart';
 
 class CreateAccountViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
+  final _navigationService = locator<NavigationService>();
 
-  _createAccount() {
+  _createAccount() async {
     final createUser = CreateUserRequest(
         firstName: firstNameValue!,
         lastName: lastNameValue!,
@@ -16,11 +20,16 @@ class CreateAccountViewModel extends FormViewModel {
         password: pinValue!,
         bvn: bvnValue!,
         nin: ninValue!);
-    _authService.createAccount(createUser);
+    try {
+      await _authService.createAccount(createUser);
+      _navigationService.navigateToOtpView();
+    } catch (e) {
+      setValidationMessage(e.toString());
+    }
   }
 
   void buttonPress() {
-    final formValid = validateForm();
+    validateForm();
     if (hasAnyValidationMessage) {
       return;
     }

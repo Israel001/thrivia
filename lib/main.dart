@@ -32,3 +32,7 @@ class MainApp extends StatelessWidget {
     );
   }
 }
+
+abstract class Overides {
+  static const overrideInitialLocation = null;
+}

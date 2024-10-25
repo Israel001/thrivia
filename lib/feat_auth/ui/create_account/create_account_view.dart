@@ -58,6 +58,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
     CreateAccountViewModel viewModel,
     Widget? child,
   ) {
+    final theme = Theme.of(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -183,6 +184,15 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                   ),
                   errorText: viewModel.ninValidationMessage,
                 ),
+                if (viewModel.validationMessage != null)
+                  Padding(
+                    padding: EdgeInsets.only(top: 8, left: 45),
+                    child: Text(
+                      viewModel.validationMessage!,
+                      style: theme.textTheme.bodyMedium!
+                          .copyWith(color: theme.colorScheme.error),
+                    ),
+                  ),
                 verticalSpace(53),
                 PrimaryButton(
                     onPressed: () {

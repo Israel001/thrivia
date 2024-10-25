@@ -33,6 +33,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
     LoginViewModel viewModel,
     Widget? child,
   ) {
+    final theme = Theme.of(context);
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
@@ -106,6 +107,15 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                                   ),
                         )),
                   ),
+                  if (viewModel.validationMessage != null)
+                    Padding(
+                      padding: EdgeInsets.only(top: 8, left: 45),
+                      child: Text(
+                        viewModel.validationMessage!,
+                        style: theme.textTheme.bodyMedium!
+                            .copyWith(color: theme.colorScheme.error),
+                      ),
+                    ),
                   Spacer(),
                   PrimaryButton(
                       onPressed: viewModel.buttonPress, label: "Login"),
@@ -121,6 +131,12 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
         ),
       ),
     );
+  }
+
+  @override
+  void onViewModelReady(LoginViewModel viewModel) {
+    super.onViewModelReady(viewModel);
+    syncFormWithViewModel(viewModel);
   }
 
   @override

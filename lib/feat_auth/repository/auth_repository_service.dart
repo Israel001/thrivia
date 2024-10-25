@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:dio/dio.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart';
+import 'package:thrivia_app/feat_auth/data_models/login_user_response.dart';
 import 'package:thrivia_app/services/dio_service.dart';
 
 import '../../common/api_constants.dart';
@@ -29,22 +31,27 @@ class AuthRepository {
 
   FutureOr<dynamic> loginUser(LoginUserRequest userLogin) async {
     // return;
+    try {
+      final response = await dio.postUri(
+          Uri.https(
+            ApiConstants.authority,
+            ApiConstants.authLogin,
+          ),
+          data: userLogin.toRawJson());
 
-    final response = await dio.postUri(
-        Uri.https(
-          ApiConstants.authority,
-          ApiConstants.authLogin,
-        ),
-        data: userLogin.toRawJson());
-
-    if (response.statusCode == 201) {
-      try {
-        final accessToken = response.data;
-        return accessToken;
-      } catch (e) {
-        final tokenRequest = CreateAccountResponse.fromJson(response.data);
-        return tokenRequest;
+      if (response.statusCode == 201) {
+        try {
+          final LoginResponse userResponse =
+              LoginResponse.fromJson(response.data);
+          return userResponse;
+        } catch (e) {
+          final tokenRequest = CreateAccountResponse.fromJson(response.data);
+          return tokenRequest;
+        }
       }
+    } catch (e) {
+      throw Exception(
+          "Unable to login User: ${(e as DioException).response!.data!["message"]}");
     }
   }
 

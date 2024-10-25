@@ -742,14 +742,14 @@ class MockAuthRepository extends _i1.Mock implements _i9.AuthRepository {
       ) as _i7.FutureOr<_i3.CreateAccountResponse>);
 
   @override
-  _i7.FutureOr<void> loginUser(_i3.LoginUserRequest? userLogin) =>
+  _i7.FutureOr<dynamic> loginUser(_i3.LoginUserRequest? userLogin) =>
       (super.noSuchMethod(
         Invocation.method(
           #loginUser,
           [userLogin],
         ),
         returnValueForMissingStub: null,
-      ) as _i7.FutureOr<void>);
+      ) as _i7.FutureOr<dynamic>);
 
   @override
   _i7.FutureOr<String> verifyOTP(_i3.VerifyOTPRequest? tokenData) =>
@@ -776,14 +776,28 @@ class MockAuthRepository extends _i1.Mock implements _i9.AuthRepository {
       ) as _i7.FutureOr<String>);
 
   @override
-  _i7.FutureOr<void> sendOTP(_i3.SendOTPRequest? sendOTPData) =>
+  _i7.FutureOr<String> sendOTP(_i3.SendOTPRequest? sendOTPData) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendOTP,
           [sendOTPData],
         ),
-        returnValueForMissingStub: null,
-      ) as _i7.FutureOr<void>);
+        returnValue: _i7.Future<String>.value(_i5.dummyValue<String>(
+          this,
+          Invocation.method(
+            #sendOTP,
+            [sendOTPData],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i7.Future<String>.value(_i5.dummyValue<String>(
+          this,
+          Invocation.method(
+            #sendOTP,
+            [sendOTPData],
+          ),
+        )),
+      ) as _i7.FutureOr<String>);
 }
 
 /// A class which mocks [DioService].

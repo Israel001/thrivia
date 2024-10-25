@@ -5,9 +5,9 @@ final otpActionTypeValues = EnumValues({
   "VERIFY_ACCOUNT": OtpActionType.VERIFY_ACCOUNT
 });
 
-enum Role { MANAGER, USER }
+enum Role { MANAGER, MEMBER }
 
-final roleValues = EnumValues({"MANAGER": Role.MANAGER, "USER": Role.USER});
+final roleValues = EnumValues({"MANAGER": Role.MANAGER, "MEMBER": Role.MEMBER});
 
 enum AuthState {
   loggedIn,
