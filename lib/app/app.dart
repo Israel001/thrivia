@@ -1,3 +1,4 @@
+import 'package:thrivia_app/custom_navService.dart';
 import 'package:thrivia_app/feat_auth/ui/otp/otp_view.dart';
 import 'package:thrivia_app/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:thrivia_app/ui/dialogs/info_alert/info_alert_dialog.dart';
@@ -42,7 +43,7 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_v
 ], dependencies: [
   LazySingleton(classType: BottomSheetService),
   LazySingleton(classType: DialogService),
-  LazySingleton(classType: NavigationService),
+  LazySingleton(classType: CustomNavService),
   LazySingleton(classType: AuthService),
   LazySingleton(classType: AuthRepository),
   LazySingleton(classType: DioService),

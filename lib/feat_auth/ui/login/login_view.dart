@@ -11,7 +11,7 @@ import '../../../common/constants.dart';
 import '../../../ui/widgets/input_field.dart';
 import '../../../ui/widgets/primary_button.dart';
 import '../../../common/ui_helpers.dart';
-import '../../../feat_onboarding/ui/onboarding/onboarding_view.dart';
+
 import 'login_viewmodel.dart';
 
 @FormView(
@@ -38,97 +38,107 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
   ) {
     final theme = Theme.of(context);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
-        child: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints: BoxConstraints.loose(Size(double.infinity, 812)),
-            child: Container(
-              padding: const EdgeInsets.only(
-                left: 25.0,
-                right: 25.0,
-              ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  verticalSpace(42),
-                  // logo
-                  Image.asset(
-                    appLogoPath(context),
-                    height: 55,
-                  ),
-                  verticalSpace(60),
-
-                  Text(
-                    'Welcome back!',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500,
+        child: LayoutBuilder(builder: (context, constraints) {
+          final double height =
+              constraints.biggest.height < constraints.biggest.longestSide
+                  ? 600
+                  : constraints.biggest.longestSide;
+          return SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints.loose(Size(double.infinity, height)),
+              child: Container(
+                padding: const EdgeInsets.only(
+                  left: 25.0,
+                  right: 25.0,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    verticalSpace(42),
+                    // logo
+                    Image.asset(
+                      appLogoPath(context),
+                      height: 55,
                     ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "Let’s thrive together",
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
+                    verticalSpace(60),
+
+                    Text(
+                      'Welcome back!',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
                     ),
-                  ),
-
-                  verticalSpace(30),
-
-                  // email /phone number
-                  CustomInputField(
-                    iconPath: AppImagesSVG.user,
-                    child: TextFormField(
-                      decoration: InputDecoration()
-                          .copyWith(labelText: "Phone number or Email"),
-                      controller: emailPhoneNumberController,
+                    const SizedBox(height: 4),
+                    Text(
+                      "Let’s thrive together",
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
                     ),
-                    errorText: viewModel.emailPhoneNumberValidationMessage,
-                  ),
 
-                  //password
-                  CustomInputField(
-                    iconPath: AppImagesSVG.lock,
-                    child: TextFormField(
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration().copyWith(labelText: "Pin"),
-                      controller: passwordController,
+                    verticalSpace(30),
+
+                    // email /phone number
+                    CustomInputField(
+                      iconPath: AppImagesSVG.user,
+                      child: TextFormField(
+                        decoration: InputDecoration()
+                            .copyWith(labelText: "Phone number or Email"),
+                        controller: emailPhoneNumberController,
+                      ),
+                      errorText: viewModel.emailPhoneNumberValidationMessage,
                     ),
-                    errorText: viewModel.passwordValidationMessage,
-                  ),
 
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Forgot password?',
-                          style:
-                              Theme.of(context).textTheme.bodyMedium!.copyWith(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                        )),
-                  ),
-                  ModelErrorDisplay(viewModel: viewModel),
-                  Spacer(),
-                  PrimaryButton(
-                    onPressed: viewModel.buttonPress,
-                    label: "Login",
-                    loading: viewModel.isBusy,
-                  ),
-                  verticalSpace(24),
-                  SwitchSignInType(
-                    onLoginPage: true,
-                  ),
-                  verticalSpace(42),
-                ],
+                    //password
+                    CustomInputField(
+                      iconPath: AppImagesSVG.lock,
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
+                        decoration:
+                            InputDecoration().copyWith(labelText: "Pin"),
+                        controller: passwordController,
+                      ),
+                      errorText: viewModel.passwordValidationMessage,
+                    ),
+
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Forgot password?',
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium!
+                                .copyWith(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          )),
+                    ),
+                    ModelErrorDisplay(viewModel: viewModel),
+                    Spacer(),
+                    PrimaryButton(
+                      onPressed: viewModel.buttonPress,
+                      label: "Login",
+                      loading: viewModel.isBusy,
+                    ),
+                    verticalSpace(24),
+                    SwitchSignInType(
+                      onLoginPage: true,
+                    ),
+                    verticalSpace(42),
+                  ],
+                ),
               ),
             ),
-          ),
-        ),
+          );
+        }),
       ),
     );
   }
