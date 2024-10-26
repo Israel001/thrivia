@@ -16,6 +16,7 @@ import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart'
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart'
     as _i9;
 import 'package:thrivia_app/services/dio_service.dart' as _i10;
+import 'package:thrivia_app/services/storage_service.dart' as _i11;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -816,4 +817,35 @@ class MockDioService extends _i1.Mock implements _i10.DioService {
           Invocation.getter(#dio),
         ),
       ) as _i2.Dio);
+}
+
+/// A class which mocks [StorageService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockStorageService extends _i1.Mock implements _i11.StorageService {
+  @override
+  _i7.Future<String?> getValue(String? key) => (super.noSuchMethod(
+        Invocation.method(
+          #getValue,
+          [key],
+        ),
+        returnValue: _i7.Future<String?>.value(),
+        returnValueForMissingStub: _i7.Future<String?>.value(),
+      ) as _i7.Future<String?>);
+
+  @override
+  _i7.FutureOr<void> setValue(
+    String? key,
+    String? value,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #setValue,
+          [
+            key,
+            value,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i7.FutureOr<void>);
 }

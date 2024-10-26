@@ -6,22 +6,25 @@ import 'package:thrivia_app/feat_startup/ui/splash/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart';
-import 'package:thrivia_app/feat_home/ui/role_select/onboarding4_view.dart';
+import 'package:thrivia_app/feat_dashboard/ui/role_select/onboarding4_view.dart';
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.dart';
 import 'package:thrivia_app/feat_auth/ui/login/login_view.dart';
 
-import 'package:thrivia_app/feat_home/ui/home/home_view.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/bottomnav_view.dart';
 
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 import 'package:thrivia_app/feat_auth/ui/forgot_password/forgot_password_view.dart';
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/services/dio_service.dart';
 
+import 'package:thrivia_app/services/storage_service.dart';
+import 'package:thrivia_app/ui/views/home/home_view.dart';
+import 'package:thrivia_app/ui/views/finance/finance_view.dart';
 // @stacked-import
 
 @StackedApp(
   routes: [
-    MaterialRoute(page: HomeView),
+    MaterialRoute(page: BottomNavView),
     MaterialRoute(page: StartupView),
     MaterialRoute(page: OnboardingView),
     MaterialRoute(page: Onboarding4View),
@@ -30,6 +33,8 @@ import 'package:thrivia_app/services/dio_service.dart';
 
     MaterialRoute(page: ForgotPasswordView),
     MaterialRoute(page: OtpView),
+    MaterialRoute(page: HomeView),
+    MaterialRoute(page: FinanceView),
 // @stacked-route
   ],
   dependencies: [
@@ -39,6 +44,7 @@ import 'package:thrivia_app/services/dio_service.dart';
     LazySingleton(classType: AuthService),
     LazySingleton(classType: AuthRepository),
     LazySingleton(classType: DioService),
+    LazySingleton(classType: StorageService),
 // @stacked-service
   ],
   bottomsheets: [

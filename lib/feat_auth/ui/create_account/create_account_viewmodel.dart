@@ -5,7 +5,7 @@ import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/feat_auth/data_models/create_user_request.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.form.dart';
-import 'package:thrivia_app/feat_home/ui/role_select/onboarding4_viewmodel.dart';
+import 'package:thrivia_app/feat_dashboard/ui/role_select/onboarding4_viewmodel.dart';
 
 class CreateAccountViewModel extends FormViewModel {
   final _authService = locator<AuthService>();

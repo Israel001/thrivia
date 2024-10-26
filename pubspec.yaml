@@ -12,9 +12,11 @@ dependencies:
   dots_indicator: ^3.0.0
   flutter:
     sdk: flutter
+  flutter_secure_storage: ^4.2.1
   flutter_svg: ^2.0.10+1
   # google_fonts: 6.2.0
   google_fonts: ^6.2.0
+  logger: ^1.4.0
   stacked: ^3.4.0
   stacked_services: ^1.1.0
 

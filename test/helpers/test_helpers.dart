@@ -4,6 +4,7 @@ import 'package:thrivia_app/app/app.locator.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/services/dio_service.dart';
+import 'package:thrivia_app/services/storage_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -14,6 +15,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<DialogService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<AuthRepository>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<DioService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<StorageService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -22,6 +24,7 @@ void registerServices() {
   getAndRegisterDialogService();
   getAndRegisterAuthRepositoryService();
   getAndRegisterDioService();
+  getAndRegisterStorageService();
 // @stacked-mock-register
 }
 
@@ -86,6 +89,13 @@ MockDioService getAndRegisterDioService() {
   _removeRegistrationIfExists<DioService>();
   final service = MockDioService();
   locator.registerSingleton<DioService>(service);
+  return service;
+}
+
+MockStorageService getAndRegisterStorageService() {
+  _removeRegistrationIfExists<StorageService>();
+  final service = MockStorageService();
+  locator.registerSingleton<StorageService>(service);
   return service;
 }
 // @stacked-mock-create

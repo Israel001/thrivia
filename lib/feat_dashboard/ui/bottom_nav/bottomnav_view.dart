@@ -2,19 +2,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:thrivia_app/app/app.router.dart';
 
 import 'package:thrivia_app/common/constants.dart';
 import 'package:thrivia_app/common/ui_helpers.dart';
 
-import 'home_viewmodel.dart';
+import 'bottomnave_viewmodel.dart';
 
-class HomeView extends StackedView<HomeViewModel> {
-  const HomeView({Key? key}) : super(key: key);
+class BottomNavView extends StackedView<BottomNavViewModel> {
+  const BottomNavView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    HomeViewModel viewModel,
+    BottomNavViewModel viewModel,
     Widget? child,
   ) {
     final views = [
@@ -33,7 +35,10 @@ class HomeView extends StackedView<HomeViewModel> {
     ];
     return Scaffold(
         // backgroundColor: Theme.of(context).colorScheme.background,
-        // bottomNavigationBar: BottomNavigationBar(
+        bottomNavigationBar: CustomBottomNav(
+          setMethod: viewModel.setIndex,
+          currentIndex: viewModel.currentIndex,
+        ),
         //   type: BottomNavigationBarType.fixed,
         //   backgroundColor: Colors.grey[800],
         //   currentIndex: viewModel.currentIndex,
@@ -57,22 +62,18 @@ class HomeView extends StackedView<HomeViewModel> {
         //     ),
         //   ],
         // ),
-        body: Column(
-      children: [
-        Expanded(child: views[viewModel.currentIndex]),
-        CustomBottomNav(
-          setMethod: viewModel.setIndex,
-          currentIndex: viewModel.currentIndex,
-        )
-      ],
-    ));
+        body: ExtendedNavigator(
+          navigatorKey: StackedService.nestedNavigationKey(1),
+          initialRoute: Routes.homeView,
+          router: StackedRouter(),
+        ));
   }
 
   @override
-  HomeViewModel viewModelBuilder(
+  BottomNavViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      HomeViewModel();
+      BottomNavViewModel();
 }
 
 class CustomBottomNav extends StatelessWidget {
