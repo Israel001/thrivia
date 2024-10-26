@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:thrivia_app/feat_auth/ui/otp/otp_viewmodel.dart';
+import 'package:thrivia_app/common/form_validators.dart';
 
 const bool _autoTextFieldValidation = true;
 
@@ -24,12 +24,12 @@ final Map<String, TextEditingController> _OtpViewTextEditingControllers = {};
 final Map<String, FocusNode> _OtpViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _OtpViewTextValidations = {
-  D1ValueKey: OtpViewModel.validator,
-  D2ValueKey: OtpViewModel.validator,
-  D3ValueKey: OtpViewModel.validator,
-  D4ValueKey: OtpViewModel.validator,
-  D5ValueKey: OtpViewModel.validator,
-  D6ValueKey: OtpViewModel.validator,
+  D1ValueKey: FormValidators.otpFieldValidator,
+  D2ValueKey: FormValidators.otpFieldValidator,
+  D3ValueKey: FormValidators.otpFieldValidator,
+  D4ValueKey: FormValidators.otpFieldValidator,
+  D5ValueKey: FormValidators.otpFieldValidator,
+  D6ValueKey: FormValidators.otpFieldValidator,
 };
 
 mixin $OtpView {

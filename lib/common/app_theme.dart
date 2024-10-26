@@ -10,27 +10,30 @@ abstract class AppTheme {
   );
 
   static final lightColorScheme = ColorScheme.light(
+    surface: AppColors.white,
     primary: AppColors.white,
     onPrimary: AppColors.black,
     // primary: AppColors.k_272816C,
   );
   static final darkColorScheme = ColorScheme.dark(
+    surface: AppColors.k_1c2027,
     primary: AppColors.black,
     onPrimary: AppColors.white,
     // primary: AppColors.k_272816C,
   );
-  static get darkTheme => _appTheme(darkColorScheme);
-  static get lightTheme => _appTheme(lightColorScheme);
+  static ThemeData get darkTheme => _appTheme(darkColorScheme);
+  static ThemeData get lightTheme => _appTheme(lightColorScheme);
 
-  static _appTheme(ColorScheme colorScheme) => ThemeData.from(
-              colorScheme: darkColorScheme,
-              textTheme: textTheme,
-              useMaterial3: true)
-          .copyWith(
-        elevatedButtonTheme: elevatedButtonTheme,
-        scaffoldBackgroundColor: AppColors.k_1c2027,
-        inputDecorationTheme: inputDecorationTheme,
-      );
+  static ThemeData _appTheme(ColorScheme colorScheme) => ThemeData.from(
+          colorScheme: colorScheme, textTheme: textTheme, useMaterial3: true)
+      .copyWith(
+          elevatedButtonTheme: elevatedButtonTheme,
+          // scaffoldBackgroundColor: AppColors.k_1c2027,
+          inputDecorationTheme: inputDecorationTheme,
+          textSelectionTheme: TextSelectionThemeData().copyWith(
+            cursorColor: colorScheme.onPrimary,
+            selectionHandleColor: colorScheme.onPrimary,
+          ));
 
   // static final lightTheme = ThemeData.from(
   //         colorScheme: lightColorScheme,
@@ -46,6 +49,7 @@ abstract class AppTheme {
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     floatingLabelStyle: textTheme.bodySmall!.copyWith(color: Color(0xFF939090)),
     labelStyle: textTheme.bodyMedium,
+
     // labelStyle: ,
     contentPadding: EdgeInsets.zero,
     border: InputBorder.none,

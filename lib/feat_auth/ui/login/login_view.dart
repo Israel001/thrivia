@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:thrivia_app/common/form_validators.dart';
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_viewmodel.dart';
 import 'package:thrivia_app/feat_auth/ui/login/login_view.form.dart';
+import 'package:thrivia_app/ui/widgets/model_error_display.dart';
+import 'package:thrivia_app/ui/widgets/switch_sign_in_type.dart';
 
 import '../../../common/constants.dart';
 import '../../../ui/widgets/input_field.dart';
@@ -16,7 +19,7 @@ import 'login_viewmodel.dart';
   fields: [
     FormTextField(
       name: "email-phoneNumber",
-      validator: LoginViewModel.validateEmailOrPhoneNumber,
+      validator: FormValidators.validateEmailOrPhoneNumber,
     ),
     FormTextField(
       name: "password",
@@ -35,7 +38,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
   ) {
     final theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
         child: SingleChildScrollView(
           child: ConstrainedBox(
@@ -46,6 +49,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 right: 25.0,
               ),
               child: Column(
+                mainAxisSize: MainAxisSize.min,
                 children: [
                   verticalSpace(42),
                   // logo
@@ -88,6 +92,7 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                   CustomInputField(
                     iconPath: AppImagesSVG.lock,
                     child: TextFormField(
+                      keyboardType: TextInputType.number,
                       decoration: InputDecoration().copyWith(labelText: "Pin"),
                       controller: passwordController,
                     ),
@@ -107,18 +112,13 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                                   ),
                         )),
                   ),
-                  if (viewModel.validationMessage != null)
-                    Padding(
-                      padding: EdgeInsets.only(top: 8, left: 45),
-                      child: Text(
-                        viewModel.validationMessage!,
-                        style: theme.textTheme.bodyMedium!
-                            .copyWith(color: theme.colorScheme.error),
-                      ),
-                    ),
+                  ModelErrorDisplay(viewModel: viewModel),
                   Spacer(),
                   PrimaryButton(
-                      onPressed: viewModel.buttonPress, label: "Login"),
+                    onPressed: viewModel.buttonPress,
+                    label: "Login",
+                    loading: viewModel.isBusy,
+                  ),
                   verticalSpace(24),
                   SwitchSignInType(
                     onLoginPage: true,

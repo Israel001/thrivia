@@ -8,8 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:thrivia_app/feat_auth/ui/create_account/create_account_viewmodel.dart';
-import 'package:thrivia_app/feat_auth/ui/login/login_viewmodel.dart';
+import 'package:thrivia_app/common/form_validators.dart';
 
 const bool _autoTextFieldValidation = false;
 
@@ -21,7 +20,7 @@ final Map<String, TextEditingController> _LoginViewTextEditingControllers = {};
 final Map<String, FocusNode> _LoginViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _LoginViewTextValidations = {
-  EmailPhoneNumberValueKey: LoginViewModel.validateEmailOrPhoneNumber,
+  EmailPhoneNumberValueKey: FormValidators.validateEmailOrPhoneNumber,
   PasswordValueKey: FormValidators.validatePassword,
 };
 

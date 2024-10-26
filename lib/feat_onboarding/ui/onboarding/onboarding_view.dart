@@ -9,6 +9,7 @@ import 'package:thrivia_app/main.dart';
 import 'package:thrivia_app/common/app_colors.dart';
 import 'package:thrivia_app/ui/widgets/primary_button.dart';
 import 'package:thrivia_app/common/ui_helpers.dart';
+import 'package:thrivia_app/ui/widgets/switch_sign_in_type.dart';
 
 import '../../../app/app.locator.dart';
 import '../../../common/constants.dart';
@@ -126,6 +127,7 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
                       bottom: 46,
                       child: SwitchSignInType(
                         onLoginPage: false,
+                        onDark: true,
                       ),
                     ),
                     // Align(
@@ -155,45 +157,6 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
     BuildContext context,
   ) =>
       OnboardingViewModel();
-}
-
-class SwitchSignInType extends StatelessWidget {
-  final bool onLoginPage;
-  const SwitchSignInType({
-    Key? key,
-    required this.onLoginPage,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Text(
-          onLoginPage ? "Don’t have an account? " : 'Already have an account? ',
-          style: theme.textTheme.bodySmall,
-        ),
-        GestureDetector(
-          onTap: () {
-            final navigator = locator<NavigationService>();
-            onLoginPage
-                ? navigator.replaceWithCreateAccountView()
-                : navigator.replaceWithLoginView();
-          },
-          child: Text(
-            onLoginPage ? "Create one" : 'Log in',
-            style: theme.textTheme.bodySmall!.copyWith(
-              color: AppColors.k_272816C,
-              fontWeight: FontWeight.w700,
-              decorationColor: AppColors.k_272816C,
-              decoration: TextDecoration.underline,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
 }
 
 class Body extends StatefulWidget {

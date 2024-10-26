@@ -37,9 +37,8 @@ class StartupView extends StackedView<StartupViewModel> {
                 'Financial freedom through community',
                 textAlign: TextAlign.center,
                 style: GoogleFonts.onest(
-                  // color: Theme.of(context).,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontSize: 12,
-
                   fontWeight: FontWeight.w400,
                 ),
               ),

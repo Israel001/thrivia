@@ -13,10 +13,11 @@ import 'package:thrivia_app/services/storage_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
-  final themeModeValue =
-      await locator<StorageService>().getValue(StorageKeys.themeMode, "light");
+  final themeModeValue = await locator<StorageService>().getValue(
+    StorageKeys.themeMode,
+  );
   final themeMode =
-      themeModeValue == "light" ? ThemeMode.light : ThemeMode.dark;
+      (themeModeValue ?? "light") == "light" ? ThemeMode.light : ThemeMode.dark;
   getLogger("mainMethod").i(
       "Got themeMode value $themeModeValue from storage. ThemeMode is ${themeMode.name}");
   setupDialogUi();

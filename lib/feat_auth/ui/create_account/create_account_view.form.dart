@@ -8,7 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:thrivia_app/feat_auth/ui/create_account/create_account_viewmodel.dart';
+import 'package:thrivia_app/common/form_validators.dart';
 
 const bool _autoTextFieldValidation = false;
 

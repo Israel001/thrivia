@@ -17,11 +17,6 @@ import 'package:thrivia_app/feat_auth/ui/login/login_view.dart' as _i7;
 import 'package:thrivia_app/feat_auth/ui/otp/otp_view.dart' as _i9;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/bottomnav_view.dart'
     as _i2;
-import 'package:thrivia_app/feat_dashboard/ui/role_select/onboarding4_view.dart'
-    as _i5;
-import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart'
-    as _i4;
-import 'package:thrivia_app/feat_startup/ui/splash/startup_view.dart' as _i3;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/community/community_view.dart'
     as _i12;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/finance_view.dart'
@@ -30,6 +25,11 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.da
     as _i10;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_view.dart'
     as _i13;
+import 'package:thrivia_app/feat_dashboard/ui/role_select/onboarding4_view.dart'
+    as _i5;
+import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart'
+    as _i4;
+import 'package:thrivia_app/feat_startup/ui/splash/startup_view.dart' as _i3;
 
 class Routes {
   static const bottomNavView = '/bottom-nav-view';
@@ -168,8 +168,12 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
     _i9.OtpView: (data) {
+      final args = data.getArgs<OtpViewArguments>(
+        orElse: () => const OtpViewArguments(),
+      );
       return _i14.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i9.OtpView(),
+        builder: (context) =>
+            _i9.OtpView(key: args.key, timerStarted: args.timerStarted),
         settings: data,
       );
     },
@@ -204,6 +208,33 @@ class StackedRouter extends _i1.RouterBase {
 
   @override
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
+}
+
+class OtpViewArguments {
+  const OtpViewArguments({
+    this.key,
+    this.timerStarted = false,
+  });
+
+  final _i14.Key? key;
+
+  final bool timerStarted;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "timerStarted": "$timerStarted"}';
+  }
+
+  @override
+  bool operator ==(covariant OtpViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key && other.timerStarted == timerStarted;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ timerStarted.hashCode;
+  }
 }
 
 extension NavigatorStateExtension on _i15.NavigationService {
@@ -305,14 +336,17 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToOtpView([
+  Future<dynamic> navigateToOtpView({
+    _i14.Key? key,
+    bool timerStarted = false,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return navigateTo<dynamic>(Routes.otpView,
+        arguments: OtpViewArguments(key: key, timerStarted: timerStarted),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -473,14 +507,17 @@ extension NavigatorStateExtension on _i15.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithOtpView([
+  Future<dynamic> replaceWithOtpView({
+    _i14.Key? key,
+    bool timerStarted = false,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
-  ]) async {
+  }) async {
     return replaceWith<dynamic>(Routes.otpView,
+        arguments: OtpViewArguments(key: key, timerStarted: timerStarted),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

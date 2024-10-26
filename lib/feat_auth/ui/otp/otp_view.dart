@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:thrivia_app/common/form_validators.dart';
+import 'package:thrivia_app/ui/widgets/model_error_display.dart';
 
 import 'otp_view.form.dart';
 import 'otp_viewmodel.dart';
 
 @FormView(
   fields: [
-    FormTextField(name: "d1", validator: OtpViewModel.validator),
-    FormTextField(name: "d2", validator: OtpViewModel.validator),
-    FormTextField(name: "d3", validator: OtpViewModel.validator),
-    FormTextField(name: "d4", validator: OtpViewModel.validator),
-    FormTextField(name: "d5", validator: OtpViewModel.validator),
-    FormTextField(name: "d6", validator: OtpViewModel.validator),
+    FormTextField(name: "d1", validator: FormValidators.otpFieldValidator),
+    FormTextField(name: "d2", validator: FormValidators.otpFieldValidator),
+    FormTextField(name: "d3", validator: FormValidators.otpFieldValidator),
+    FormTextField(name: "d4", validator: FormValidators.otpFieldValidator),
+    FormTextField(name: "d5", validator: FormValidators.otpFieldValidator),
+    FormTextField(name: "d6", validator: FormValidators.otpFieldValidator),
   ],
 )
 class OtpView extends StackedView<OtpViewModel> with $OtpView {
-  const OtpView({Key? key}) : super(key: key);
+  final bool timerStarted;
+  const OtpView({Key? key, this.timerStarted = false}) : super(key: key);
 
   @override
   Widget builder(
@@ -78,57 +82,66 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
                   6,
                   (index) => SizedBox(
                     width: 50,
-                    child: TextField(
-                      focusNode: focusNodes[index],
-                      controller: controllers[index],
-                      textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
-                      maxLength: 1,
-                      onChanged: (value) {
-                        value;
+                    child: Focus(
+                      // focusNode: focusNodes[index],
+                      autofocus: true,
+                      onKeyEvent: (node, event) {
+                        if (event.logicalKey == LogicalKeyboardKey.backspace &&
+                            event is KeyUpEvent) {
+                          viewModel.backspace(index);
+                        }
+                        return KeyEventResult.ignored;
+                        // return KeyEventResult.ignored;
                       },
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      decoration: InputDecoration(
-                        counterText: '',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
+                      child: TextField(
+                        focusNode: focusNodes[index],
+                        controller: controllers[index],
+                        textAlign: TextAlign.center,
+                        keyboardType: TextInputType.number,
+                        maxLength: 1,
+                        onChanged: (value) {
+                          if (controllers[index].text.isNotEmpty) {
+                            // FocusScope.of(context).onKeyEvent
+                            //   viewModel.backspace(index);
+                            // } else {
+                            viewModel.forward(index);
+                          }
+                        },
+                        style: TextStyle(
+                            // color: Theme.of(context).colorScheme.primary,
+                            ),
+                        decoration: InputDecoration(
+                          counterText: '',
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          filled: true,
+                          fillColor: Colors.grey[100],
                         ),
-                        filled: true,
-                        fillColor: Colors.grey[100],
+                        // inputFormatters: [
+                        //   FilteringTextInputFormatter.digitsOnly,
+                        // ],
+
+                        // on: (RawKeyEvent event) {
+                        //   if (event.logicalKey ==
+                        //       LogicalKeyboardKey.backspace) {
+                        //     if (event is RawKeyDownEvent) {
+                        //       viewModel.backspace(index);
+                        //     }
+                        //   }
+                        // },
                       ),
-                      // inputFormatters: [
-                      //   FilteringTextInputFormatter.digitsOnly,
-                      // ],
-                      // onKey: (RawKeyEvent event) {
-                      //   if (event.logicalKey ==
-                      //       LogicalKeyboardKey.backspace) {
-                      //     if (event is RawKeyDownEvent) {
-                      //       viewModel.backspace(index);
-                      //     }
-                      //   }
-                      // },
                     ),
                   ),
                 ),
               ),
-              if (viewModel.errorMessage != null) ...[
-                const SizedBox(height: 16),
-                Text(
-                  viewModel.errorMessage!,
-                  style: const TextStyle(
-                    color: Colors.red,
-                    fontSize: 14,
-                  ),
-                ),
-              ],
+              ModelErrorDisplay(viewModel: viewModel),
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton(
                   style: TextButton.styleFrom(padding: EdgeInsets.zero),
                   onPressed:
-                      viewModel.canRequestOtp ? viewModel.requestOtp : () {},
+                      viewModel.canRequestOtp ? viewModel.requestOtp : null,
                   child: Text(
                     viewModel.requestText,
                     style: TextStyle(
@@ -171,7 +184,11 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
   @override
   void onViewModelReady(OtpViewModel viewModel) {
     super.onViewModelReady(viewModel);
+    if (timerStarted) {
+      viewModel.startTimer();
+    }
     syncFormWithViewModel(viewModel);
+    viewModel.otpView = this;
   }
 
   @override

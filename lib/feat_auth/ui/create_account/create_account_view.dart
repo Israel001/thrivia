@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:thrivia_app/common/constants.dart';
+import 'package:thrivia_app/common/form_validators.dart';
 import 'package:thrivia_app/ui/widgets/input_field.dart';
+import 'package:thrivia_app/ui/widgets/model_error_display.dart';
 import 'package:thrivia_app/ui/widgets/primary_button.dart';
 import 'package:thrivia_app/common/ui_helpers.dart';
 import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart';
+import 'package:thrivia_app/ui/widgets/switch_sign_in_type.dart';
 
 import 'create_account_viewmodel.dart';
 
@@ -77,7 +80,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                 ),
                 verticalSpace(60),
 
-                Text(
+                const Text(
                   'Create an account',
                   style: TextStyle(
                     fontSize: 20,
@@ -85,7 +88,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                   ),
                 ),
                 const SizedBox(height: 4),
-                Text(
+                const Text(
                   'To get started with us, create a free account',
                   style: TextStyle(
                     fontSize: 12,
@@ -98,30 +101,31 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                 // firstName
                 CustomInputField(
                   iconPath: AppImagesSVG.user,
+                  errorText: viewModel.firstNameValidationMessage,
                   child: TextFormField(
-                    decoration:
-                        InputDecoration().copyWith(labelText: "First name"),
+                    decoration: const InputDecoration()
+                        .copyWith(labelText: "First name"),
                     controller: firstNameController,
                   ),
-                  errorText: viewModel.firstNameValidationMessage,
                 ),
 
                 // lastName
                 CustomInputField(
                   iconPath: AppImagesSVG.user,
+                  errorText: viewModel.lastNameValidationMessage,
                   child: TextFormField(
-                    decoration:
-                        InputDecoration().copyWith(labelText: "Last name"),
+                    decoration: const InputDecoration()
+                        .copyWith(labelText: "Last name"),
                     controller: lastNameController,
                   ),
-                  errorText: viewModel.lastNameValidationMessage,
                 ),
 
                 // phoneNumber
                 CustomInputField(
                   iconPath: AppImagesSVG.call,
+                  errorText: viewModel.phoneNumberValidationMessage,
                   child: TextFormField(
-                    decoration: InputDecoration().copyWith(
+                    decoration: const InputDecoration().copyWith(
                       // labelText: "Phone number",
                       floatingLabelBehavior: FloatingLabelBehavior.auto,
                       // floatingLabelAlignment: ,
@@ -129,78 +133,76 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                     ),
                     controller: phoneNumberController,
                   ),
-                  errorText: viewModel.phoneNumberValidationMessage,
                 ),
 
                 //emailAddress
                 CustomInputField(
                   iconPath: AppImagesSVG.smsEdit,
+                  errorText: viewModel.emailAddressValidationMessage,
                   child: TextFormField(
-                    decoration:
-                        InputDecoration().copyWith(labelText: "Email address"),
+                    decoration: const InputDecoration()
+                        .copyWith(labelText: "Email address"),
                     controller: emailAddressController,
                   ),
-                  errorText: viewModel.emailAddressValidationMessage,
                 ),
 
                 //password
                 CustomInputField(
                   iconPath: AppImagesSVG.lock,
+                  errorText: viewModel.pinValidationMessage,
                   child: TextFormField(
-                    decoration:
-                        InputDecoration().copyWith(labelText: "Create pin"),
+                    decoration: const InputDecoration()
+                        .copyWith(labelText: "Create pin"),
                     controller: pinController,
                   ),
-                  errorText: viewModel.pinValidationMessage,
                 ),
 
                 //confirm password
                 CustomInputField(
                   iconPath: AppImagesSVG.lock,
+                  errorText: viewModel.pinConfirmValidationMessage,
                   child: TextFormField(
-                    decoration:
-                        InputDecoration().copyWith(labelText: "Confirm pin"),
+                    decoration: const InputDecoration()
+                        .copyWith(labelText: "Confirm pin"),
                     controller: pinConfirmController,
                   ),
-                  errorText: viewModel.pinConfirmValidationMessage,
                 ),
 
                 //BVN
                 CustomInputField(
                   iconPath: AppImagesSVG.lock,
+                  errorText: viewModel.bvnValidationMessage,
                   child: TextFormField(
-                    decoration: InputDecoration().copyWith(labelText: "BVN"),
+                    decoration:
+                        const InputDecoration().copyWith(labelText: "BVN"),
                     controller: bvnController,
                   ),
-                  errorText: viewModel.bvnValidationMessage,
                 ),
 
                 //NIN
                 CustomInputField(
                   iconPath: AppImagesSVG.lock,
+                  errorText: viewModel.ninValidationMessage,
                   child: TextFormField(
-                    decoration: InputDecoration().copyWith(labelText: "NIN"),
+                    decoration:
+                        const InputDecoration().copyWith(labelText: "NIN"),
                     controller: ninController,
                   ),
-                  errorText: viewModel.ninValidationMessage,
                 ),
-                if (viewModel.validationMessage != null)
-                  Padding(
-                    padding: EdgeInsets.only(top: 8, left: 45),
-                    child: Text(
-                      viewModel.validationMessage!,
-                      style: theme.textTheme.bodyMedium!
-                          .copyWith(color: theme.colorScheme.error),
-                    ),
-                  ),
+
+                ModelErrorDisplay(
+                  viewModel: viewModel,
+                ),
                 verticalSpace(53),
+
                 PrimaryButton(
                     onPressed: () {
                       viewModel.buttonPress();
                     },
+                    loading: viewModel.isBusy,
                     label: "Create account"),
                 verticalSpace(24),
-                SwitchSignInType(
+                const SwitchSignInType(
                   onLoginPage: false,
                 ),
                 verticalSpace(42),

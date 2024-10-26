@@ -10,7 +10,8 @@ class StorageService {
 
   Future<String?> getValue(String key, [String? ifnull]) async {
     try {
-      return _secureStorage.read(key: key);
+      var value = await _secureStorage.read(key: key);
+      return value ?? ifnull ?? value;
     } catch (e) {
       return ifnull;
     }
