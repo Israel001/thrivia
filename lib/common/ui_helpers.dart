@@ -35,6 +35,13 @@ Widget horiontalSpace(double width) => SizedBox(width: width);
 bool lightMode(BuildContext context) =>
     Theme.of(context).brightness == Brightness.light;
 
+T modeValue<T>(
+    {required BuildContext context,
+    required T lightModeValue,
+    required T darkModeValue}) {
+  return lightMode(context) ? lightModeValue : darkModeValue;
+}
+
 String appLogoPath(context) =>
     lightMode(context) ? AppImages.logoLight : AppImages.logoDark;
 double screenWidth(BuildContext context) => MediaQuery.of(context).size.width;

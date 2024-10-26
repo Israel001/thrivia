@@ -5,6 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.bottomsheets.dart';
 import 'package:thrivia_app/app/app.dialogs.dart';
 import 'package:thrivia_app/app/app.locator.dart';
+import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/common/app_theme.dart';
 import 'package:thrivia_app/services/storage_service.dart';
@@ -12,12 +13,12 @@ import 'package:thrivia_app/services/storage_service.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await setupLocator();
+  final themeModeValue =
+      await locator<StorageService>().getValue(StorageKeys.themeMode, "light");
   final themeMode =
-      (await locator<StorageService>().getValue(StorageKeys.themeMode)) ==
-              "light"
-          ? ThemeMode.light
-          : ThemeMode.dark;
-
+      themeModeValue == "light" ? ThemeMode.light : ThemeMode.dark;
+  getLogger("mainMethod").i(
+      "Got themeMode value $themeModeValue from storage. ThemeMode is ${themeMode.name}");
   setupDialogUi();
   setupBottomSheetUi();
   runApp(MainApp(

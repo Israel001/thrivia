@@ -17,7 +17,6 @@ class StartupView extends StackedView<StartupViewModel> {
     StartupViewModel viewModel,
     Widget? child,
   ) {
-    final theme = Theme.of(context);
     return Scaffold(
       body: Center(
         child: SizedBox(
@@ -26,7 +25,10 @@ class StartupView extends StackedView<StartupViewModel> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Image.asset(
-                lightMode(context) ? AppImages.logoLight : AppImages.logoDark,
+                modeValue(
+                    context: context,
+                    lightModeValue: AppImages.logoLight,
+                    darkModeValue: AppImages.logoDark),
                 width: 250,
                 height: 70,
               ),

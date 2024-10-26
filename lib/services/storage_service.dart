@@ -8,11 +8,11 @@ class StorageService {
 
   StorageService() : _secureStorage = FlutterSecureStorage();
 
-  Future<String?> getValue(String key) async {
+  Future<String?> getValue(String key, [String? ifnull]) async {
     try {
       return _secureStorage.read(key: key);
     } catch (e) {
-      return null;
+      return ifnull;
     }
   }
 
