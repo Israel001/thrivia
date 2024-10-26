@@ -1,7 +1,7 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.locator.dart';
-import 'package:thrivia_app/ui/views/home/home_view.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart';
 
 class BottomNavViewModel extends IndexTrackingViewModel {
   // final log = getLogger('BottomNavExampleViewModel');

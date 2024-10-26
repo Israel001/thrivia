@@ -25,4 +25,5 @@ class StorageService {
 
 abstract class StorageKeys {
   static const String onboarded = 'onboarded';
+  static const String themeMode = "themeMode";
 }

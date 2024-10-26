@@ -18,42 +18,41 @@ import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/services/dio_service.dart';
 
 import 'package:thrivia_app/services/storage_service.dart';
-import 'package:thrivia_app/ui/views/home/home_view.dart';
-import 'package:thrivia_app/ui/views/finance/finance_view.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/community/community_view.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/finance_view.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_view.dart';
 // @stacked-import
 
-@StackedApp(
-  routes: [
-    MaterialRoute(page: BottomNavView),
-    MaterialRoute(page: StartupView),
-    MaterialRoute(page: OnboardingView),
-    MaterialRoute(page: Onboarding4View),
-    MaterialRoute(page: CreateAccountView),
-    MaterialRoute(page: LoginView),
+@StackedApp(routes: [
+  MaterialRoute(page: BottomNavView),
+  MaterialRoute(page: StartupView),
+  MaterialRoute(page: OnboardingView),
+  MaterialRoute(page: Onboarding4View),
+  MaterialRoute(page: CreateAccountView),
+  MaterialRoute(page: LoginView),
 
-    MaterialRoute(page: ForgotPasswordView),
-    MaterialRoute(page: OtpView),
-    MaterialRoute(page: HomeView),
-    MaterialRoute(page: FinanceView),
+  MaterialRoute(page: ForgotPasswordView),
+  MaterialRoute(page: OtpView),
+  MaterialRoute(page: HomeView),
+  MaterialRoute(page: FinanceView),
+  MaterialRoute(page: CommunityView),
+  MaterialRoute(page: ProfileView),
 // @stacked-route
-  ],
-  dependencies: [
-    LazySingleton(classType: BottomSheetService),
-    LazySingleton(classType: DialogService),
-    LazySingleton(classType: NavigationService),
-    LazySingleton(classType: AuthService),
-    LazySingleton(classType: AuthRepository),
-    LazySingleton(classType: DioService),
-    LazySingleton(classType: StorageService),
+], dependencies: [
+  LazySingleton(classType: BottomSheetService),
+  LazySingleton(classType: DialogService),
+  LazySingleton(classType: NavigationService),
+  LazySingleton(classType: AuthService),
+  LazySingleton(classType: AuthRepository),
+  LazySingleton(classType: DioService),
+  LazySingleton(classType: StorageService),
 // @stacked-service
-  ],
-  bottomsheets: [
-    StackedBottomsheet(classType: NoticeSheet),
-    // @stacked-bottom-sheet
-  ],
-  dialogs: [
-    StackedDialog(classType: InfoAlertDialog),
-    // @stacked-dialog
-  ],
-)
+], bottomsheets: [
+  StackedBottomsheet(classType: NoticeSheet),
+  // @stacked-bottom-sheet
+], dialogs: [
+  StackedDialog(classType: InfoAlertDialog),
+  // @stacked-dialog
+], logger: StackedLogger())
 class App {}

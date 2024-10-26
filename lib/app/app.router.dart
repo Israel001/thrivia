@@ -5,10 +5,10 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i12;
+import 'package:flutter/material.dart' as _i14;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i13;
+import 'package:stacked_services/stacked_services.dart' as _i15;
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.dart'
     as _i6;
 import 'package:thrivia_app/feat_auth/ui/forgot_password/forgot_password_view.dart'
@@ -22,8 +22,14 @@ import 'package:thrivia_app/feat_dashboard/ui/role_select/onboarding4_view.dart'
 import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart'
     as _i4;
 import 'package:thrivia_app/feat_startup/ui/splash/startup_view.dart' as _i3;
-import 'package:thrivia_app/ui/views/finance/finance_view.dart' as _i11;
-import 'package:thrivia_app/ui/views/home/home_view.dart' as _i10;
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/community/community_view.dart'
+    as _i12;
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/finance_view.dart'
+    as _i11;
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart'
+    as _i10;
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_view.dart'
+    as _i13;
 
 class Routes {
   static const bottomNavView = '/bottom-nav-view';
@@ -46,6 +52,10 @@ class Routes {
 
   static const financeView = '/finance-view';
 
+  static const communityView = '/community-view';
+
+  static const profileView = '/profile-view';
+
   static const all = <String>{
     bottomNavView,
     startupView,
@@ -57,6 +67,8 @@ class Routes {
     otpView,
     homeView,
     financeView,
+    communityView,
+    profileView,
   };
 }
 
@@ -102,66 +114,86 @@ class StackedRouter extends _i1.RouterBase {
       Routes.financeView,
       page: _i11.FinanceView,
     ),
+    _i1.RouteDef(
+      Routes.communityView,
+      page: _i12.CommunityView,
+    ),
+    _i1.RouteDef(
+      Routes.profileView,
+      page: _i13.ProfileView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.BottomNavView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.BottomNavView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.OnboardingView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.OnboardingView(),
         settings: data,
       );
     },
     _i5.Onboarding4View: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.Onboarding4View(),
         settings: data,
       );
     },
     _i6.CreateAccountView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.CreateAccountView(),
         settings: data,
       );
     },
     _i7.LoginView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.LoginView(),
         settings: data,
       );
     },
     _i8.ForgotPasswordView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.ForgotPasswordView(),
         settings: data,
       );
     },
     _i9.OtpView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i9.OtpView(),
         settings: data,
       );
     },
     _i10.HomeView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.HomeView(),
         settings: data,
       );
     },
     _i11.FinanceView: (data) {
-      return _i12.MaterialPageRoute<dynamic>(
+      return _i14.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.FinanceView(),
+        settings: data,
+      );
+    },
+    _i12.CommunityView: (data) {
+      return _i14.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i12.CommunityView(),
+        settings: data,
+      );
+    },
+    _i13.ProfileView: (data) {
+      return _i14.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i13.ProfileView(),
         settings: data,
       );
     },
@@ -174,7 +206,7 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
-extension NavigatorStateExtension on _i13.NavigationService {
+extension NavigatorStateExtension on _i15.NavigationService {
   Future<dynamic> navigateToBottomNavView([
     int? routerId,
     bool preventDuplicates = true,
@@ -315,6 +347,34 @@ extension NavigatorStateExtension on _i13.NavigationService {
         transition: transition);
   }
 
+  Future<dynamic> navigateToCommunityView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.communityView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToProfileView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.profileView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
   Future<dynamic> replaceWithBottomNavView([
     int? routerId,
     bool preventDuplicates = true,
@@ -449,6 +509,34 @@ extension NavigatorStateExtension on _i13.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.financeView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithCommunityView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.communityView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithProfileView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.profileView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
