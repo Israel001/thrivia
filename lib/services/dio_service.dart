@@ -2,11 +2,25 @@
 import 'package:dio/dio.dart';
 
 import 'package:thrivia_app/app/app.logger.dart';
-import 'package:thrivia_app/common/api_logger.dart';
 
 class DioService {
   late final Dio _dio;
   final logger = getLogger("DioService");
+
+  String logAPIResponse(Response<dynamic> response) {
+    final requestOptions = response.requestOptions;
+    return ('''\n
+        Request options:
+        url:${requestOptions.uri}
+        headers:${requestOptions.headers}
+        data:${requestOptions.data}
+        
+        Response: 
+        data: ${response.data}
+        statusCode: ${response.statusCode}
+        statusMessage: ${response.statusMessage}
+        ''');
+  }
 
   Dio get dio => _dio;
   DioService() {

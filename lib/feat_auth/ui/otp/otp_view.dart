@@ -15,7 +15,7 @@ import 'otp_viewmodel.dart';
     FormTextField(name: "d3", validator: FormValidators.otpFieldValidator),
     FormTextField(name: "d4", validator: FormValidators.otpFieldValidator),
     FormTextField(name: "d5", validator: FormValidators.otpFieldValidator),
-    FormTextField(name: "d6", validator: FormValidators.otpFieldValidator),
+    // FormTextField(name: "d6", validator: FormValidators.otpFieldValidator),
   ],
 )
 class OtpView extends StackedView<OtpViewModel> with $OtpView {
@@ -34,7 +34,7 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
       d3Controller,
       d4Controller,
       d5Controller,
-      d6Controller,
+      // d6Controller,
     ];
     final focusNodes = [
       d1FocusNode,
@@ -42,7 +42,7 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
       d3FocusNode,
       d4FocusNode,
       d5FocusNode,
-      d6FocusNode,
+      // d6FocusNode,
     ];
     return Scaffold(
       appBar: AppBar(
@@ -79,7 +79,7 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
-                  6,
+                  controllers.length,
                   (index) => SizedBox(
                     width: 50,
                     child: Focus(

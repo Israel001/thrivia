@@ -92,13 +92,13 @@ class OtpViewModel extends FormViewModel {
   }
 
   void forward(int index) {
-    if (textControllers[index].text.isNotEmpty && index < 5) {
+    if (textControllers[index].text.isNotEmpty && index < 4) {
       focusNodes[index + 1].requestFocus();
     }
 
-    if (formValueMap.values.every((digit) => digit.isNotEmpty)) {
-      verifyOtp();
-    }
+    // if (formValueMap.values.every((digit) => digit.isNotEmpty)) {
+    //   verifyOtp();
+    // }
   }
 
   void backspace(
@@ -115,7 +115,7 @@ class OtpViewModel extends FormViewModel {
   Future<void> verifyOtp() async {
     final otp = formValueMap.values
         .fold("", (previousValue, element) => previousValue + element);
-    if (otp.length != 6) {
+    if (otp.length != 5) {
       setValidationMessage('Please enter all digits');
       notifyListeners();
       return;

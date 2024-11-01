@@ -9,7 +9,6 @@ import 'package:thrivia_app/feat_auth/data_models/login_user_response.dart';
 import 'package:thrivia_app/services/dio_service.dart';
 
 import '../../common/api_constants.dart';
-import '../../common/api_logger.dart';
 
 class AuthRepository {
   final dio = locator<DioService>().dio;
