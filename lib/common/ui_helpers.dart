@@ -91,3 +91,13 @@ double getResponsiveFontSize(BuildContext context,
 
   return responsiveSize;
 }
+
+extension Spacing on int {
+  Widget get verticalSpace => SizedBox(
+        height: toDouble(),
+      );
+
+  Widget get horizontalSpace => SizedBox(
+        width: toDouble(),
+      );
+}

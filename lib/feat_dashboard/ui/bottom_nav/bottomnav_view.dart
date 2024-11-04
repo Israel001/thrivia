@@ -34,39 +34,41 @@ class BottomNavView extends StackedView<BottomNavViewModel> {
       )
     ];
     return Scaffold(
-        // backgroundColor: Theme.of(context).colorScheme.background,
-        bottomNavigationBar: CustomBottomNav(
-          setMethod: viewModel.setIndex,
-          currentIndex: viewModel.currentIndex,
-        ),
-        //   type: BottomNavigationBarType.fixed,
-        //   backgroundColor: Colors.grey[800],
-        //   currentIndex: viewModel.currentIndex,
-        //   onTap: viewModel.setIndex,
-        //   items: [
-        //     BottomNavigationBarItem(
-        //       label: 'Home',
-        //       icon: Icon(Icons.art_track),
-        //     ),
-        //     BottomNavigationBarItem(
-        //       label: 'Finance',
-        //       icon: Icon(Icons.list),
-        //     ),
-        //     BottomNavigationBarItem(
-        //       label: 'Community',
-        //       icon: Icon(Icons.list),
-        //     ),
-        //     BottomNavigationBarItem(
-        //       label: 'Profile',
-        //       icon: Icon(Icons.list),
-        //     ),
-        //   ],
-        // ),
-        body: ExtendedNavigator(
-          navigatorKey: StackedService.nestedNavigationKey(1),
-          initialRoute: Routes.homeView,
-          router: StackedRouter(),
-        ));
+      // backgroundColor: Theme.of(context).colorScheme.background,
+      bottomNavigationBar: CustomBottomNav(
+        setMethod: viewModel.setIndex,
+        currentIndex: viewModel.currentIndex,
+      ),
+      //   type: BottomNavigationBarType.fixed,
+      //   backgroundColor: Colors.grey[800],
+      //   currentIndex: viewModel.currentIndex,
+      //   onTap: viewModel.setIndex,
+      //   items: [
+      //     BottomNavigationBarItem(
+      //       label: 'Home',
+      //       icon: Icon(Icons.art_track),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       label: 'Finance',
+      //       icon: Icon(Icons.list),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       label: 'Community',
+      //       icon: Icon(Icons.list),
+      //     ),
+      //     BottomNavigationBarItem(
+      //       label: 'Profile',
+      //       icon: Icon(Icons.list),
+      //     ),
+      //   ],
+      // ),
+      // body: ExtendedNavigator(
+      //   navigatorKey: StackedService.nestedNavigationKey(1),
+      //   initialRoute: Routes.homeView,
+      //   router: StackedRouter(),
+      // ),
+      body: SafeArea(child: viewModel.getViewForIndex(viewModel.currentIndex)),
+    );
   }
 
   @override

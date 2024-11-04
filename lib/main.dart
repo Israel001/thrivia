@@ -23,7 +23,8 @@ Future<void> main() async {
   setupDialogUi();
   setupBottomSheetUi();
   runApp(MainApp(
-    themeMode: themeMode,
+    // themeMode: themeMode,
+    themeMode: ThemeMode.light,
   ));
 }
 
@@ -51,5 +52,5 @@ class MainApp extends StatelessWidget {
 }
 
 abstract class Overides {
-  static const overrideInitialLocation = null;
+  static const overrideInitialLocation = Routes.bottomNavView;
 }

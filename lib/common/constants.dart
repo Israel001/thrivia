@@ -34,6 +34,8 @@ abstract class AppImagesSVG {
   static const String cup = "assets/images/svg/icons/cup.svg";
   static const String profile_2user =
       "assets/images/svg/icons/profile-2user.svg";
+  static const String profile_circle =
+      "assets/images/svg/icons/profile_circle.svg";
   static const String arrowRight = "assets/images/svg/icons/arrow-right.svg";
   static const String folderCloud = "assets/images/svg/icons/folder-cloud.svg";
   static const String dots_Menu_Icon_UIA =
@@ -44,4 +46,18 @@ abstract class AppImagesSVG {
 
   static const String community = "assets/images/svg/icons/community.svg";
   static const String home = "assets/images/svg/icons/home.svg";
+
+  static const String setting_2 = "assets/images/svg/icons/setting_2.svg";
+  static const String notification_bing =
+      "assets/images/svg/icons/notification_bing.svg";
+
+  static const String notification_active =
+      "assets/images/svg/icons/notification_bing_active.svg";
+  static const String add = "assets/images/svg/icons/add.svg";
+
+  static const String eye_slash = "assets/images/svg/icons/eye_slash.svg";
+
+  static const String sendIcon = "assets/images/svg/icons/send_icon.svg";
+  static const String receiveIcon = "assets/images/svg/icons/receive_icon.svg";
+  static const String group_7 = "assets/images/svg/group_7.svg";
 }

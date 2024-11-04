@@ -83,4 +83,5 @@ abstract class AppColors {
   static const Color k_2E9178 = Color(0xFF2E9178);
   static const Color k_939090 = Color(0xFF939090);
   static const Color k_7FE7E7E7 = Color(0x7FE7E7E7);
+  static const Color gold = Color(0xff92822e);
 }
