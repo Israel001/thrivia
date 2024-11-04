@@ -39,113 +39,109 @@ class OnboardingView extends StackedView<OnboardingViewModel> {
           ),
         ),
         alignment: Alignment.center,
-        child: SafeArea(
-          child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment(-0.00, -1.00),
-                end: Alignment(0, 1),
-                colors: AppColors.blackLinear2,
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment(-0.00, -1.00),
+              end: Alignment(0, 1),
+              colors: AppColors.blackLinear2,
             ),
-            child: SingleChildScrollView(
-              child: ConstrainedBox(
-                constraints: BoxConstraints.loose(Size(double.infinity, 812)),
-                child: Stack(
-                  // mainAxisAlignment: MainAxisAlignment.start,
-                  // crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    //top badge
-                    Positioned(
-                      top: 50,
-                      height: 50,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25),
-                        child: Image.asset(
-                          theme.brightness == Brightness.light
-                              ? AppImages.logoLight
-                              : AppImages.logoDark,
-                          // width: 111,
-                          height: 50,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    // Spacer(),
-
-                    Positioned.fill(
-                      child: Body(
-                        pageIndex: viewModel.pageIndex,
-                        pageChanged: (newIndex) {
-                          viewModel.changePage(newIndex);
-                        },
-                      ),
-                    ),
-
-                    Positioned(
-                      right: 25,
+          ),
+          child: Stack(
+            // mainAxisAlignment: MainAxisAlignment.start,
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              //top badge
+              Positioned(
+                top: 50,
+                // height: 50,
+                child: Padding(
+                  padding: EdgeInsets.only(
                       left: 25,
-                      height: 50,
-                      bottom: 100,
-                      child: PrimaryButton(
-                        onPressed: () {
-                          viewModel.nextPage();
-                        },
-                        label: onboardingText[viewModel.pageIndex]
-                            ["button_text"] as String,
-                      ),
-                    ),
-
-                    //dots
-                    Positioned(
-                      left: 0,
-                      right: 0,
-                      bottom: 180,
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 25),
-                        child: DotsIndicator(
-                          dotsCount: onboardingText.length,
-                          position: viewModel.pageIndex,
-                          decorator: DotsDecorator(
-                            size: dotsSize,
-                            activeSize: dotsSize,
-                            // activeSize: const Size(18.0, 9.0),
-                            activeColor: AppColors.k_272816C,
-                            activeShape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0)),
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50.0)),
-                          ),
-                        ),
-                      ),
-                    ),
-
-                    // already have an account
-                    Positioned(
                       right: 25,
-                      left: 25,
-                      bottom: 46,
-                      child: SwitchSignInType(
-                        onLoginPage: false,
-                        onDark: true,
-                      ),
-                    ),
-                    // Align(
-                    //   alignment: Alignment.bottomCenter,
-                    //   child: Column(
-                    //     // mainAxisSize: MainAxisSize.min,
-                    //     mainAxisAlignment: MainAxisAlignment.end,
-                    //     children: [
-
-                    //       //get started
-
-                    //     ],
-                    //   ),
-                    // ),
-                  ],
+                      top: MediaQuery.viewPaddingOf(context).top),
+                  child: Image.asset(
+                    theme.brightness == Brightness.light
+                        ? AppImages.logoLight
+                        : AppImages.logoDark,
+                    // width: 111,
+                    height: 50,
+                    fit: BoxFit.contain,
+                  ),
                 ),
               ),
-            ),
+              // Spacer(),
+
+              Positioned.fill(
+                child: Body(
+                  pageIndex: viewModel.pageIndex,
+                  pageChanged: (newIndex) {
+                    viewModel.changePage(newIndex);
+                  },
+                ),
+              ),
+
+              Positioned(
+                right: 25,
+                left: 25,
+                height: 50,
+                bottom: 100,
+                child: PrimaryButton(
+                  onPressed: () {
+                    viewModel.nextPage();
+                  },
+                  label: onboardingText[viewModel.pageIndex]["button_text"]
+                      as String,
+                ),
+              ),
+
+              //dots
+              Positioned(
+                left: 0,
+                right: 0,
+                bottom: 180,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25),
+                  child: DotsIndicator(
+                    dotsCount: onboardingText.length,
+                    position: viewModel.pageIndex,
+                    decorator: DotsDecorator(
+                      size: dotsSize,
+                      activeSize: dotsSize,
+                      // activeSize: const Size(18.0, 9.0),
+                      activeColor: AppColors.k_272816C,
+                      activeShape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50.0)),
+                    ),
+                  ),
+                ),
+              ),
+
+              // already have an account
+              Positioned(
+                right: 25,
+                left: 25,
+                bottom: 46,
+                child: SwitchSignInType(
+                  onLoginPage: false,
+                  onDark: true,
+                ),
+              ),
+              // Align(
+              //   alignment: Alignment.bottomCenter,
+              //   child: Column(
+              //     // mainAxisSize: MainAxisSize.min,
+              //     mainAxisAlignment: MainAxisAlignment.end,
+              //     children: [
+
+              //       //get started
+
+              //     ],
+              //   ),
+              // ),
+            ],
           ),
         ),
       ),

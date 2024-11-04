@@ -6,14 +6,14 @@
 import 'dart:async' as _i8;
 import 'dart:ui' as _i9;
 
-import 'package:dio/dio.dart' as _i2;
+import 'package:dio/dio.dart' as _i4;
 import 'package:flutter/material.dart' as _i7;
 import 'package:logger/src/logger.dart' as _i3;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:mockito/src/dummies.dart' as _i6;
 import 'package:stacked_services/stacked_services.dart' as _i5;
 import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart'
-    as _i4;
+    as _i2;
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart'
     as _i10;
 import 'package:thrivia_app/services/dio_service.dart' as _i11;
@@ -32,8 +32,9 @@ import 'package:thrivia_app/services/storage_service.dart' as _i12;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeDio_0 extends _i1.SmartFake implements _i2.Dio {
-  _FakeDio_0(
+class _FakeCreateAccountResponse_0 extends _i1.SmartFake
+    implements _i2.CreateAccountResponse {
+  _FakeCreateAccountResponse_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -52,9 +53,8 @@ class _FakeLogger_1 extends _i1.SmartFake implements _i3.Logger {
         );
 }
 
-class _FakeCreateAccountResponse_2 extends _i1.SmartFake
-    implements _i4.CreateAccountResponse {
-  _FakeCreateAccountResponse_2(
+class _FakeDio_2 extends _i1.SmartFake implements _i4.Dio {
+  _FakeDio_2(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -715,59 +715,33 @@ class MockDialogService extends _i1.Mock implements _i5.DialogService {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthRepository extends _i1.Mock implements _i10.AuthRepository {
   @override
-  _i2.Dio get dio => (super.noSuchMethod(
-        Invocation.getter(#dio),
-        returnValue: _FakeDio_0(
-          this,
-          Invocation.getter(#dio),
-        ),
-        returnValueForMissingStub: _FakeDio_0(
-          this,
-          Invocation.getter(#dio),
-        ),
-      ) as _i2.Dio);
-
-  @override
-  _i3.Logger get logger => (super.noSuchMethod(
-        Invocation.getter(#logger),
-        returnValue: _FakeLogger_1(
-          this,
-          Invocation.getter(#logger),
-        ),
-        returnValueForMissingStub: _FakeLogger_1(
-          this,
-          Invocation.getter(#logger),
-        ),
-      ) as _i3.Logger);
-
-  @override
-  _i8.FutureOr<_i4.CreateAccountResponse> createAccount(
-          _i4.CreateUserRequest? newUser) =>
+  _i8.FutureOr<_i2.CreateAccountResponse> createAccount(
+          _i2.CreateUserRequest? newUser) =>
       (super.noSuchMethod(
         Invocation.method(
           #createAccount,
           [newUser],
         ),
-        returnValue: _i8.Future<_i4.CreateAccountResponse>.value(
-            _FakeCreateAccountResponse_2(
+        returnValue: _i8.Future<_i2.CreateAccountResponse>.value(
+            _FakeCreateAccountResponse_0(
           this,
           Invocation.method(
             #createAccount,
             [newUser],
           ),
         )),
-        returnValueForMissingStub: _i8.Future<_i4.CreateAccountResponse>.value(
-            _FakeCreateAccountResponse_2(
+        returnValueForMissingStub: _i8.Future<_i2.CreateAccountResponse>.value(
+            _FakeCreateAccountResponse_0(
           this,
           Invocation.method(
             #createAccount,
             [newUser],
           ),
         )),
-      ) as _i8.FutureOr<_i4.CreateAccountResponse>);
+      ) as _i8.FutureOr<_i2.CreateAccountResponse>);
 
   @override
-  _i8.FutureOr<dynamic> loginUser(_i4.LoginUserRequest? userLogin) =>
+  _i8.FutureOr<dynamic> loginUser(_i2.LoginUserRequest? userLogin) =>
       (super.noSuchMethod(
         Invocation.method(
           #loginUser,
@@ -777,17 +751,17 @@ class MockAuthRepository extends _i1.Mock implements _i10.AuthRepository {
       ) as _i8.FutureOr<dynamic>);
 
   @override
-  _i8.FutureOr<dynamic> verifyOTP(_i4.VerifyOTPRequest? tokenData) =>
+  _i8.FutureOr<void> verifyOTP(_i2.VerifyOTPRequest? tokenData) =>
       (super.noSuchMethod(
         Invocation.method(
           #verifyOTP,
           [tokenData],
         ),
         returnValueForMissingStub: null,
-      ) as _i8.FutureOr<dynamic>);
+      ) as _i8.FutureOr<void>);
 
   @override
-  _i8.FutureOr<String> sendOTP(_i4.SendOTPRequest? sendOTPData) =>
+  _i8.FutureOr<String> sendOTP(_i2.SendOTPRequest? sendOTPData) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendOTP,
@@ -809,6 +783,16 @@ class MockAuthRepository extends _i1.Mock implements _i10.AuthRepository {
           ),
         )),
       ) as _i8.FutureOr<String>);
+
+  @override
+  _i8.FutureOr<void> intiateResetPassword(String? emailOrPhoneNumber) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #intiateResetPassword,
+          [emailOrPhoneNumber],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i8.FutureOr<void>);
 }
 
 /// A class which mocks [DioService].
@@ -829,17 +813,39 @@ class MockDioService extends _i1.Mock implements _i11.DioService {
       ) as _i3.Logger);
 
   @override
-  _i2.Dio get dio => (super.noSuchMethod(
+  _i4.Dio get dio => (super.noSuchMethod(
         Invocation.getter(#dio),
-        returnValue: _FakeDio_0(
+        returnValue: _FakeDio_2(
           this,
           Invocation.getter(#dio),
         ),
-        returnValueForMissingStub: _FakeDio_0(
+        returnValueForMissingStub: _FakeDio_2(
           this,
           Invocation.getter(#dio),
         ),
-      ) as _i2.Dio);
+      ) as _i4.Dio);
+
+  @override
+  String logAPIResponse(_i4.Response<dynamic>? response) => (super.noSuchMethod(
+        Invocation.method(
+          #logAPIResponse,
+          [response],
+        ),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #logAPIResponse,
+            [response],
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #logAPIResponse,
+            [response],
+          ),
+        ),
+      ) as String);
 }
 
 /// A class which mocks [StorageService].

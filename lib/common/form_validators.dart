@@ -60,8 +60,13 @@ abstract class FormValidators {
   }
 
   static String? validatePassword(String? value) {
+    _currentPassword = value;
     if (value == null || value.isEmpty) {
       return "Please enter a valid pin";
+    }
+
+    if (value.length != 6) {
+      return "Pin should be six digits";
     }
     // This regex matches phone numbers with optional country code, area code, and allows for various formats
     final phoneRegex = RegExp(r'^[\d]{6}$');

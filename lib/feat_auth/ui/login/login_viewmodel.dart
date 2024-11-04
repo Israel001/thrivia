@@ -35,7 +35,7 @@ class LoginViewModel extends FormViewModel {
     );
 
     if (_authService.goToOTPScreen) {
-      _navigationService.navigateToOtpView();
+      _navigationService.navigateToOtpView(timerStarted: true);
       return;
     }
 
@@ -44,4 +44,6 @@ class LoginViewModel extends FormViewModel {
       return;
     }
   }
+
+  void forgotPassword() {}
 }

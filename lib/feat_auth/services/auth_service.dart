@@ -75,10 +75,12 @@ class AuthService with ListenableServiceMixin {
     logger.d("OTP details: ${_pendingOTPDetails.toString()}");
   }
 
-  Future<bool> verifyOTP(String otp) async {
+  Future<void> verifyOTP(String otp) async {
     logger.i("verifying OTP");
+
     if (_pendingOTPDetails == null) {
-      return false;
+      logger.v("pending otp details are null - return");
+      return;
     }
     final verifyRequest = VerifyOTPRequest(
         otp: otp,
@@ -86,20 +88,20 @@ class AuthService with ListenableServiceMixin {
         pinId: _pendingOTPDetails!.pinId,
         userUuid: _pendingOTPDetails!.userUuid);
 
-    final response = await _authRepository.verifyOTP(verifyRequest);
+    await _authRepository.verifyOTP(verifyRequest);
 
     if (verifyRequest.otpActionType == OtpActionType.VERIFY_ACCOUNT) {
       //save user response
-      _userResponse = response;
+
       _authState = AuthState.loggedIn;
     }
 
     if (verifyRequest.otpActionType == OtpActionType.RESET_PASSWORD) {
-      _passwordChangeToken = response;
+      //TODO investigate
       _authState =
           _userResponse == null ? AuthState.logggedOut : AuthState.loggedIn;
     }
-    return true;
+    return;
   }
 
   //send otp

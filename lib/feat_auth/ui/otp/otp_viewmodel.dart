@@ -40,7 +40,6 @@ class OtpViewModel extends FormViewModel {
       _OTPView.d3FocusNode,
       _OTPView.d4FocusNode,
       _OTPView.d5FocusNode,
-      _OTPView.d6FocusNode,
     ];
 
     textControllers = [
@@ -49,7 +48,6 @@ class OtpViewModel extends FormViewModel {
       _OTPView.d3Controller,
       _OTPView.d4Controller,
       _OTPView.d5Controller,
-      _OTPView.d6Controller,
     ];
   }
 
@@ -123,8 +121,11 @@ class OtpViewModel extends FormViewModel {
 
     setError(null);
 
-    runBusyFuture(_authService.verifyOTP(otp));
+    final result =
+        await runBusyFuture(_authService.verifyOTP(otp), throwException: true);
 
-    _navigationService.navigateTo(Routes.homeView);
+    _navigationService.navigateTo(Routes.bottomNavView);
+
+    // setError();
   }
 }

@@ -17,7 +17,6 @@ const String D2ValueKey = 'd2';
 const String D3ValueKey = 'd3';
 const String D4ValueKey = 'd4';
 const String D5ValueKey = 'd5';
-const String D6ValueKey = 'd6';
 
 final Map<String, TextEditingController> _OtpViewTextEditingControllers = {};
 
@@ -29,7 +28,6 @@ final Map<String, String? Function(String?)?> _OtpViewTextValidations = {
   D3ValueKey: FormValidators.otpFieldValidator,
   D4ValueKey: FormValidators.otpFieldValidator,
   D5ValueKey: FormValidators.otpFieldValidator,
-  D6ValueKey: FormValidators.otpFieldValidator,
 };
 
 mixin $OtpView {
@@ -43,15 +41,12 @@ mixin $OtpView {
       _getFormTextEditingController(D4ValueKey);
   TextEditingController get d5Controller =>
       _getFormTextEditingController(D5ValueKey);
-  TextEditingController get d6Controller =>
-      _getFormTextEditingController(D6ValueKey);
 
   FocusNode get d1FocusNode => _getFormFocusNode(D1ValueKey);
   FocusNode get d2FocusNode => _getFormFocusNode(D2ValueKey);
   FocusNode get d3FocusNode => _getFormFocusNode(D3ValueKey);
   FocusNode get d4FocusNode => _getFormFocusNode(D4ValueKey);
   FocusNode get d5FocusNode => _getFormFocusNode(D5ValueKey);
-  FocusNode get d6FocusNode => _getFormFocusNode(D6ValueKey);
 
   TextEditingController _getFormTextEditingController(
     String key, {
@@ -82,7 +77,6 @@ mixin $OtpView {
     d3Controller.addListener(() => _updateFormData(model));
     d4Controller.addListener(() => _updateFormData(model));
     d5Controller.addListener(() => _updateFormData(model));
-    d6Controller.addListener(() => _updateFormData(model));
 
     _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
@@ -99,7 +93,6 @@ mixin $OtpView {
     d3Controller.addListener(() => _updateFormData(model));
     d4Controller.addListener(() => _updateFormData(model));
     d5Controller.addListener(() => _updateFormData(model));
-    d6Controller.addListener(() => _updateFormData(model));
 
     _updateFormData(model, forceValidate: _autoTextFieldValidation);
   }
@@ -114,7 +107,6 @@ mixin $OtpView {
           D3ValueKey: d3Controller.text,
           D4ValueKey: d4Controller.text,
           D5ValueKey: d5Controller.text,
-          D6ValueKey: d6Controller.text,
         }),
     );
 
@@ -161,7 +153,6 @@ extension ValueProperties on FormStateHelper {
   String? get d3Value => this.formValueMap[D3ValueKey] as String?;
   String? get d4Value => this.formValueMap[D4ValueKey] as String?;
   String? get d5Value => this.formValueMap[D5ValueKey] as String?;
-  String? get d6Value => this.formValueMap[D6ValueKey] as String?;
 
   set d1Value(String? value) {
     this.setData(
@@ -213,16 +204,6 @@ extension ValueProperties on FormStateHelper {
     }
   }
 
-  set d6Value(String? value) {
-    this.setData(
-      this.formValueMap..addAll({D6ValueKey: value}),
-    );
-
-    if (_OtpViewTextEditingControllers.containsKey(D6ValueKey)) {
-      _OtpViewTextEditingControllers[D6ValueKey]?.text = value ?? '';
-    }
-  }
-
   bool get hasD1 =>
       this.formValueMap.containsKey(D1ValueKey) &&
       (d1Value?.isNotEmpty ?? false);
@@ -238,9 +219,6 @@ extension ValueProperties on FormStateHelper {
   bool get hasD5 =>
       this.formValueMap.containsKey(D5ValueKey) &&
       (d5Value?.isNotEmpty ?? false);
-  bool get hasD6 =>
-      this.formValueMap.containsKey(D6ValueKey) &&
-      (d6Value?.isNotEmpty ?? false);
 
   bool get hasD1ValidationMessage =>
       this.fieldsValidationMessages[D1ValueKey]?.isNotEmpty ?? false;
@@ -252,15 +230,12 @@ extension ValueProperties on FormStateHelper {
       this.fieldsValidationMessages[D4ValueKey]?.isNotEmpty ?? false;
   bool get hasD5ValidationMessage =>
       this.fieldsValidationMessages[D5ValueKey]?.isNotEmpty ?? false;
-  bool get hasD6ValidationMessage =>
-      this.fieldsValidationMessages[D6ValueKey]?.isNotEmpty ?? false;
 
   String? get d1ValidationMessage => this.fieldsValidationMessages[D1ValueKey];
   String? get d2ValidationMessage => this.fieldsValidationMessages[D2ValueKey];
   String? get d3ValidationMessage => this.fieldsValidationMessages[D3ValueKey];
   String? get d4ValidationMessage => this.fieldsValidationMessages[D4ValueKey];
   String? get d5ValidationMessage => this.fieldsValidationMessages[D5ValueKey];
-  String? get d6ValidationMessage => this.fieldsValidationMessages[D6ValueKey];
 }
 
 extension Methods on FormStateHelper {
@@ -274,8 +249,6 @@ extension Methods on FormStateHelper {
       this.fieldsValidationMessages[D4ValueKey] = validationMessage;
   setD5ValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[D5ValueKey] = validationMessage;
-  setD6ValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[D6ValueKey] = validationMessage;
 
   /// Clears text input fields on the Form
   void clearForm() {
@@ -284,7 +257,6 @@ extension Methods on FormStateHelper {
     d3Value = '';
     d4Value = '';
     d5Value = '';
-    d6Value = '';
   }
 
   /// Validates text input fields on the Form
@@ -295,7 +267,6 @@ extension Methods on FormStateHelper {
       D3ValueKey: getValidationMessage(D3ValueKey),
       D4ValueKey: getValidationMessage(D4ValueKey),
       D5ValueKey: getValidationMessage(D5ValueKey),
-      D6ValueKey: getValidationMessage(D6ValueKey),
     });
   }
 }
@@ -320,5 +291,4 @@ void updateValidationData(FormStateHelper model) =>
       D3ValueKey: getValidationMessage(D3ValueKey),
       D4ValueKey: getValidationMessage(D4ValueKey),
       D5ValueKey: getValidationMessage(D5ValueKey),
-      D6ValueKey: getValidationMessage(D6ValueKey),
     });

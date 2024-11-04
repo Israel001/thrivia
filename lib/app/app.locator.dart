@@ -29,9 +29,9 @@ Future<void> setupLocator({
 // Register dependencies
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => DialogService());
-  locator.registerLazySingleton(() => NavigationService());
+  locator.registerLazySingleton<NavigationService>(() => NavigationService());
   locator.registerLazySingleton(() => AuthService());
-  locator.registerLazySingleton(() => AuthRepository());
+  locator.registerLazySingleton<AuthRepository>(() => BackendAuthRepository());
   locator.registerLazySingleton(() => DioService());
   locator.registerLazySingleton(() => StorageService());
 }

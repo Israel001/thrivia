@@ -15,7 +15,6 @@ import 'otp_viewmodel.dart';
     FormTextField(name: "d3", validator: FormValidators.otpFieldValidator),
     FormTextField(name: "d4", validator: FormValidators.otpFieldValidator),
     FormTextField(name: "d5", validator: FormValidators.otpFieldValidator),
-    // FormTextField(name: "d6", validator: FormValidators.otpFieldValidator),
   ],
 )
 class OtpView extends StackedView<OtpViewModel> with $OtpView {
@@ -53,7 +52,7 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
           padding: const EdgeInsets.all(25.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            // mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               // Text(
               //   'OTP Verification',
@@ -82,55 +81,43 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
                   controllers.length,
                   (index) => SizedBox(
                     width: 50,
-                    child: Focus(
-                      // focusNode: focusNodes[index],
-                      autofocus: true,
-                      onKeyEvent: (node, event) {
-                        if (event.logicalKey == LogicalKeyboardKey.backspace &&
-                            event is KeyUpEvent) {
-                          viewModel.backspace(index);
+                    child: TextField(
+                      focusNode: focusNodes[index],
+                      controller: controllers[index],
+                      textAlign: TextAlign.center,
+                      keyboardType: TextInputType.number,
+                      maxLength: 1,
+                      onChanged: (value) {
+                        if (controllers[index].text.isNotEmpty) {
+                          // FocusScope.of(context).onKeyEvent
+                          //   viewModel.backspace(index);
+                          // } else {
+                          viewModel.forward(index);
                         }
-                        return KeyEventResult.ignored;
-                        // return KeyEventResult.ignored;
                       },
-                      child: TextField(
-                        focusNode: focusNodes[index],
-                        controller: controllers[index],
-                        textAlign: TextAlign.center,
-                        keyboardType: TextInputType.number,
-                        maxLength: 1,
-                        onChanged: (value) {
-                          if (controllers[index].text.isNotEmpty) {
-                            // FocusScope.of(context).onKeyEvent
-                            //   viewModel.backspace(index);
-                            // } else {
-                            viewModel.forward(index);
-                          }
-                        },
-                        style: TextStyle(
-                            // color: Theme.of(context).colorScheme.primary,
-                            ),
-                        decoration: InputDecoration(
-                          counterText: '',
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
+                      style: TextStyle(
+                          // color: Theme.of(context).colorScheme.primary,
                           ),
-                          filled: true,
-                          fillColor: Colors.grey[100],
+                      decoration: InputDecoration(
+                        counterText: '',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
                         ),
-                        // inputFormatters: [
-                        //   FilteringTextInputFormatter.digitsOnly,
-                        // ],
-
-                        // on: (RawKeyEvent event) {
-                        //   if (event.logicalKey ==
-                        //       LogicalKeyboardKey.backspace) {
-                        //     if (event is RawKeyDownEvent) {
-                        //       viewModel.backspace(index);
-                        //     }
-                        //   }
-                        // },
+                        filled: true,
+                        fillColor: Colors.grey[100],
                       ),
+                      // inputFormatters: [
+                      //   FilteringTextInputFormatter.digitsOnly,
+                      // ],
+
+                      // on: (RawKeyEvent event) {
+                      //   if (event.logicalKey ==
+                      //       LogicalKeyboardKey.backspace) {
+                      //     if (event is RawKeyDownEvent) {
+                      //       viewModel.backspace(index);
+                      //     }
+                      //   }
+                      // },
                     ),
                   ),
                 ),

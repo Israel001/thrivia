@@ -9,7 +9,6 @@ import 'package:flutter/material.dart' as _i14;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i15;
-import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.dart'
     as _i6;
 import 'package:thrivia_app/feat_auth/ui/forgot_password/forgot_password_view.dart'
@@ -203,15 +202,6 @@ class StackedRouter extends _i1.RouterBase {
       );
     },
   };
-
-  final logger = getLogger("StackedRouter");
-  @override
-  _i14.Route? onGenerateRoute(_i14.RouteSettings settings, [String? basePath]) {
-    // TODO: implement onGenerateRoute
-    logger.i(
-        "Navigating to ${settings.name}, arguments ${settings.arguments.toString()}");
-    return super.onGenerateRoute(settings, basePath);
-  }
 
   @override
   List<_i1.RouteDef> get routes => _routes;

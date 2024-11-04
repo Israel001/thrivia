@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'package:thrivia_app/app/app.bottomsheets.dart';
@@ -12,6 +13,9 @@ import 'package:thrivia_app/services/storage_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   await setupLocator();
   final themeModeValue = await locator<StorageService>().getValue(
     StorageKeys.themeMode,
@@ -39,7 +43,12 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       initialRoute: Routes.startupView,
-      onGenerateRoute: StackedRouter().onGenerateRoute,
+      onGenerateRoute: (settings) {
+        final logger = getLogger("StackedRouter");
+        logger.i(
+            "Navigating to ${settings.name}, arguments ${settings.arguments.toString()}");
+        return StackedRouter().onGenerateRoute(settings);
+      },
       navigatorKey: StackedService.navigatorKey,
       navigatorObservers: [
         StackedService.routeObserver,
@@ -52,5 +61,7 @@ class MainApp extends StatelessWidget {
 }
 
 abstract class Overides {
-  static const overrideInitialLocation = Routes.bottomNavView;
+  static const overrideInitialLocation = null;
+
+  static const bool mockAuthRepository = false;
 }

@@ -125,6 +125,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                   iconPath: AppImagesSVG.call,
                   errorText: viewModel.phoneNumberValidationMessage,
                   child: TextFormField(
+                    keyboardType: TextInputType.phone,
                     decoration: const InputDecoration().copyWith(
                       // labelText: "Phone number",
                       floatingLabelBehavior: FloatingLabelBehavior.auto,
@@ -140,6 +141,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                   iconPath: AppImagesSVG.smsEdit,
                   errorText: viewModel.emailAddressValidationMessage,
                   child: TextFormField(
+                    keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration()
                         .copyWith(labelText: "Email address"),
                     controller: emailAddressController,
@@ -151,6 +153,8 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                   iconPath: AppImagesSVG.lock,
                   errorText: viewModel.pinValidationMessage,
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    obscureText: true,
                     decoration: const InputDecoration()
                         .copyWith(labelText: "Create pin"),
                     controller: pinController,
@@ -162,6 +166,8 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                   iconPath: AppImagesSVG.lock,
                   errorText: viewModel.pinConfirmValidationMessage,
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
+                    obscureText: true,
                     decoration: const InputDecoration()
                         .copyWith(labelText: "Confirm pin"),
                     controller: pinConfirmController,
@@ -173,6 +179,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                   iconPath: AppImagesSVG.lock,
                   errorText: viewModel.bvnValidationMessage,
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration().copyWith(labelText: "BVN"),
                     controller: bvnController,
@@ -184,6 +191,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                   iconPath: AppImagesSVG.lock,
                   errorText: viewModel.ninValidationMessage,
                   child: TextFormField(
+                    keyboardType: TextInputType.number,
                     decoration:
                         const InputDecoration().copyWith(labelText: "NIN"),
                     controller: ninController,

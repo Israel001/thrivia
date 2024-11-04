@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:thrivia_app/app/app.locator.dart';
@@ -10,10 +11,23 @@ import 'package:thrivia_app/services/dio_service.dart';
 
 import '../../common/api_constants.dart';
 
-class AuthRepository {
+abstract class AuthRepository {
+  FutureOr<CreateAccountResponse> createAccount(CreateUserRequest newUser);
+
+  FutureOr<dynamic> loginUser(LoginUserRequest userLogin);
+
+  FutureOr<void> verifyOTP(VerifyOTPRequest tokenData);
+
+  FutureOr<String> sendOTP(SendOTPRequest sendOTPData);
+
+  FutureOr<void> intiateResetPassword(String emailOrPhoneNumber);
+}
+
+class BackendAuthRepository extends AuthRepository {
   final dio = locator<DioService>().dio;
   final logger = getLogger("AuthRepository");
 
+  @override
   FutureOr<CreateAccountResponse> createAccount(
       CreateUserRequest newUser) async {
     logger.v("creating user");
@@ -59,10 +73,11 @@ class AuthRepository {
 
     throw BackendException(
         message: "Could not create account",
-        devDetails: "response.data.message",
+        devDetails: "${response.data.message}",
         prettyDetails: "An error occured while trying to create your account");
   }
 
+  @override
   FutureOr<dynamic> loginUser(LoginUserRequest userLogin) async {
     logger.v("Logging in user");
 
@@ -110,7 +125,8 @@ class AuthRepository {
             "Unexpected error encountered while trying to log you in");
   }
 
-  FutureOr<dynamic> verifyOTP(VerifyOTPRequest tokenData) async {
+  @override
+  FutureOr<void> verifyOTP(VerifyOTPRequest tokenData) async {
     final response = await dio.postUri(
         Uri.https(
           ApiConstants.authority,
@@ -120,8 +136,8 @@ class AuthRepository {
 
     if (response.statusCode == 201) {
       logger.v("OTP verified successfully");
-      final accessToken = response.data;
-      return accessToken;
+
+      return;
     }
     if (response.statusCode == 401) {
       logger.v("OTP is not valid");
@@ -130,6 +146,7 @@ class AuthRepository {
           devDetails: "$response",
           prettyDetails: "Invalid OTP");
     }
+
     throw BackendException(
         message: "Unexpected Response",
         devDetails: "$response",
@@ -137,6 +154,7 @@ class AuthRepository {
             "Unexpected error encountered while trying to verify your OTP");
   }
 
+  @override
   FutureOr<String> sendOTP(SendOTPRequest sendOTPData) async {
     final response = await dio.postUri(
         Uri.https(
@@ -153,5 +171,173 @@ class AuthRepository {
         message: "Unexpected Response",
         devDetails: "$response",
         prettyDetails: "Unexpected error encountered while sending your OTP");
+  }
+
+  @override
+  FutureOr<void> intiateResetPassword(String emailOrPhoneNumber) async {
+    logger.v("intiate reset password");
+    final data = jsonEncode({"emailOrPhone": emailOrPhoneNumber});
+    final response = await dio.postUri(
+        Uri.https(
+          ApiConstants.authority,
+          ApiConstants.users,
+        ),
+        data: data);
+
+    if (response.statusCode == 201) {}
+
+    throw BackendException(
+        message: "Could not reset password",
+        devDetails: "${response.data.message}",
+        prettyDetails: "An error occured while trying to reset your password");
+  }
+}
+
+class MockedAuthRepository extends AuthRepository {
+  final logger = getLogger("MockAuthRepository");
+
+  var createAccountResponse =
+      CreateAccountResponse(pinId: "pinId", uuid: "uuid");
+  var loginResponse = LoginResponse(
+      accessToken: "accessToken",
+      expiresIn: 12000,
+      refreshToken: "refreshToken",
+      user: User(
+          uuid: "uuid",
+          deletedAt: "deletedAt",
+          firstName: "firstName",
+          lastName: "lastName",
+          phoneNumber: "phoneNumber",
+          email: "email",
+          membershipNo: "membershipNo",
+          dateOfBirth: "dateOfBirth",
+          address: "address",
+          phoneVerified: true,
+          lastLoggedIn: DateTime.now(),
+          incomeSource: "incomeSource",
+          employmentDetails: "employmentDetails",
+          additionalDetails: "additionalDetails",
+          bvn: "bvn",
+          nin: "nin",
+          accountName: "accountName",
+          accountReference: "accountReference",
+          bankAccounts: "bankAccounts",
+          providerResponse: "providerResponse",
+          activeCooperative: "activeCooperative"));
+
+  @override
+  FutureOr<CreateAccountResponse> createAccount(
+      CreateUserRequest newUser) async {
+    logger.v("creating user");
+
+    final statusCode = 201;
+
+    if (statusCode == 201) {
+      return createAccountResponse;
+    }
+
+    if (statusCode == 409) {
+      logger.v("Account already exists");
+
+      throw BackendException(
+          message: "Account already exists",
+          devDetails: "response",
+          prettyDetails: "Sorry, this account exists already");
+    }
+
+    if (statusCode == 400) {
+      logger.v("Bad request");
+
+      throw BackendException(
+          message: "Bad request",
+          devDetails: "response",
+          prettyDetails: "Error creating account: ");
+    }
+    logger.v("Could not create account");
+
+    throw BackendException(
+        message: "Could not create account",
+        // devDetails: "${response.data.message}",
+        prettyDetails: "An error occured while trying to create your account");
+  }
+
+  @override
+  FutureOr<dynamic> loginUser(LoginUserRequest userLogin) async {
+    logger.v("Logging in user");
+
+    final statusCode = 201;
+
+    if (statusCode == 201) {
+      logger.v("user authorised");
+
+// return loginResponse;
+      try {
+        logger.v("user not verified, received otp details");
+        return createAccountResponse;
+      } catch (e) {
+        logger.wtf(
+            "Unexpected error, user logged in but response is not otp or login response");
+        throw BackendException(
+            message: "User login succesfull, but response is invalid",
+            devDetails: e.toString(),
+            prettyDetails: "Unexpected error encountered while logging you in");
+      }
+    }
+
+    if (statusCode == 405) {
+      throw BackendException(
+          message: "User login failed",
+          // devDetails: "$response",
+          prettyDetails: "Incorrect login details");
+    }
+    throw BackendException(
+        message: "Unable to login User",
+        // devDetails: "$response",
+        prettyDetails:
+            "Unexpected error encountered while trying to log you in");
+  }
+
+  @override
+  FutureOr<void> verifyOTP(VerifyOTPRequest tokenData) async {
+    final statusCode = 201;
+
+    if (statusCode == 201) {
+      logger.v("OTP verified successfully");
+
+      return;
+    }
+    if (statusCode == 401) {
+      logger.v("OTP is not valid");
+      throw BackendException(
+          message: "Invalid OTP",
+          // devDetails: "$response",
+          prettyDetails: "Invalid OTP");
+    }
+
+    throw BackendException(
+        message: "Unexpected Response",
+        // devDetails: "$response",
+        prettyDetails:
+            "Unexpected error encountered while trying to verify your OTP");
+  }
+
+  @override
+  FutureOr<String> sendOTP(SendOTPRequest sendOTPData) async {
+    final statusCode = 201;
+
+    if (statusCode == 201) {
+      logger.v("OTP sent successfully");
+      return "response.data";
+    }
+    throw BackendException(
+        message: "Unexpected Response",
+        // devDetails: "$response",
+        prettyDetails: "Unexpected error encountered while sending your OTP");
+  }
+
+  @override
+  FutureOr<void> intiateResetPassword(String emailOrPhoneNumber) {
+    // TODO: implement intiateResetPassword
+    return null;
   }
 }

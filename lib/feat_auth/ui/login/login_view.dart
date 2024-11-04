@@ -41,104 +41,91 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
       resizeToAvoidBottomInset: false,
       // backgroundColor: Theme.of(context).colorScheme.background,
       body: SafeArea(
-        child: LayoutBuilder(builder: (context, constraints) {
-          final double height =
-              constraints.biggest.height < constraints.biggest.longestSide
-                  ? 600
-                  : constraints.biggest.longestSide;
-          return SingleChildScrollView(
-            child: ConstrainedBox(
-              constraints: BoxConstraints.loose(Size(double.infinity, height)),
-              child: Container(
-                padding: const EdgeInsets.only(
-                  left: 25.0,
-                  right: 25.0,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    verticalSpace(42),
-                    // logo
-                    Image.asset(
-                      appLogoPath(context),
-                      height: 55,
-                    ),
-                    verticalSpace(60),
+        child: Container(
+          padding: const EdgeInsets.only(
+            left: 25.0,
+            right: 25.0,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              verticalSpace(42),
+              // logo
+              Image.asset(
+                appLogoPath(context),
+                height: 55,
+              ),
+              verticalSpace(60),
 
-                    Text(
-                      'Welcome back!',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      "Let’s thrive together",
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    ),
-
-                    verticalSpace(30),
-
-                    // email /phone number
-                    CustomInputField(
-                      iconPath: AppImagesSVG.user,
-                      child: TextFormField(
-                        decoration: InputDecoration()
-                            .copyWith(labelText: "Phone number or Email"),
-                        controller: emailPhoneNumberController,
-                      ),
-                      errorText: viewModel.emailPhoneNumberValidationMessage,
-                    ),
-
-                    //password
-                    CustomInputField(
-                      iconPath: AppImagesSVG.lock,
-                      child: TextFormField(
-                        keyboardType: TextInputType.number,
-                        decoration:
-                            InputDecoration().copyWith(labelText: "Pin"),
-                        controller: passwordController,
-                      ),
-                      errorText: viewModel.passwordValidationMessage,
-                    ),
-
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: TextButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Forgot password?',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium!
-                                .copyWith(
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          )),
-                    ),
-                    ModelErrorDisplay(viewModel: viewModel),
-                    Spacer(),
-                    PrimaryButton(
-                      onPressed: viewModel.buttonPress,
-                      label: "Login",
-                      loading: viewModel.isBusy,
-                    ),
-                    verticalSpace(24),
-                    SwitchSignInType(
-                      onLoginPage: true,
-                    ),
-                    verticalSpace(42),
-                  ],
+              Text(
+                'Welcome back!',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
-            ),
-          );
-        }),
+              const SizedBox(height: 4),
+              Text(
+                "Let’s thrive together",
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+
+              verticalSpace(30),
+
+              // email /phone number
+              CustomInputField(
+                iconPath: AppImagesSVG.user,
+                child: TextFormField(
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration()
+                      .copyWith(labelText: "Phone number or Email"),
+                  controller: emailPhoneNumberController,
+                ),
+                errorText: viewModel.emailPhoneNumberValidationMessage,
+              ),
+
+              //password
+              CustomInputField(
+                iconPath: AppImagesSVG.lock,
+                child: TextFormField(
+                  keyboardType: TextInputType.number,
+                  obscureText: true,
+                  decoration: InputDecoration().copyWith(labelText: "Pin"),
+                  controller: passwordController,
+                ),
+                errorText: viewModel.passwordValidationMessage,
+              ),
+
+              Align(
+                alignment: Alignment.centerLeft,
+                child: TextButton(
+                    onPressed: viewModel.forgotPassword,
+                    child: Text(
+                      'Forgot password?',
+                      style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    )),
+              ),
+              ModelErrorDisplay(viewModel: viewModel),
+              Spacer(),
+              PrimaryButton(
+                onPressed: viewModel.buttonPress,
+                label: "Login",
+                loading: viewModel.isBusy,
+              ),
+              verticalSpace(24),
+              SwitchSignInType(
+                onLoginPage: true,
+              ),
+              verticalSpace(42),
+            ],
+          ),
+        ),
       ),
     );
   }
