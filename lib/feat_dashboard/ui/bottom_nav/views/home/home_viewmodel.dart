@@ -71,7 +71,10 @@ class HomeViewModel extends BaseViewModel {
           transactionAmount: "3000",
           transactionTime: "14:40 PM"));
 
+  List<TransactionModel> get recentLoanTransactions => recentLoanTransactions;
   List<TransactionModel> _recentLoanTransactions = [];
+  bool get hasContributionHistory => _recentAccountTransactions.isNotEmpty;
+  bool get hasLoanHistory => _recentLoanTransactions.isNotEmpty;
 
   String userName = "Chinoney";
 }

@@ -173,43 +173,73 @@ class ContributionPage extends StatelessWidget {
             contributionCard: true,
           ),
           38.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Recent transactions',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 18,
-                  fontFamily: 'Onest',
-                  fontWeight: FontWeight.w500,
+          viewModel.hasContributionHistory
+              ? Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Recent transactions',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              fontSize: 18,
+                              fontFamily: 'Onest',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'View all',
+                            style: TextStyle(
+                              color: Color(0xFF03B98F),
+                              fontSize: 16,
+                              fontFamily: 'Onest',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      8.verticalSpace,
+                      Divider(
+                        color: Color(0xFF939090),
+                      ),
+                      16.verticalSpace,
+                      Expanded(
+                          child: ListView.separated(
+                        padding: EdgeInsets.only(bottom: 16),
+                        itemCount: viewModel.recentAccoutTransactions.length,
+                        itemBuilder: (context, index) => ListCard(
+                            child: RecentTransactionBody(
+                          transactionModel:
+                              viewModel.recentAccoutTransactions[index],
+                        )),
+                        separatorBuilder: (context, index) => 16.verticalSpace,
+                      )),
+                    ],
+                  ),
+                )
+              : Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        'You are yet to join a cooperative society.\nClick the button below to get started',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Onest',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      30.verticalSpace,
+                      PrimaryButton(
+                        onPressed: () {},
+                        label: "Join a cooperative society",
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Text(
-                'View all',
-                style: TextStyle(
-                  color: Color(0xFF03B98F),
-                  fontSize: 16,
-                  fontFamily: 'Onest',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          8.verticalSpace,
-          HorizontalLine(),
-          16.verticalSpace,
-          Expanded(
-              child: ListView.separated(
-            padding: EdgeInsets.only(bottom: 16),
-            itemCount: viewModel.recentAccoutTransactions.length,
-            itemBuilder: (context, index) => ListCard(
-                child: RecentTransactionBody(
-              transactionModel: viewModel.recentAccoutTransactions[index],
-            )),
-            separatorBuilder: (context, index) => 16.verticalSpace,
-          ))
         ],
       ),
     );
@@ -234,63 +264,76 @@ class LoanPage extends StatelessWidget {
             contributionCard: false,
           ),
           38.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Loan transactions',
-                style: TextStyle(
-                  color: Theme.of(context).colorScheme.onPrimary,
-                  fontSize: 18,
-                  fontFamily: 'Onest',
-                  fontWeight: FontWeight.w500,
+          viewModel.hasLoanHistory
+              ? Expanded(
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        // crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Loan transactions',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.onPrimary,
+                              fontSize: 18,
+                              fontFamily: 'Onest',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            'View all',
+                            style: TextStyle(
+                              color: Color(0xFF03B98F),
+                              fontSize: 16,
+                              fontFamily: 'Onest',
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                      8.verticalSpace,
+                      Divider(
+                        color: Color(0xFF939090),
+                      ),
+                      16.verticalSpace,
+                      Expanded(
+                          child: ListView.separated(
+                        padding: EdgeInsets.only(bottom: 16),
+                        itemCount: viewModel.recentLoanTransactions.length,
+                        itemBuilder: (context, index) => ListCard(
+                            child: RecentTransactionBody(
+                          transactionModel:
+                              viewModel.recentAccoutTransactions[index],
+                        )),
+                        separatorBuilder: (context, index) => 16.verticalSpace,
+                      )),
+                    ],
+                  ),
+                )
+              : Expanded(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Recent transitions on loan history will appear here',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: 'Onest',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      30.verticalSpace,
+                      PrimaryButton(
+                        width: 272,
+                        onPressed: () {},
+                        label: "Apply for a loan",
+                      )
+                    ],
+                  ),
                 ),
-              ),
-              Text(
-                'View all',
-                style: TextStyle(
-                  color: Color(0xFF03B98F),
-                  fontSize: 16,
-                  fontFamily: 'Onest',
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
-          ),
-          8.verticalSpace,
-          HorizontalLine(),
-          16.verticalSpace,
-          Expanded(
-              child: ListView.separated(
-            padding: EdgeInsets.only(bottom: 16),
-            itemCount: viewModel.recentAccoutTransactions.length,
-            itemBuilder: (context, index) => ListCard(
-                child: RecentTransactionBody(
-              transactionModel: viewModel.recentAccoutTransactions[index],
-            )),
-            separatorBuilder: (context, index) => 16.verticalSpace,
-          ))
         ],
-      ),
-    );
-  }
-}
-
-class HorizontalLine extends StatelessWidget {
-  const HorizontalLine({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      // padding: const EdgeInsets.symmetric(vertical: 8),
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(width: 1, color: Color(0xFF939090)),
-        ),
       ),
     );
   }

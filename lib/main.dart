@@ -61,7 +61,7 @@ class MainApp extends StatelessWidget {
 }
 
 abstract class Overides {
-  static const overrideInitialLocation = Routes.bottomNavView;
+  static const overrideInitialLocation = null;
 
   static const bool mockAuthRepository = true;
 }
