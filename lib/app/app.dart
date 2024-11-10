@@ -24,6 +24,7 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/finance_v
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_view.dart';
 
+import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_service.dart';
 // @stacked-import
 
 @StackedApp(routes: [
@@ -55,6 +56,7 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_v
   // LazySingleton(asType: AuthRepository, classType: BackendAuthRepository),
   LazySingleton(classType: DioService),
   LazySingleton(classType: StorageService),
+  LazySingleton(classType: CooperativeRepository),
 // @stacked-service
 ], bottomsheets: [
   StackedBottomsheet(classType: NoticeSheet),

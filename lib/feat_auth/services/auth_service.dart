@@ -7,6 +7,7 @@ import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart';
 import 'package:thrivia_app/feat_auth/data_models/login_user_response.dart';
+import 'package:thrivia_app/feat_auth/data_models/user.dart';
 
 import '../repository/auth_repository_service.dart';
 

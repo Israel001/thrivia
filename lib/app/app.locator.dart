@@ -13,6 +13,7 @@ import 'package:stacked_shared/stacked_shared.dart';
 
 import '../feat_auth/repository/auth_repository_service.dart';
 import '../feat_auth/services/auth_service.dart';
+import '../feat_cooperative/repository/cooperatives_repository_service.dart';
 import '../services/dio_service.dart';
 import '../services/storage_service.dart';
 
@@ -34,4 +35,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton<AuthRepository>(() => MockedAuthRepository());
   locator.registerLazySingleton(() => DioService());
   locator.registerLazySingleton(() => StorageService());
+  locator.registerLazySingleton(() => CooperativeRepository());
 }

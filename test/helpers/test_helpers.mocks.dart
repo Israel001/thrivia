@@ -16,6 +16,8 @@ import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart'
     as _i2;
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart'
     as _i10;
+import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_service.dart'
+    as _i13;
 import 'package:thrivia_app/services/dio_service.dart' as _i11;
 import 'package:thrivia_app/services/storage_service.dart' as _i12;
 
@@ -764,13 +766,13 @@ class MockAuthRepository extends _i1.Mock implements _i10.AuthRepository {
   _i8.FutureOr<String> requestOTP(_i2.SendOTPRequest? sendOTPData) =>
       (super.noSuchMethod(
         Invocation.method(
-          #sendOTP,
+          #requestOTP,
           [sendOTPData],
         ),
         returnValue: _i8.Future<String>.value(_i6.dummyValue<String>(
           this,
           Invocation.method(
-            #sendOTP,
+            #requestOTP,
             [sendOTPData],
           ),
         )),
@@ -778,18 +780,87 @@ class MockAuthRepository extends _i1.Mock implements _i10.AuthRepository {
             _i8.Future<String>.value(_i6.dummyValue<String>(
           this,
           Invocation.method(
-            #sendOTP,
+            #requestOTP,
             [sendOTPData],
           ),
         )),
       ) as _i8.FutureOr<String>);
 
   @override
-  _i8.FutureOr<void> intiateResetPassword(String? emailOrPhoneNumber) =>
+  _i8.FutureOr<
+      ({
+        _i2.OtpActionType otpActionType,
+        String? otpVerifyId,
+        String pinId,
+        String userUuid
+      })> intiateResetPassword(
+          String? emailOrPhoneNumber) =>
       (super.noSuchMethod(
         Invocation.method(
           #intiateResetPassword,
           [emailOrPhoneNumber],
+        ),
+        returnValue: _i8.Future<
+            ({
+              _i2.OtpActionType otpActionType,
+              String? otpVerifyId,
+              String pinId,
+              String userUuid
+            })>.value((
+          otpActionType: _i2.OtpActionType.RESET_PASSWORD,
+          otpVerifyId: null,
+          pinId: _i6.dummyValue<String>(
+            this,
+            Invocation.method(
+              #intiateResetPassword,
+              [emailOrPhoneNumber],
+            ),
+          ),
+          userUuid: _i6.dummyValue<String>(
+            this,
+            Invocation.method(
+              #intiateResetPassword,
+              [emailOrPhoneNumber],
+            ),
+          )
+        )),
+        returnValueForMissingStub: _i8.Future<
+            ({
+              _i2.OtpActionType otpActionType,
+              String? otpVerifyId,
+              String pinId,
+              String userUuid
+            })>.value((
+          otpActionType: _i2.OtpActionType.RESET_PASSWORD,
+          otpVerifyId: null,
+          pinId: _i6.dummyValue<String>(
+            this,
+            Invocation.method(
+              #intiateResetPassword,
+              [emailOrPhoneNumber],
+            ),
+          ),
+          userUuid: _i6.dummyValue<String>(
+            this,
+            Invocation.method(
+              #intiateResetPassword,
+              [emailOrPhoneNumber],
+            ),
+          )
+        )),
+      ) as _i8.FutureOr<
+          ({
+            _i2.OtpActionType otpActionType,
+            String? otpVerifyId,
+            String pinId,
+            String userUuid
+          })>);
+
+  @override
+  _i8.FutureOr<void> resetPassword(String? newPassword) => (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [newPassword],
         ),
         returnValueForMissingStub: null,
       ) as _i8.FutureOr<void>);
@@ -885,3 +956,9 @@ class MockStorageService extends _i1.Mock implements _i12.StorageService {
         returnValueForMissingStub: null,
       ) as _i8.FutureOr<void>);
 }
+
+/// A class which mocks [CooperativesRepositoryService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockCooperativesRepositoryService extends _i1.Mock
+    implements _i13.CooperativeRepository {}

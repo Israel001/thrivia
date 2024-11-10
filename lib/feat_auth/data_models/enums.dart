@@ -17,6 +17,17 @@ enum AuthState {
   newUser
 }
 
+enum LoanStatus { pending, active, rejected, cancelled, closed, overdue }
+
+final loanStatusValues = EnumValues({
+  "PENDING": LoanStatus.pending,
+  "ACTIVE": LoanStatus.active,
+  "REJECTED": LoanStatus.rejected,
+  "CANCELLED": LoanStatus.cancelled,
+  "CLOSED": LoanStatus.closed,
+  "OVERDUE": LoanStatus.overdue
+});
+
 class EnumValues<T> {
   Map<String, T> map;
   late Map<T, String> reverseMap;
