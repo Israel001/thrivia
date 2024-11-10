@@ -761,7 +761,7 @@ class MockAuthRepository extends _i1.Mock implements _i10.AuthRepository {
       ) as _i8.FutureOr<void>);
 
   @override
-  _i8.FutureOr<String> sendOTP(_i2.SendOTPRequest? sendOTPData) =>
+  _i8.FutureOr<String> requestOTP(_i2.SendOTPRequest? sendOTPData) =>
       (super.noSuchMethod(
         Invocation.method(
           #sendOTP,

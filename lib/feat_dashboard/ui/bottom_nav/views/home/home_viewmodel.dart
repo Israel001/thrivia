@@ -1,7 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 
 class HomeViewModel extends BaseViewModel {
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void openEndDrawer() {
+    scaffoldKey.currentState!.openDrawer();
+  }
+
+  void closeEndDrawer(BuildContext context) {
+    Navigator.of(context).pop();
+  }
+
   double _contributionBalance = 0;
   String get contributionBalanceText {
     final text = _contributionBalance.toStringAsFixed(2);
@@ -61,6 +72,8 @@ class HomeViewModel extends BaseViewModel {
           transactionTime: "14:40 PM"));
 
   List<TransactionModel> _recentLoanTransactions = [];
+
+  String userName = "Chinoney";
 }
 
 class TransactionModel {

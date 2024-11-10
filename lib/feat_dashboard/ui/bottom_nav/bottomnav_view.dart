@@ -8,7 +8,7 @@ import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/common/constants.dart';
 import 'package:thrivia_app/common/ui_helpers.dart';
 
-import 'bottomnave_viewmodel.dart';
+import 'bottomnav_viewmodel.dart';
 
 class BottomNavView extends StackedView<BottomNavViewModel> {
   const BottomNavView({Key? key}) : super(key: key);
@@ -99,7 +99,7 @@ class CustomBottomNav extends StatelessWidget {
         // bottom: 15,
       ),
       decoration: BoxDecoration(
-        color: Color(0xFF0D1015),
+        color: lightMode(context) ? Colors.white : Color(0xFF0D1015),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
@@ -171,7 +171,9 @@ class NavBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSelected = index == currentIndex;
-    final color = isSelected ? Colors.white : Color(0xFF939090);
+    final color = isSelected
+        ? Theme.of(context).colorScheme.onPrimary
+        : Color(0xFF939090);
     return TextButton(
       onPressed: onTap,
       child: Column(
