@@ -17,6 +17,8 @@ class AuthService with ListenableServiceMixin {
     listenToReactiveValues([_authState]);
   }
 
+  User? _user;
+
   AuthState _authState = AuthState.newUser;
   AuthState get authState => _authState;
 
@@ -30,6 +32,9 @@ class AuthService with ListenableServiceMixin {
   PendingOTPData? _pendingOTPDetails;
 
   String? _passwordChangeToken;
+
+  String? _accessToken;
+  String? _refreshToken;
 
   FutureOr<void> createAccount(CreateUserRequest newUser) async {
     final response = await _authRepository.createAccount(newUser);
@@ -50,6 +55,10 @@ class AuthService with ListenableServiceMixin {
 
     if (response is LoginResponse) {
       _authState = AuthState.loggedIn;
+      // final loginResponse = response as LoginResponse;
+      _user = response.user;
+      _accessToken = response.accessToken;
+      _refreshToken = response.refreshToken;
 
       //saveresponse
       // _accessToken = response.accessToken;
@@ -106,8 +115,8 @@ class AuthService with ListenableServiceMixin {
 
   //send otp
 
-  Future<void> sendOTP() async {
-    logger.v("Sending OTP");
+  Future<void> requestOTP() async {
+    logger.v("Requesting OTP");
     SendOTPRequest sendOTPData = SendOTPRequest(
       otpActionType: _pendingOTPDetails!.otpActionType,
       userUuid: _pendingOTPDetails!.userUuid,
@@ -120,13 +129,21 @@ class AuthService with ListenableServiceMixin {
         ? AuthState.pendingPasswordResetOTP
         : _authState;
     logger.v("Updated authState to : $_authState");
-    final otpId = await _authRepository.sendOTP(sendOTPData);
+    final otpId = await _authRepository.requestOTP(sendOTPData);
     _pendingOTPDetails = (
       otpActionType: _pendingOTPDetails!.otpActionType,
       otpVerifyId: otpId,
       pinId: _pendingOTPDetails!.pinId,
       userUuid: _pendingOTPDetails!.userUuid
     );
+  }
+
+  Future<void> resetPassword(String emailPhoneNumberValue) async {
+    logger.v("Initiate reset password");
+    final otpDetails =
+        await _authRepository.intiateResetPassword(emailPhoneNumberValue);
+    _authState = AuthState.pendingPasswordResetOTP;
+    _pendingOTPDetails = otpDetails;
   }
 
   // logout

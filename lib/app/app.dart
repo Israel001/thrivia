@@ -23,6 +23,7 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/community/communi
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/finance_view.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_view.dart';
+
 // @stacked-import
 
 @StackedApp(routes: [
@@ -39,6 +40,7 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_v
   MaterialRoute(page: FinanceView),
   MaterialRoute(page: CommunityView),
   MaterialRoute(page: ProfileView),
+  // MaterialRoute(page: ForgotPasswordView),
 // @stacked-route
 ], dependencies: [
   LazySingleton(classType: BottomSheetService),

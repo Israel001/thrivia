@@ -7,6 +7,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/app/app.router.dart';
+import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart';
 import 'package:thrivia_app/feat_auth/data_models/verify_o_t_p_request.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 import 'package:thrivia_app/feat_auth/ui/otp/otp_view.dart';
@@ -82,7 +83,7 @@ class OtpViewModel extends FormViewModel {
 
     setError(null);
 
-    await runErrorFuture(_authService.sendOTP(), key: requestOTPBusyKey);
+    await runErrorFuture(_authService.requestOTP(), key: requestOTPBusyKey);
     setError(error(requestOTPBusyKey));
 
     clearForm();
@@ -124,7 +125,10 @@ class OtpViewModel extends FormViewModel {
     final result =
         await runBusyFuture(_authService.verifyOTP(otp), throwException: true);
 
-    _navigationService.navigateTo(Routes.bottomNavView);
+    if (_authService.authState == AuthState.pendingPasswordResetOTP) {
+      _navigationService.back(result: true);
+    }
+    _navigationService.replaceWithBottomNavView();
 
     // setError();
   }

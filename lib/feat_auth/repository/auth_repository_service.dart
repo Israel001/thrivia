@@ -7,6 +7,7 @@ import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/common/exceptions.dart';
 import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart';
 import 'package:thrivia_app/feat_auth/data_models/login_user_response.dart';
+import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 import 'package:thrivia_app/services/dio_service.dart';
 
 import '../../common/api_constants.dart';
@@ -18,9 +19,10 @@ abstract class AuthRepository {
 
   FutureOr<void> verifyOTP(VerifyOTPRequest tokenData);
 
-  FutureOr<String> sendOTP(SendOTPRequest sendOTPData);
+  FutureOr<String> requestOTP(SendOTPRequest sendOTPData);
 
-  FutureOr<void> intiateResetPassword(String emailOrPhoneNumber);
+  FutureOr<PendingOTPData> intiateResetPassword(String emailOrPhoneNumber);
+  FutureOr<void> resetPassword(String newPassword);
 }
 
 class BackendAuthRepository extends AuthRepository {
@@ -155,7 +157,7 @@ class BackendAuthRepository extends AuthRepository {
   }
 
   @override
-  FutureOr<String> sendOTP(SendOTPRequest sendOTPData) async {
+  FutureOr<String> requestOTP(SendOTPRequest sendOTPData) async {
     final response = await dio.postUri(
         Uri.https(
           ApiConstants.authority,
@@ -174,22 +176,47 @@ class BackendAuthRepository extends AuthRepository {
   }
 
   @override
-  FutureOr<void> intiateResetPassword(String emailOrPhoneNumber) async {
+  FutureOr<PendingOTPData> intiateResetPassword(
+      String emailOrPhoneNumber) async {
     logger.v("intiate reset password");
     final data = jsonEncode({"emailOrPhone": emailOrPhoneNumber});
     final response = await dio.postUri(
         Uri.https(
           ApiConstants.authority,
-          ApiConstants.users,
+          ApiConstants.authInitResetPassword,
         ),
         data: data);
 
-    if (response.statusCode == 201) {}
+    if (response.statusCode == 201) {
+      return response.data;
+    }
 
     throw BackendException(
         message: "Could not reset password",
         devDetails: "${response.data.message}",
         prettyDetails: "An error occured while trying to reset your password");
+  }
+
+  @override
+  FutureOr<void> resetPassword(String newPassword) async {
+    final data = jsonEncode({"password": newPassword});
+    final response = await dio.postUri(
+        Uri.https(
+          ApiConstants.authority,
+          ApiConstants.authResetPassword,
+        ),
+        data: data);
+
+    if (response.statusCode == 201) {
+      logger.v("Password reset successfully");
+      return response.data;
+    }
+
+    throw BackendException(
+        message: "Unexpected Response",
+        devDetails: "$response",
+        prettyDetails:
+            "Unexpected error encountered while resetting your password");
   }
 }
 
@@ -270,7 +297,7 @@ class MockedAuthRepository extends AuthRepository {
     if (statusCode == 201) {
       logger.v("user authorised");
 
-// return loginResponse;
+      // return loginResponse;
       try {
         logger.v("user not verified, received otp details");
         return createAccountResponse;
@@ -322,7 +349,7 @@ class MockedAuthRepository extends AuthRepository {
   }
 
   @override
-  FutureOr<String> sendOTP(SendOTPRequest sendOTPData) async {
+  FutureOr<String> requestOTP(SendOTPRequest sendOTPData) async {
     final statusCode = 201;
 
     if (statusCode == 201) {
@@ -336,8 +363,19 @@ class MockedAuthRepository extends AuthRepository {
   }
 
   @override
-  FutureOr<void> intiateResetPassword(String emailOrPhoneNumber) {
-    // TODO: implement intiateResetPassword
+  FutureOr<PendingOTPData> intiateResetPassword(String emailOrPhoneNumber) {
+    final PendingOTPData otpData = (
+      otpActionType: OtpActionType.RESET_PASSWORD,
+      otpVerifyId: null,
+      pinId: " ",
+      userUuid: " "
+    );
+    return otpData;
+  }
+
+  @override
+  FutureOr<void> resetPassword(String newPassword) {
+    // TODO: implement resetPassword
     return null;
   }
 }

@@ -35,15 +35,20 @@ class LoginViewModel extends FormViewModel {
     );
 
     if (_authService.goToOTPScreen) {
+      logger.v("Goto otp screen");
       _navigationService.navigateToOtpView(timerStarted: true);
       return;
     }
 
     if (_authService.authState == AuthState.loggedIn) {
+      logger.v("Goto bottom nav");
       _navigationService.replaceWith(Routes.bottomNavView);
       return;
     }
   }
 
-  void forgotPassword() {}
+  void forgotPassword() {
+    logger.v("Goto forgotPassword");
+    _navigationService.navigateTo(Routes.forgotPasswordView);
+  }
 }

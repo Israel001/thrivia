@@ -31,7 +31,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton<NavigationService>(() => NavigationService());
   locator.registerLazySingleton(() => AuthService());
-  locator.registerLazySingleton<AuthRepository>(() => BackendAuthRepository());
+  locator.registerLazySingleton<AuthRepository>(() => MockedAuthRepository());
   locator.registerLazySingleton(() => DioService());
   locator.registerLazySingleton(() => StorageService());
 }
