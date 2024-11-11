@@ -27,22 +27,6 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
     OtpViewModel viewModel,
     Widget? child,
   ) {
-    final controllers = [
-      d1Controller,
-      d2Controller,
-      d3Controller,
-      d4Controller,
-      d5Controller,
-      // d6Controller,
-    ];
-    final focusNodes = [
-      d1FocusNode,
-      d2FocusNode,
-      d3FocusNode,
-      d4FocusNode,
-      d5FocusNode,
-      // d6FocusNode,
-    ];
     return Scaffold(
       appBar: AppBar(
         title: const Text('OTP Verification'),
@@ -78,22 +62,24 @@ class OtpView extends StackedView<OtpViewModel> with $OtpView {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: List.generate(
-                  controllers.length,
+                  viewModel.textControllers.length,
                   (index) => SizedBox(
                     width: 50,
                     child: TextField(
-                      focusNode: focusNodes[index],
-                      controller: controllers[index],
+                      // autofocus: true,
+
+                      focusNode: viewModel.focusNodes[index],
+                      controller: viewModel.textControllers[index],
                       textAlign: TextAlign.center,
-                      keyboardType: TextInputType.number,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: false),
                       maxLength: 1,
                       onChanged: (value) {
-                        if (controllers[index].text.isNotEmpty) {
-                          // FocusScope.of(context).onKeyEvent
-                          //   viewModel.backspace(index);
-                          // } else {
+                        if (value.length == 1) {
+                          // FocusScope.of(context).nextFocus();
                           viewModel.forward(index);
-                        }
+                          // viewModel.backspace(index);
+                        } else {}
                       },
                       style: TextStyle(
                           // color: Theme.of(context).colorScheme.primary,

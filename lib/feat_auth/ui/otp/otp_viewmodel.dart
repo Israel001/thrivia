@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -35,6 +37,20 @@ class OtpViewModel extends FormViewModel {
   set otpView(OtpView otpView) {
     _OTPView = otpView;
 
+// var    onKeyEvent = (index, element) {
+//       if (index == 0) {
+//         return element;
+//       }
+//       element.onKeyEvent = (node, event) {
+//         if (event.logicalKey == LogicalKeyboardKey.backspace &&
+//             event is KeyUpEvent) {
+//           // FocusScope.of(context).previousFocus();
+//           node.previousFocus();
+//         }
+//         return KeyEventResult.ignored;
+//       };
+//       return element;
+//     };
     focusNodes = [
       _OTPView.d1FocusNode,
       _OTPView.d2FocusNode,
@@ -42,6 +58,24 @@ class OtpViewModel extends FormViewModel {
       _OTPView.d4FocusNode,
       _OTPView.d5FocusNode,
     ];
+    //.indexed.map((e) {
+    //   final (index, node) = e;
+
+    //   if (index == 0) {
+    //     return node;
+    //   }
+    //   node.onKeyEvent = (node, event) {
+    //     if (event.logicalKey == LogicalKeyboardKey.backspace &&
+    //         textControllers[index].text.isEmpty &&
+    //         event is KeyUpEvent) {
+    //       // FocusScope.of(context).previousFocus();
+    //       // node.previousFocus();
+    //       backspace(index);
+    //     }
+    //     return KeyEventResult.ignored;
+    //   };
+    //   return node;
+    // }).toList();
 
     textControllers = [
       _OTPView.d1Controller,
@@ -83,8 +117,8 @@ class OtpViewModel extends FormViewModel {
 
     setError(null);
 
-    await runErrorFuture(_authService.requestOTP(), key: requestOTPBusyKey);
-    setError(error(requestOTPBusyKey));
+    await runErrorFuture(_authService.requestOTP());
+    // setError(error(requestOTPBusyKey));
 
     clearForm();
     startTimer();
@@ -122,8 +156,7 @@ class OtpViewModel extends FormViewModel {
 
     setError(null);
 
-    final result =
-        await runBusyFuture(_authService.verifyOTP(otp), throwException: true);
+    final result = await runBusyFuture(_authService.verifyOTP(otp));
 
     if (_authService.authState == AuthState.pendingPasswordResetOTP) {
       _navigationService.back(result: true);

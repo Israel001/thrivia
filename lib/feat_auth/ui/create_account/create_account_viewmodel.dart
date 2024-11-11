@@ -41,6 +41,6 @@ class CreateAccountViewModel extends FormViewModel {
       logger.v("form invalid - return");
       return;
     }
-    runBusyFuture(_createAccount(), throwException: true);
+    runBusyFuture(_createAccount());
   }
 }

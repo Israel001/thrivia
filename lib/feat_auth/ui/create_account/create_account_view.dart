@@ -156,7 +156,7 @@ class CreateAccountView extends StackedView<CreateAccountViewModel>
                     keyboardType: TextInputType.number,
                     obscureText: true,
                     decoration: const InputDecoration()
-                        .copyWith(labelText: "Create pin"),
+                        .copyWith(labelText: "Create pin", hintText: "123456"),
                     controller: pinController,
                   ),
                 ),

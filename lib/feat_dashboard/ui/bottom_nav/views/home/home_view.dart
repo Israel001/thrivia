@@ -30,7 +30,7 @@ class HomeView extends StackedView<HomeViewModel> {
           Positioned(
               left: 0,
               right: 0,
-              top: 261,
+              top: 273,
               child: DotsIndicator(
                 dotsCount: 2,
                 position: viewModel.currentPage,
@@ -108,13 +108,10 @@ class CoopertivesDrawer extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
-
             15.verticalSpace,
-
             Divider(
               color: Color(0xFFDADADA),
             ),
-
             ...List.generate(
               4,
               (index) => CooperativeCard(
@@ -122,15 +119,9 @@ class CoopertivesDrawer extends StatelessWidget {
                   cooperativeName: "cooperativeName",
                   cooperativeImageUrl: "cooperativeImageUrl"),
             ),
-            // ElevatedButton(
-            //   // onPressed: _closeEndDrawer,
-            //   child: const Text('Close Drawer'),
-            // ),
-
             23.verticalSpace,
-
             PrimaryButton(
-              onPressed: () {},
+              onPressed: viewModel.addCooperative,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -234,7 +225,7 @@ class ContributionPage extends StatelessWidget {
                       ),
                       30.verticalSpace,
                       PrimaryButton(
-                        onPressed: () {},
+                        onPressed: viewModel.joinCooperative,
                         label: "Join a cooperative society",
                       )
                     ],
@@ -327,7 +318,7 @@ class LoanPage extends StatelessWidget {
                       30.verticalSpace,
                       PrimaryButton(
                         width: 272,
-                        onPressed: () {},
+                        onPressed: viewModel.applyForLoan,
                         label: "Apply for a loan",
                       )
                     ],
@@ -411,7 +402,9 @@ class TopBar extends StatelessWidget {
 
         //icons
         SvgPicture.asset(
-          AppImagesSVG.notification_bing,
+          viewModel.hasNotification
+              ? AppImagesSVG.notification_active
+              : AppImagesSVG.notification_bing,
           width: 24,
           height: 24,
           colorFilter:
@@ -443,8 +436,9 @@ class BalanceCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       // alignment: Alignment.centerLeft,
-      height: 165,
+      // height: 165,
       clipBehavior: Clip.antiAlias,
+
       decoration: ShapeDecoration(
         gradient: LinearGradient(
           begin: Alignment(0.66, -0.75),
@@ -459,17 +453,22 @@ class BalanceCard extends StatelessWidget {
       ),
       child: Stack(
         children: [
-          SizedBox.expand(),
+          // SizedBox.expand(),
           Positioned(
             right: 0,
             top: 0,
             child: SvgPicture.asset(AppImagesSVG.group_7),
           ),
-          contributionCard
-              ? ContributionCardBody(
-                  viewModel: viewModel,
-                )
-              : LoanCardBody(viewModel: viewModel),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: contributionCard
+                ? ContributionCardBody(
+                    viewModel: viewModel,
+                  )
+                : LoanCardBody(
+                    viewModel: viewModel,
+                  ),
+          ),
         ],
       ),
     );
@@ -485,103 +484,100 @@ class ContributionCardBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(12),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Your contribution balance',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontFamily: 'Onest',
-              fontWeight: FontWeight.w400,
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Your contribution balance',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontFamily: 'Onest',
+            fontWeight: FontWeight.w400,
           ),
-          8.verticalSpace,
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'N',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontFamily: 'Onest',
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: Colors.white,
-                        height: 0,
-                      ),
+        ),
+        8.verticalSpace,
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'N',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontFamily: 'Onest',
+                      fontWeight: FontWeight.w400,
+                      decoration: TextDecoration.lineThrough,
+                      decorationColor: Colors.white,
+                      height: 0,
                     ),
-                    TextSpan(
-                      text: viewModel.contributionBalanceText,
+                  ),
+                  TextSpan(
+                    text: viewModel.contributionBalanceText,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontFamily: 'Onest',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            TextButton(
+              onPressed: viewModel.toggleObscureContributionBalance,
+              child: svgPictureWithColor(
+                  assetName: AppImagesSVG.eye_slash,
+                  color: Colors.white,
+                  width: 20,
+                  height: 20),
+            )
+          ],
+        ),
+        16.verticalSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: 148,
+              child: PrimaryButton(
+                onPressed: viewModel.addMoney,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SvgPicture.asset(AppImagesSVG.add),
+                    8.horizontalSpace,
+                    Text(
+                      'Add money',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 30,
+                        fontSize: 14,
                         fontFamily: 'Onest',
                         fontWeight: FontWeight.w400,
-                        height: 0,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 8),
-              TextButton(
-                onPressed: viewModel.toggleObscureContributionBalance,
-                child: svgPictureWithColor(
-                    assetName: AppImagesSVG.eye_slash,
-                    color: Colors.white,
-                    width: 20,
-                    height: 20),
-              )
-            ],
-          ),
-          16.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
+            ),
+            if (viewModel.showWithdrawButton)
               SizedBox(
                 width: 148,
                 child: PrimaryButton(
-                  onPressed: viewModel.addMoney,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      SvgPicture.asset(AppImagesSVG.add),
-                      8.horizontalSpace,
-                      Text(
-                        'Add money',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
-                          fontFamily: 'Onest',
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              if (viewModel.showWithdrawButton)
-                SizedBox(
-                  width: 148,
-                  child: PrimaryButton(
-                      onPressed: viewModel.withdrawMoney, label: "Withdraw"),
-                )
-            ],
-          ),
-        ],
-      ),
+                    onPressed: viewModel.withdrawMoney, label: "Withdraw"),
+              )
+          ],
+        ),
+      ],
     );
   }
 }
@@ -595,86 +591,83 @@ class LoanCardBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(12),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            'Loan balance',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 14,
-              fontFamily: 'Onest',
-              fontWeight: FontWeight.w400,
-            ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Loan balance',
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontFamily: 'Onest',
+            fontWeight: FontWeight.w400,
           ),
-          8.verticalSpace,
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text.rich(
-                TextSpan(
-                  children: [
-                    TextSpan(
-                      text: 'N',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontFamily: 'Onest',
-                        fontWeight: FontWeight.w400,
-                        decoration: TextDecoration.lineThrough,
-                        decorationColor: Colors.white,
-                        height: 0,
-                      ),
+        ),
+        8.verticalSpace,
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'N',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontFamily: 'Onest',
+                      fontWeight: FontWeight.w400,
+                      decoration: TextDecoration.lineThrough,
+                      decorationColor: Colors.white,
+                      height: 0,
                     ),
-                    TextSpan(
-                      text: viewModel.loanBalanceText,
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 30,
-                        fontFamily: 'Onest',
-                        fontWeight: FontWeight.w400,
-                        height: 0,
-                      ),
+                  ),
+                  TextSpan(
+                    text: viewModel.loanBalanceText,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 30,
+                      fontFamily: 'Onest',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
                     ),
-                  ],
+                  ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            TextButton(
+              onPressed: viewModel.toggleObscureLoanBalance,
+              child: svgPictureWithColor(
+                  assetName: AppImagesSVG.eye_slash,
+                  color: Colors.white,
+                  width: 20,
+                  height: 20),
+            )
+          ],
+        ),
+        16.verticalSpace,
+        viewModel.showApplyLoan
+            ? SizedBox(
+                width: 148,
+                child: PrimaryButton(
+                    color: AppColors.gold,
+                    onPressed: viewModel.applyForLoan,
+                    label: "Apply for loan"),
+              )
+            : SizedBox(
+                width: 148,
+                child: PrimaryButton(
+                  color: AppColors.gold,
+                  onPressed: viewModel.repayLoan,
+                  label: "Repay loan",
                 ),
               ),
-              const SizedBox(width: 8),
-              TextButton(
-                onPressed: viewModel.toggleObscureLoanBalance,
-                child: svgPictureWithColor(
-                    assetName: AppImagesSVG.eye_slash,
-                    color: Colors.white,
-                    width: 20,
-                    height: 20),
-              )
-            ],
-          ),
-          16.verticalSpace,
-          viewModel.showApplyLoan
-              ? SizedBox(
-                  width: 148,
-                  child: PrimaryButton(
-                      color: AppColors.gold,
-                      onPressed: viewModel.applyForLoan,
-                      label: "Apply for loan"),
-                )
-              : SizedBox(
-                  width: 148,
-                  child: PrimaryButton(
-                    color: AppColors.gold,
-                    onPressed: viewModel.repayLoan,
-                    label: "Repay loan",
-                  ),
-                ),
-        ],
-      ),
+      ],
     );
   }
 }

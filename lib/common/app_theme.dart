@@ -48,6 +48,7 @@ abstract class AppTheme {
       InputDecorationTheme().copyWith(
     floatingLabelBehavior: FloatingLabelBehavior.auto,
     floatingLabelStyle: textTheme.bodySmall!.copyWith(color: Color(0xFF939090)),
+    hintStyle: textTheme.bodySmall!.copyWith(color: Color(0xFF939090)),
     labelStyle: textTheme.bodyMedium,
 
     // labelStyle: ,

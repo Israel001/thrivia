@@ -77,6 +77,12 @@ class HomeViewModel extends BaseViewModel {
   bool get hasLoanHistory => _recentLoanTransactions.isNotEmpty;
 
   String userName = "Chinoney";
+
+  bool get hasNotification => true;
+
+  void joinCooperative() {}
+
+  void addCooperative() {}
 }
 
 class TransactionModel {
