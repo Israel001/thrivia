@@ -1,6 +1,7 @@
 import 'package:thrivia_app/feat_auth/repository/backend_auth_repository.dart';
 import 'package:thrivia_app/feat_auth/repository/mocked_auth_repository.dart';
 import 'package:thrivia_app/feat_auth/ui/otp/otp_view.dart';
+import 'package:thrivia_app/feat_cooperative/repository/mock_cooperative_repository.dart';
 import 'package:thrivia_app/main.dart';
 import 'package:thrivia_app/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:thrivia_app/ui/dialogs/info_alert/info_alert_dialog.dart';
@@ -58,7 +59,12 @@ import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_
   // LazySingleton(asType: AuthRepository, classType: BackendAuthRepository),
   LazySingleton(classType: DioService),
   LazySingleton(classType: StorageService),
-  LazySingleton(classType: CooperativeRepository),
+  LazySingleton(
+    asType: CooperativeRepository,
+    classType: Overides.mockCooperativeRepository
+        ? MockCooperativeRepository
+        : BackendAuthRepository,
+  ),
 // @stacked-service
 ], bottomsheets: [
   StackedBottomsheet(classType: NoticeSheet),

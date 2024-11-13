@@ -10,7 +10,7 @@ import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 import 'package:thrivia_app/services/dio_service.dart';
 
-class BackendAuthRepository extends AuthRepository {
+class BackendAuthRepository implements AuthRepository {
   final dio = locator<DioService>().dio;
   final logger = getLogger("AuthRepository");
 
@@ -113,7 +113,7 @@ class BackendAuthRepository extends AuthRepository {
   }
 
   @override
-  FutureOr<void> verifyOTP(VerifyOTPRequest tokenData) async {
+  FutureOr<dynamic> verifyOTP(VerifyOTPBody tokenData) async {
     final response = await dio.postUri(
         Uri.https(
           ApiConstants.authority,
@@ -123,7 +123,7 @@ class BackendAuthRepository extends AuthRepository {
 
     if (response.statusCode == 201) {
       logger.v("OTP verified successfully");
-
+      response.data;
       return;
     }
     if (response.statusCode == 401) {
@@ -152,7 +152,16 @@ class BackendAuthRepository extends AuthRepository {
 
     if (response.statusCode == 201) {
       logger.v("OTP sent successfully");
-      return response.data;
+      try {
+        return "${response.data}";
+        // return VerifyOTPBody.fromJson(response.data);
+      } catch (e) {
+        throw InternalExcpetion(
+          message: "Unexpected response",
+          devDetails: "$e",
+          prettyDetails: "Unexpected error encountered while parsing response",
+        );
+      }
     }
     throw BackendException(
         message: "Unexpected Response",
@@ -161,7 +170,7 @@ class BackendAuthRepository extends AuthRepository {
   }
 
   @override
-  FutureOr<PendingOTPData> intiateResetPassword(
+  FutureOr<VerifyOTPBody> intiateResetPassword(
       String emailOrPhoneNumber) async {
     logger.v("intiate reset password");
     final data = jsonEncode({"emailOrPhone": emailOrPhoneNumber});
@@ -173,7 +182,16 @@ class BackendAuthRepository extends AuthRepository {
         data: data);
 
     if (response.statusCode == 201) {
-      return response.data;
+      // return response.data;
+      try {
+        return VerifyOTPBody.fromJson(response.data);
+      } catch (e) {
+        throw InternalExcpetion(
+          message: "Unexpected response",
+          devDetails: "$e",
+          prettyDetails: "Unexpected error encountered while parsing response",
+        );
+      }
     }
 
     throw BackendException(

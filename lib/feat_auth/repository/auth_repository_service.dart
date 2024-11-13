@@ -8,10 +8,10 @@ abstract class AuthRepository {
 
   FutureOr<dynamic> loginUser(LoginUserRequest userLogin);
 
-  FutureOr<void> verifyOTP(VerifyOTPRequest tokenData);
+  FutureOr<dynamic> verifyOTP(VerifyOTPBody tokenData);
 
   FutureOr<String> requestOTP(SendOTPRequest sendOTPData);
 
-  FutureOr<PendingOTPData> intiateResetPassword(String emailOrPhoneNumber);
+  FutureOr<VerifyOTPBody> intiateResetPassword(String emailOrPhoneNumber);
   FutureOr<void> resetPassword(String newPassword);
 }

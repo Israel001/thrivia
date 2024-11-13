@@ -30,7 +30,7 @@ class AuthService with ListenableServiceMixin {
   LoginResponse? _userResponse;
   // String? _refreshToken;
 
-  PendingOTPData? _pendingOTPDetails;
+  VerifyOTPBody? _pendingOTPDetails;
 
   String? _passwordChangeToken;
 
@@ -76,11 +76,12 @@ class AuthService with ListenableServiceMixin {
     logger.i("storing verify account otp details and updating authState");
 
     _authState = AuthState.pendingVerifyOTP;
-    _pendingOTPDetails = (
+    _pendingOTPDetails = VerifyOTPBody(
       otpActionType: OtpActionType.VERIFY_ACCOUNT,
       pinId: response.pinId,
       userUuid: response.uuid,
-      otpVerifyId: null
+      // otpVerifyId: null,
+      otp: null,
     );
     logger.d("OTP details: ${_pendingOTPDetails.toString()}");
   }
@@ -92,13 +93,14 @@ class AuthService with ListenableServiceMixin {
       logger.v("pending otp details are null - return");
       return;
     }
-    final verifyRequest = VerifyOTPRequest(
+    final verifyRequest = _pendingOTPDetails!.copyWith(
         otp: otp,
         otpActionType: _pendingOTPDetails!.otpActionType,
         pinId: _pendingOTPDetails!.pinId,
         userUuid: _pendingOTPDetails!.userUuid);
 
-    await _authRepository.verifyOTP(verifyRequest);
+    logger.v("otp request: ${verifyRequest.toString()}");
+    final response = await _authRepository.verifyOTP(verifyRequest);
 
     if (verifyRequest.otpActionType == OtpActionType.VERIFY_ACCOUNT) {
       //save user response
@@ -131,12 +133,13 @@ class AuthService with ListenableServiceMixin {
         : _authState;
     logger.v("Updated authState to : $_authState");
     final otpId = await _authRepository.requestOTP(sendOTPData);
-    _pendingOTPDetails = (
-      otpActionType: _pendingOTPDetails!.otpActionType,
-      otpVerifyId: otpId,
-      pinId: _pendingOTPDetails!.pinId,
-      userUuid: _pendingOTPDetails!.userUuid
-    );
+    _pendingOTPDetails = VerifyOTPBody(
+        otpActionType: _pendingOTPDetails!.otpActionType,
+        // otpVerifyId: otpId,
+
+        otp: null,
+        pinId: _pendingOTPDetails!.pinId,
+        userUuid: _pendingOTPDetails!.userUuid);
   }
 
   Future<void> resetPassword(String emailPhoneNumberValue) async {
@@ -152,9 +155,9 @@ class AuthService with ListenableServiceMixin {
   // reset password
 }
 
-typedef PendingOTPData = ({
-  OtpActionType otpActionType,
-  String pinId,
-  String userUuid,
-  String? otpVerifyId,
-});
+// typedef PendingOTPData = ({
+//   OtpActionType otpActionType,
+//   String pinId,
+//   String userUuid,
+//   String? otpVerifyId,
+// });

@@ -7,7 +7,7 @@ import 'package:thrivia_app/feat_auth/data_models/user.dart';
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 
-class MockedAuthRepository extends AuthRepository {
+class MockedAuthRepository implements AuthRepository {
   final logger = getLogger("MockAuthRepository");
 
   var createAccountResponse =
@@ -112,7 +112,7 @@ class MockedAuthRepository extends AuthRepository {
   }
 
   @override
-  FutureOr<void> verifyOTP(VerifyOTPRequest tokenData) async {
+  FutureOr<void> verifyOTP(VerifyOTPBody tokenData) async {
     final statusCode = 201;
 
     if (statusCode == 201) {
@@ -150,13 +150,13 @@ class MockedAuthRepository extends AuthRepository {
   }
 
   @override
-  FutureOr<PendingOTPData> intiateResetPassword(String emailOrPhoneNumber) {
-    final PendingOTPData otpData = (
-      otpActionType: OtpActionType.RESET_PASSWORD,
-      otpVerifyId: null,
-      pinId: " ",
-      userUuid: " "
-    );
+  FutureOr<VerifyOTPBody> intiateResetPassword(String emailOrPhoneNumber) {
+    final VerifyOTPBody otpData = VerifyOTPBody(
+        otpActionType: OtpActionType.RESET_PASSWORD,
+        // otpVerifyId: null,
+        otp: null,
+        pinId: " ",
+        userUuid: " ");
     return otpData;
   }
 

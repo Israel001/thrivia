@@ -22,8 +22,9 @@ Future<void> main() async {
   );
   final themeMode =
       (themeModeValue ?? "light") == "light" ? ThemeMode.light : ThemeMode.dark;
-  getLogger("mainMethod").i(
-      "Got themeMode value $themeModeValue from storage. ThemeMode is ${themeMode.name}");
+  getLogger("mainMethod")
+    ..i("Got themeMode value $themeModeValue from storage. ThemeMode is ${themeMode.name}")
+    ..i("Overides:/nninitial location:${Overides.overrideInitialLocation}/nauthrepository: ${Overides.mockAuthRepository}");
   setupDialogUi();
   setupBottomSheetUi();
   runApp(MainApp(
@@ -64,4 +65,6 @@ abstract class Overides {
   static const overrideInitialLocation = null;
 
   static const bool mockAuthRepository = true;
+
+  static const bool mockCooperativeRepository = true;
 }
