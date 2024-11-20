@@ -5,10 +5,12 @@ import 'package:dio/dio.dart';
 import 'package:stacked/stacked.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.logger.dart';
+import 'package:thrivia_app/common/json_parser.dart';
 import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart';
 import 'package:thrivia_app/feat_auth/data_models/login_user_response.dart';
 import 'package:thrivia_app/feat_auth/data_models/user.dart';
 
+import '../../common/exceptions.dart';
 import '../repository/auth_repository_service.dart';
 
 class AuthService with ListenableServiceMixin {
@@ -54,7 +56,12 @@ class AuthService with ListenableServiceMixin {
 
     final response = await _authRepository.loginUser(userLogin);
 
-    if (response is LoginResponse) {
+    try {
+      parseMultipleTypes([
+        LoginResponse.fromJson,
+        CreateAccountResponse.fromJson,
+      ], response);
+    } on LoginResponse catch (loginResponse) {
       _authState = AuthState.loggedIn;
       // final loginResponse = response as LoginResponse;
       _user = response.user;
@@ -64,11 +71,16 @@ class AuthService with ListenableServiceMixin {
       //saveresponse
       // _accessToken = response.accessToken;
       return;
-    }
-
-    if (response is CreateAccountResponse) {
+    } on CreateAccountResponse catch (createAccountResponse) {
       _storeVerifyAccountOTPDetails(response);
       return;
+    } catch (e) {
+      logger.wtf(
+          "Unexpected error, user logged in but response is not otp or login response");
+      throw BackendException(
+          message: "User login succesfull, but response is invalid",
+          devDetails: e.toString(),
+          prettyDetails: "Unexpected error encountered while logging you in");
     }
   }
 

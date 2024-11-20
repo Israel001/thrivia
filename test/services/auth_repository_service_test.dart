@@ -15,12 +15,19 @@ void main() {
 //   });
 
   group('group name', () {
-    final response = JsonParser.parse([
-      VerifyOTPBody.fromJson,
-      DepositMoneyRequest.fromJson,
-      CreateCooperativeRequest.fromJson
-    ], {
-      "paymentUuid": ""
-    });
+    const jsonMap = {"paymentUuid": ""};
+    try {
+      parseMultipleTypes([
+        VerifyOTPBody.fromJson,
+        DepositMoneyRequest.fromJson,
+        CreateCooperativeRequest.fromJson
+      ], jsonMap);
+    } on VerifyOTPBody {
+      print("json is verifyotpBody");
+    } on DepositMoneyRequest {
+      print("json is depositMoneyRequest");
+    } catch (e) {
+      print("json error: ${e.toString()}");
+    }
   });
 }

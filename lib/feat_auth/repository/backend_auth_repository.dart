@@ -4,6 +4,7 @@ import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/common/api_constants.dart';
 import 'package:thrivia_app/common/exceptions.dart';
+import 'package:thrivia_app/common/json_parser.dart';
 import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart';
 import 'package:thrivia_app/feat_auth/data_models/login_user_response.dart';
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
@@ -65,7 +66,7 @@ class BackendAuthRepository implements AuthRepository {
   }
 
   @override
-  FutureOr<dynamic> loginUser(LoginUserRequest userLogin) async {
+  FutureOr<MultipleJsonType> loginUser(LoginUserRequest userLogin) async {
     logger.v("Logging in user");
 
     final response = await dio.postUri(
@@ -77,26 +78,8 @@ class BackendAuthRepository implements AuthRepository {
 
     if (response.statusCode == 201) {
       logger.v("user authorised");
-      try {
-        final LoginResponse userResponse =
-            LoginResponse.fromJson(response.data);
-        logger.v("login successful");
-        return userResponse;
-      } catch (e) {
-        try {
-          final tokenRequest = CreateAccountResponse.fromJson(response.data);
-          logger.v("user not verified, received otp details");
-          return tokenRequest;
-        } catch (e) {
-          logger.wtf(
-              "Unexpected error, user logged in but response is not otp or login response");
-          throw BackendException(
-              message: "User login succesfull, but response is invalid",
-              devDetails: e.toString(),
-              prettyDetails:
-                  "Unexpected error encountered while logging you in");
-        }
-      }
+
+      return response.data;
     }
 
     if (response.statusCode == 401) {
@@ -113,7 +96,7 @@ class BackendAuthRepository implements AuthRepository {
   }
 
   @override
-  FutureOr<dynamic> verifyOTP(VerifyOTPBody tokenData) async {
+  FutureOr<MultipleJsonType> verifyOTP(VerifyOTPBody tokenData) async {
     final response = await dio.postUri(
         Uri.https(
           ApiConstants.authority,
