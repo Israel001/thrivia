@@ -131,6 +131,13 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
   }
 
   @override
+  void onDispose(LoginViewModel viewModel) {
+    // TODO: implement onDispose
+    super.onDispose(viewModel);
+    disposeForm();
+  }
+
+  @override
   void onViewModelReady(LoginViewModel viewModel) {
     super.onViewModelReady(viewModel);
     syncFormWithViewModel(viewModel);

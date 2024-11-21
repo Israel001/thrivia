@@ -31,61 +31,6 @@ class OtpViewModel extends FormViewModel {
       : '';
   bool get canRequestOtp => _timeLeft == 0 && !isBusy;
 
-  late OtpView _OTPView;
-  late List<FocusNode> focusNodes;
-  late List<TextEditingController> textControllers;
-  set otpView(OtpView otpView) {
-    _OTPView = otpView;
-
-// var    onKeyEvent = (index, element) {
-//       if (index == 0) {
-//         return element;
-//       }
-//       element.onKeyEvent = (node, event) {
-//         if (event.logicalKey == LogicalKeyboardKey.backspace &&
-//             event is KeyUpEvent) {
-//           // FocusScope.of(context).previousFocus();
-//           node.previousFocus();
-//         }
-//         return KeyEventResult.ignored;
-//       };
-//       return element;
-//     };
-    focusNodes = [
-      _OTPView.d1FocusNode,
-      _OTPView.d2FocusNode,
-      _OTPView.d3FocusNode,
-      _OTPView.d4FocusNode,
-      _OTPView.d5FocusNode,
-    ];
-    //.indexed.map((e) {
-    //   final (index, node) = e;
-
-    //   if (index == 0) {
-    //     return node;
-    //   }
-    //   node.onKeyEvent = (node, event) {
-    //     if (event.logicalKey == LogicalKeyboardKey.backspace &&
-    //         textControllers[index].text.isEmpty &&
-    //         event is KeyUpEvent) {
-    //       // FocusScope.of(context).previousFocus();
-    //       // node.previousFocus();
-    //       backspace(index);
-    //     }
-    //     return KeyEventResult.ignored;
-    //   };
-    //   return node;
-    // }).toList();
-
-    textControllers = [
-      _OTPView.d1Controller,
-      _OTPView.d2Controller,
-      _OTPView.d3Controller,
-      _OTPView.d4Controller,
-      _OTPView.d5Controller,
-    ];
-  }
-
   @override
   void dispose() {
     _timer?.cancel();
@@ -120,43 +65,19 @@ class OtpViewModel extends FormViewModel {
     await runErrorFuture(_authService.requestOTP());
     // setError(error(requestOTPBusyKey));
 
-    clearForm();
     startTimer();
   }
 
-  void forward(int index) {
-    if (textControllers[index].text.isNotEmpty && index < 4) {
-      focusNodes[index + 1].requestFocus();
-    }
-
-    // if (formValueMap.values.every((digit) => digit.isNotEmpty)) {
-    //   verifyOtp();
-    // }
-  }
-
-  void backspace(
-    int index,
-  ) {
-    if (index > 0 && textControllers[index].text.isEmpty) {
-      focusNodes[index - 1].requestFocus();
-      // textControllers[index].text = '';
-      textControllers[index - 1].text = '';
-    } else {}
-    // notifyListeners();
-  }
-
   Future<void> verifyOtp() async {
-    final otp = formValueMap.values
-        .fold("", (previousValue, element) => previousValue + element);
-    if (otp.length != 5) {
-      setValidationMessage('Please enter all digits');
+    if (otpValue?.length != 5) {
+      setErrorForModelOrObject('Please enter all digits');
       notifyListeners();
       return;
     }
 
     setError(null);
 
-    final result = await runBusyFuture(_authService.verifyOTP(otp));
+    final result = await runBusyFuture(_authService.verifyOTP(otpValue!));
 
     if (_authService.authState == AuthState.pendingPasswordResetOTP) {
       _navigationService.back(result: true);
