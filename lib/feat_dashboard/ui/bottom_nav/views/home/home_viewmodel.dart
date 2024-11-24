@@ -41,8 +41,6 @@ class HomeViewModel extends BaseViewModel {
     return obscureLoanBalance ? "*" * text.length : text;
   }
 
-  bool _obscureLoanBalance = false;
-
   int _currentPage = 0;
   int get currentPage => _currentPage;
   void pageChanged(int newPage) {
@@ -50,6 +48,7 @@ class HomeViewModel extends BaseViewModel {
     rebuildUi();
   }
 
+  bool _obscureLoanBalance = false;
   void toggleObscureLoanBalance() {
     _obscureLoanBalance = !_obscureLoanBalance;
     rebuildUi();
@@ -71,8 +70,9 @@ class HomeViewModel extends BaseViewModel {
           transactionAmount: "3000",
           transactionTime: "14:40 PM"));
 
-  List<TransactionModel> get recentLoanTransactions => recentLoanTransactions;
-  List<TransactionModel> _recentLoanTransactions = [];
+  List<TransactionModel> get recentLoanTransactions => _recentLoanTransactions;
+  late List<TransactionModel> _recentLoanTransactions =
+      _recentAccountTransactions;
   bool get hasContributionHistory => _recentAccountTransactions.isNotEmpty;
   bool get hasLoanHistory => _recentLoanTransactions.isNotEmpty;
 

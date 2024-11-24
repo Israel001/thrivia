@@ -27,10 +27,12 @@ Future<void> main() async {
     ..i("Overides:/nninitial location:${Overides.overrideInitialLocation}/nauthrepository: ${Overides.mockAuthRepository}");
   setupDialogUi();
   setupBottomSheetUi();
-  runApp(MainApp(
-    // themeMode: themeMode,
-    themeMode: ThemeMode.light,
-  ));
+  runApp(
+    MainApp(
+      // themeMode: themeMode,
+      themeMode: ThemeMode.light,
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -62,9 +64,9 @@ class MainApp extends StatelessWidget {
 }
 
 abstract class Overides {
-  static const overrideInitialLocation = null;
+  static const overrideInitialLocation = Routes.bottomNavView;
 
-  static const bool mockAuthRepository = false;
+  static const bool mockAuthRepository = true;
 
   static const bool mockCooperativeRepository = true;
 }

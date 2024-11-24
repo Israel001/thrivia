@@ -24,16 +24,22 @@ abstract class AppTheme {
   static ThemeData get darkTheme => _appTheme(darkColorScheme);
   static ThemeData get lightTheme => _appTheme(lightColorScheme);
 
-  static ThemeData _appTheme(ColorScheme colorScheme) => ThemeData.from(
-          colorScheme: colorScheme, textTheme: textTheme, useMaterial3: true)
-      .copyWith(
-          elevatedButtonTheme: elevatedButtonTheme,
-          // scaffoldBackgroundColor: AppColors.k_1c2027,
-          inputDecorationTheme: inputDecorationTheme,
-          textSelectionTheme: TextSelectionThemeData().copyWith(
-            cursorColor: colorScheme.onPrimary,
-            selectionHandleColor: colorScheme.onPrimary,
-          ));
+  static ThemeData _appTheme(ColorScheme colorScheme) {
+    return ThemeData.from(
+            colorScheme: colorScheme, textTheme: textTheme, useMaterial3: true)
+        .copyWith(
+            elevatedButtonTheme: elevatedButtonTheme,
+            dividerTheme:
+                DividerThemeData(thickness: 0.5, color: Color(0xFF939090)),
+            appBarTheme: AppBarTheme(
+                backgroundColor: colorScheme.primary, centerTitle: true),
+            inputDecorationTheme: inputDecorationTheme,
+            textSelectionTheme: TextSelectionThemeData().copyWith(
+              cursorColor: colorScheme.onPrimary,
+              selectionHandleColor: colorScheme.onPrimary,
+            ),
+            iconTheme: IconThemeData(size: 16, color: Colors.white));
+  }
 
   // static final lightTheme = ThemeData.from(
   //         colorScheme: lightColorScheme,
@@ -44,6 +50,9 @@ abstract class AppTheme {
   //         elevatedButtonTheme: elevatedButtonTheme,
   //         inputDecorationTheme: InputDecorationTheme());
 
+// static AppBarTheme appBarTheme = AppBarTheme(
+//   backgroundColor:
+// );
   static InputDecorationTheme inputDecorationTheme =
       InputDecorationTheme().copyWith(
     floatingLabelBehavior: FloatingLabelBehavior.auto,

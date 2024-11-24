@@ -86,9 +86,7 @@ class MemberTypeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(8),
-      onTap: () {
-        onTap();
-      },
+      onTap: onTap,
       child: Container(
         height: 85,
         alignment: Alignment.center,
