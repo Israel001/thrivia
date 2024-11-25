@@ -38,6 +38,12 @@ abstract class AppTheme {
               cursorColor: colorScheme.onPrimary,
               selectionHandleColor: colorScheme.onPrimary,
             ),
+            // datePickerTheme: DatePickerThemeData(
+            //   cancelButtonStyle: ButtonStyle(
+            //     color
+            //       textStyle: WidgetStatePropertyAll(
+            //           TextStyle(color: colorScheme.primary))),
+            // ),
             iconTheme: IconThemeData(size: 16, color: Colors.white));
   }
 

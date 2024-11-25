@@ -8,11 +8,13 @@ class CustomInputField extends StatelessWidget {
   final FormField child;
 
   final String? errorText;
+  final EdgeInsets? padding;
   const CustomInputField({
     Key? key,
     required this.iconPath,
     required this.child,
     required this.errorText,
+    this.padding,
   }) : super(key: key);
 
   @override
@@ -21,7 +23,7 @@ class CustomInputField extends StatelessWidget {
     final borderSide = BorderSide(width: 0.50, color: color);
     var theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 24),
+      padding: padding ?? const EdgeInsets.only(top: 24),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

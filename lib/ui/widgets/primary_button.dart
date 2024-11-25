@@ -31,7 +31,6 @@ class PrimaryButton extends StatelessWidget {
         fontSize: 14,
         fontFamily: 'Onest',
         fontWeight: FontWeight.w400,
-        height: 0,
       ),
     );
     return ConstrainedBox(
@@ -82,6 +81,7 @@ class SecondaryButton extends StatelessWidget {
       constraints: BoxConstraints.loose(Size.fromWidth(width)),
       child: OutlinedButton(
           style: OutlinedButton.styleFrom(
+              minimumSize: Size.fromHeight(40),
               side: BorderSide(
                   color: lightMode(context) ? Color(0xFF1C2027) : Colors.white),
               backgroundColor: Colors.transparent),

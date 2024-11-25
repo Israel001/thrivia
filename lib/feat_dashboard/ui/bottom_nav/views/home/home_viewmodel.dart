@@ -1,10 +1,14 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:thrivia_app/app/app.locator.dart';
+import 'package:thrivia_app/app/app.router.dart';
+import 'package:thrivia_app/feat_auth/ui/login/login_viewmodel.dart';
 
 class HomeViewModel extends BaseViewModel {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
+  final _navigationService = locator<NavigationService>();
   void openEndDrawer() {
     scaffoldKey.currentState!.openDrawer();
   }
@@ -60,15 +64,16 @@ class HomeViewModel extends BaseViewModel {
 
   repayLoan() {}
 
-  List<TransactionModel> get recentAccoutTransactions =>
+  List<TransactionModel> get recentAccountTransactions =>
       _recentAccountTransactions;
-  List<TransactionModel> _recentAccountTransactions = List.generate(
-      5,
-      (index) => TransactionModel(
-          transactionType: TransactionType.debit,
-          transactionText: "Sent to Freedom cooper",
-          transactionAmount: "3000",
-          transactionTime: "14:40 PM"));
+  List<TransactionModel> _recentAccountTransactions = [];
+  // List.generate(
+  //     5,
+  //     (index) => TransactionModel(
+  //         transactionType: TransactionType.debit,
+  //         transactionText: "Sent to Freedom cooper",
+  //         transactionAmount: "3000",
+  //         transactionTime: "14:40 PM"));
 
   List<TransactionModel> get recentLoanTransactions => _recentLoanTransactions;
   late List<TransactionModel> _recentLoanTransactions =
@@ -80,9 +85,9 @@ class HomeViewModel extends BaseViewModel {
 
   bool get hasNotification => true;
 
-  void joinCooperative() {}
-
-  void addCooperative() {}
+  void joinCooperative() {
+    _navigationService.navigateToJoinCooperativeView();
+  }
 }
 
 class TransactionModel {

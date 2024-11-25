@@ -59,5 +59,10 @@ abstract class AppImagesSVG {
 
   static const String sendIcon = "assets/images/svg/icons/send_icon.svg";
   static const String receiveIcon = "assets/images/svg/icons/receive_icon.svg";
+  static const String faceid = "assets/images/svg/icons/face_id.svg";
+  static const String $123 = "assets/images/svg/icons/123.svg";
+  static const String account_cog = "assets/images/svg/icons/account_cog.svg";
+  static const String id = "assets/images/svg/icons/id.svg";
+
   static const String group_7 = "assets/images/svg/group_7.svg";
 }

@@ -8,7 +8,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
-import 'package:thrivia_app/common/form_validators.dart';
 
 const bool _autoTextFieldValidation = false;
 
@@ -19,7 +18,7 @@ final Map<String, TextEditingController> _OtpViewTextEditingControllers = {};
 final Map<String, FocusNode> _OtpViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?> _OtpViewTextValidations = {
-  OtpValueKey: FormValidators.validateBVNANDNIN,
+  OtpValueKey: null,
 };
 
 mixin $OtpView {

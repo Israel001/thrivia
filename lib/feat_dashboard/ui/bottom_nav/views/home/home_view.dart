@@ -123,7 +123,7 @@ class CoopertivesDrawer extends StatelessWidget {
             ),
             23.verticalSpace,
             PrimaryButton(
-              onPressed: viewModel.addCooperative,
+              onPressed: viewModel.joinCooperative,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -170,7 +170,7 @@ class ContributionPage extends StatelessWidget {
               ? Expanded(
                   child: TransactionList(
                     title: "Recent Transactions",
-                    transactions: viewModel.recentAccoutTransactions,
+                    transactions: viewModel.recentAccountTransactions,
                     viewAll: () {},
                   ),
                 )

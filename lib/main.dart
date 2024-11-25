@@ -9,7 +9,9 @@ import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/common/app_theme.dart';
+import 'package:thrivia_app/common/ui_helpers.dart';
 import 'package:thrivia_app/services/storage_service.dart';
+import 'package:thrivia_app/ui/widgets/primary_button.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +29,7 @@ Future<void> main() async {
     ..i("Overides:/nninitial location:${Overides.overrideInitialLocation}/nauthrepository: ${Overides.mockAuthRepository}");
   setupDialogUi();
   setupBottomSheetUi();
+
   runApp(
     MainApp(
       // themeMode: themeMode,
@@ -64,9 +67,9 @@ class MainApp extends StatelessWidget {
 }
 
 abstract class Overides {
-  static const overrideInitialLocation = Routes.bottomNavView;
+  static const overrideInitialLocation = null;
 
-  static const bool mockAuthRepository = true;
+  static const bool mockAuthRepository = false;
 
   static const bool mockCooperativeRepository = true;
 }
