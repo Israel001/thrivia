@@ -28,8 +28,12 @@ class ForgotPasswordViewModel extends FormViewModel {
 
     await runBusyFuture(_authService.resetPassword(emailPhoneNumberValue!));
 
-    final otpValid =
-        await _navigationService.navigateToOtpView(timerStarted: true);
+    if (hasError) {
+      return;
+    }
+    final otpValid = await runBusyFuture(
+        _navigationService.navigateToOtpView(timerStarted: true),
+        busyObject: null);
     if (otpValid) {
       controller.nextPage(duration: Durations.medium1, curve: Curves.easeIn);
     }

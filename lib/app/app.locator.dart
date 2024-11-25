@@ -10,6 +10,7 @@ import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
 import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
+import 'package:thrivia_app/feat_auth/repository/backend_auth_repository.dart';
 
 import '../feat_auth/repository/auth_repository_service.dart';
 import '../feat_auth/repository/mocked_auth_repository.dart';
@@ -34,7 +35,7 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton<NavigationService>(() => NavigationService());
   locator.registerLazySingleton(() => AuthService());
-  locator.registerLazySingleton<AuthRepository>(() => MockedAuthRepository());
+  locator.registerLazySingleton<AuthRepository>(() => BackendAuthRepository());
   locator.registerLazySingleton(() => DioService());
   locator.registerLazySingleton(() => StorageService());
   locator.registerLazySingleton<CooperativeRepository>(

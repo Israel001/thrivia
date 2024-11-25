@@ -2,6 +2,7 @@
 import 'package:dio/dio.dart';
 
 import 'package:thrivia_app/app/app.logger.dart';
+import 'package:thrivia_app/common/exceptions.dart';
 
 class DioService {
   late final Dio _dio;
@@ -40,12 +41,21 @@ class DioService {
           },
           onResponse: (Response response, ResponseInterceptorHandler handler) {
             logger.d(logAPIResponse(response));
+            if (response.statusCode == 500) {
+              throw BackendException(
+                  message: response.data.toString(),
+                  devDetails: response.statusMessage,
+                  prettyDetails: "An error occured on the server");
+            }
             return handler.next(response);
           },
           onError: (DioException error, ErrorInterceptorHandler handler) {
             // Do something with response error.
             // If you want to resolve the request with some custom data,
             // you can resolve a `Response` object using `handler.resolve(response)`.
+            if (error.error is BackendException) {
+              throw error.error!;
+            }
             return handler.next(error);
           },
         ),

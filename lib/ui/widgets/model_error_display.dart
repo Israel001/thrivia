@@ -11,11 +11,19 @@ class ModelErrorDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    String text;
+    try {
+      text = viewModel.modelError?.prettyDetails;
+    } catch (e) {
+      text = "Unexpected Error Occured";
+    }
     return viewModel.hasError
         ? Padding(
-            padding: const EdgeInsets.only(top: 8, left: 45),
+            padding: const EdgeInsets.only(
+              top: 8,
+            ),
             child: Text(
-              viewModel.modelError?.prettyDetails,
+              text,
               style: theme.textTheme.bodyMedium!
                   .copyWith(color: theme.colorScheme.error),
             ),

@@ -77,12 +77,15 @@ class OtpViewModel extends FormViewModel {
 
     setError(null);
 
-    final result = await runBusyFuture(_authService.verifyOTP(otpValue!));
+    await runBusyFuture(_authService.verifyOTP(otpValue!));
 
     if (_authService.authState == AuthState.pendingPasswordResetOTP) {
       _navigationService.back(result: true);
     }
-    _navigationService.replaceWithBottomNavView();
+
+    if (_authService.authState == AuthState.loggedIn) {
+      _navigationService.replaceWithBottomNavView();
+    }
 
     // setError();
   }
