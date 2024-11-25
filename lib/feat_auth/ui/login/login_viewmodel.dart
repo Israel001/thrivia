@@ -51,4 +51,8 @@ class LoginViewModel extends FormViewModel {
     logger.v("Goto forgotPassword");
     _navigationService.navigateTo(Routes.forgotPasswordView);
   }
+
+  void shortCut() {
+    _navigationService.navigateToBottomNavView();
+  }
 }

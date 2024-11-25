@@ -103,69 +103,69 @@ class Page3 extends StatelessWidget with $JoinCooperativeView {
 
         24.verticalSpace,
         Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Checkbox(
               value: viewModel.termsAccepted,
               onChanged: viewModel.toggleTerms,
             ),
             Expanded(
-              child: SizedBox(
-                width: 296,
-                child: Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: 'By completing this form you agree to ',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Onest',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: 'By completing this form you agree to ',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Onest',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
                       ),
-                      TextSpan(
-                        text: 'Terms',
-                        style: TextStyle(
-                          color: Color(0xFF03B98F),
-                          fontSize: 12,
-                          fontFamily: 'Onest',
-                          fontWeight: FontWeight.w400,
-                          decoration: TextDecoration.underline,
-                          height: 0,
-                        ),
+                    ),
+                    TextSpan(
+                      text: 'Terms',
+                      style: TextStyle(
+                        color: Color(0xFF03B98F),
+                        fontSize: 12,
+                        fontFamily: 'Onest',
+                        fontWeight: FontWeight.w400,
+                        decorationColor: Color(0xFF03B98F),
+                        decoration: TextDecoration.underline,
+                        height: 0,
                       ),
-                      TextSpan(
-                        text: ' of ',
-                        style: TextStyle(
-                          fontSize: 12,
-                          fontFamily: 'Onest',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
+                    ),
+                    TextSpan(
+                      text: ' of ',
+                      style: TextStyle(
+                        fontSize: 12,
+                        fontFamily: 'Onest',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
                       ),
-                      TextSpan(
-                        text: 'Conditions',
-                        style: TextStyle(
-                          color: Color(0xFF03B98F),
-                          fontSize: 12,
-                          fontFamily: 'Onest',
-                          fontWeight: FontWeight.w400,
-                          decoration: TextDecoration.underline,
-                          height: 0,
-                        ),
+                    ),
+                    TextSpan(
+                      text: 'Conditions',
+                      style: TextStyle(
+                        color: Color(0xFF03B98F),
+                        fontSize: 12,
+                        fontFamily: 'Onest',
+                        fontWeight: FontWeight.w400,
+                        decorationColor: Color(0xFF03B98F),
+                        decoration: TextDecoration.underline,
+                        height: 0,
                       ),
-                      TextSpan(
-                        text: ' of this cooperative society',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 12,
-                          fontFamily: 'Onest',
-                          fontWeight: FontWeight.w400,
-                          height: 0,
-                        ),
+                    ),
+                    TextSpan(
+                      text: ' of this cooperative society',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontFamily: 'Onest',
+                        fontWeight: FontWeight.w400,
+                        height: 0,
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             )

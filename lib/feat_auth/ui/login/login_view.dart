@@ -98,7 +98,6 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                 ),
                 errorText: viewModel.passwordValidationMessage,
               ),
-
               Align(
                 alignment: Alignment.centerLeft,
                 child: TextButton(
@@ -110,6 +109,14 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                             fontWeight: FontWeight.w500,
                           ),
                     )),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30.0),
+                child: PrimaryButton(
+                  color: Colors.red,
+                  onPressed: viewModel.shortCut,
+                  label: "Override Auth",
+                ),
               ),
               ModelErrorDisplay(viewModel: viewModel),
               Spacer(),

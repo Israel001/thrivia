@@ -66,14 +66,13 @@ class HomeViewModel extends BaseViewModel {
 
   List<TransactionModel> get recentAccountTransactions =>
       _recentAccountTransactions;
-  List<TransactionModel> _recentAccountTransactions = [];
-  // List.generate(
-  //     5,
-  //     (index) => TransactionModel(
-  //         transactionType: TransactionType.debit,
-  //         transactionText: "Sent to Freedom cooper",
-  //         transactionAmount: "3000",
-  //         transactionTime: "14:40 PM"));
+  List<TransactionModel> _recentAccountTransactions = List.generate(
+      5,
+      (index) => TransactionModel(
+          transactionType: TransactionType.debit,
+          transactionText: "Sent to Freedom cooper",
+          transactionAmount: "3000",
+          transactionTime: "14:40 PM"));
 
   List<TransactionModel> get recentLoanTransactions => _recentLoanTransactions;
   late List<TransactionModel> _recentLoanTransactions =
