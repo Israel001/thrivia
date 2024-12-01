@@ -2,6 +2,7 @@ import 'package:thrivia_app/feat_auth/repository/backend_auth_repository.dart';
 import 'package:thrivia_app/feat_auth/repository/mocked_auth_repository.dart';
 import 'package:thrivia_app/feat_auth/ui/otp/otp_view.dart';
 import 'package:thrivia_app/feat_cooperative/repository/mock_cooperative_repository.dart';
+import 'package:thrivia_app/feat_cooperative/ui/register_cooperative/register_cooperative/register_cooperative_view.dart';
 import 'package:thrivia_app/main.dart';
 import 'package:thrivia_app/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:thrivia_app/ui/dialogs/info_alert/info_alert_dialog.dart';
@@ -29,6 +30,7 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_v
 
 import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_service.dart';
 import 'package:thrivia_app/feat_cooperative/ui/join_cooperative/join_cooperative_view.dart';
+
 // @stacked-import
 
 @StackedApp(routes: [
@@ -47,6 +49,7 @@ import 'package:thrivia_app/feat_cooperative/ui/join_cooperative/join_cooperativ
   MaterialRoute(page: ProfileView),
   // MaterialRoute(page: ForgotPasswordView),
   MaterialRoute(page: JoinCooperativeView),
+  MaterialRoute(page: RegisterCooperativeView),
 // @stacked-route
 ], dependencies: [
   LazySingleton(classType: BottomSheetService),

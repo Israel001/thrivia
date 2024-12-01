@@ -5,10 +5,10 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i15;
+import 'package:flutter/material.dart' as _i16;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i16;
+import 'package:stacked_services/stacked_services.dart' as _i17;
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.dart'
     as _i6;
 import 'package:thrivia_app/feat_auth/ui/forgot_password/forgot_password_view.dart'
@@ -32,6 +32,8 @@ import 'package:thrivia_app/feat_dashboard/ui/role_select/onboarding4_view.dart'
 import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart'
     as _i4;
 import 'package:thrivia_app/feat_startup/ui/splash/startup_view.dart' as _i3;
+import 'package:thrivia_app/feat_cooperative/ui/register_cooperative/register_cooperative/register_cooperative_view.dart'
+    as _i15;
 
 class Routes {
   static const bottomNavView = '/bottom-nav-view';
@@ -60,6 +62,8 @@ class Routes {
 
   static const joinCooperativeView = '/join-cooperative-view';
 
+  static const registerCooperativeView = '/register-cooperative-view';
+
   static const all = <String>{
     bottomNavView,
     startupView,
@@ -74,6 +78,7 @@ class Routes {
     communityView,
     profileView,
     joinCooperativeView,
+    registerCooperativeView,
   };
 }
 
@@ -131,47 +136,51 @@ class StackedRouter extends _i1.RouterBase {
       Routes.joinCooperativeView,
       page: _i14.JoinCooperativeView,
     ),
+    _i1.RouteDef(
+      Routes.registerCooperativeView,
+      page: _i15.RegisterCooperativeView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.BottomNavView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.BottomNavView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.OnboardingView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.OnboardingView(),
         settings: data,
       );
     },
     _i5.Onboarding4View: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.Onboarding4View(),
         settings: data,
       );
     },
     _i6.CreateAccountView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.CreateAccountView(),
         settings: data,
       );
     },
     _i7.LoginView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.LoginView(),
         settings: data,
       );
     },
     _i8.ForgotPasswordView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.ForgotPasswordView(),
         settings: data,
       );
@@ -180,39 +189,45 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<OtpViewArguments>(
         orElse: () => const OtpViewArguments(),
       );
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i9.OtpView(key: args.key, timerStarted: args.timerStarted),
         settings: data,
       );
     },
     _i10.HomeView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.HomeView(),
         settings: data,
       );
     },
     _i11.FinanceView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.FinanceView(),
         settings: data,
       );
     },
     _i12.CommunityView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.CommunityView(),
         settings: data,
       );
     },
     _i13.ProfileView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.ProfileView(),
         settings: data,
       );
     },
     _i14.JoinCooperativeView: (data) {
-      return _i15.MaterialPageRoute<dynamic>(
+      return _i16.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.JoinCooperativeView(),
+        settings: data,
+      );
+    },
+    _i15.RegisterCooperativeView: (data) {
+      return _i16.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i15.RegisterCooperativeView(),
         settings: data,
       );
     },
@@ -231,7 +246,7 @@ class OtpViewArguments {
     this.timerStarted = false,
   });
 
-  final _i15.Key? key;
+  final _i16.Key? key;
 
   final bool timerStarted;
 
@@ -252,7 +267,7 @@ class OtpViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i16.NavigationService {
+extension NavigatorStateExtension on _i17.NavigationService {
   Future<dynamic> navigateToBottomNavView([
     int? routerId,
     bool preventDuplicates = true,
@@ -352,7 +367,7 @@ extension NavigatorStateExtension on _i16.NavigationService {
   }
 
   Future<dynamic> navigateToOtpView({
-    _i15.Key? key,
+    _i16.Key? key,
     bool timerStarted = false,
     int? routerId,
     bool preventDuplicates = true,
@@ -432,6 +447,20 @@ extension NavigatorStateExtension on _i16.NavigationService {
         transition,
   ]) async {
     return navigateTo<dynamic>(Routes.joinCooperativeView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToRegisterCooperativeView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return navigateTo<dynamic>(Routes.registerCooperativeView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -537,7 +566,7 @@ extension NavigatorStateExtension on _i16.NavigationService {
   }
 
   Future<dynamic> replaceWithOtpView({
-    _i15.Key? key,
+    _i16.Key? key,
     bool timerStarted = false,
     int? routerId,
     bool preventDuplicates = true,
@@ -617,6 +646,20 @@ extension NavigatorStateExtension on _i16.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.joinCooperativeView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithRegisterCooperativeView([
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  ]) async {
+    return replaceWith<dynamic>(Routes.registerCooperativeView,
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

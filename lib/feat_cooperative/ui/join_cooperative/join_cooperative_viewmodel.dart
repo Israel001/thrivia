@@ -11,17 +11,44 @@ import 'package:thrivia_app/ui/widgets/primary_button.dart';
 class JoinCooperativeViewModel extends FormViewModel {
   PageController pageController = PageController();
   final bottomSheetService = locator<BottomSheetService>();
-  void proceed() {
+  void proceed() async {
     int currentPage = pageController.page!.toInt();
     final pageIsValid = validatePage(currentPage);
     // if (!pageIsValid) {
     //   return;
     // }
     if (currentPage == 3) {
-      bottomSheetService.showCustomSheet(variant: BottomSheetType.notice);
+      confirmSubmitApplication();
+      return;
     }
     pageController.animateToPage(currentPage + 1,
         duration: Durations.long1, curve: Curves.easeIn);
+  }
+
+  confirmSubmitApplication() async {
+    final response = await bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.notice,
+      title: "Submit application",
+      description:
+          '''Kindly ensure that all data was provided correctly before submitting your application.
+ You can’t edit an application once it’s submitted''',
+      mainButtonTitle: "Submit application",
+      secondaryButtonTitle: "Cancel",
+    );
+
+    final submitApplication = response?.confirmed ?? false;
+
+    if (submitApplication) {
+      //do submit application
+
+      bottomSheetService.showCustomSheet(
+        variant: BottomSheetType.notice,
+        title: "Application completed!",
+        description:
+            '''Your application has his forwarded to the directors of Freedom Cooperative for further review.''',
+        mainButtonTitle: "Cancel",
+      );
+    }
   }
 
   bool validatePage(int pageNumber) {

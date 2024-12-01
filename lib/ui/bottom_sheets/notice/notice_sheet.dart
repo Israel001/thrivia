@@ -35,7 +35,7 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              'Submit application',
+              request.title!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFF27816C),
@@ -47,7 +47,7 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
             ),
             16.verticalSpace,
             Text(
-              'Kindly ensure that all data was provided correctly before submitting your application.\n You can’t edit an application once it’s submitted',
+              request.description!,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Color(0xFF646464),
@@ -59,14 +59,17 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
             ),
             32.verticalSpace,
             PrimaryButton(
-              onPressed: () {},
-              label: "Submit application",
+              onPressed: () => completer!(SheetResponse(confirmed: true)),
+              label: request.mainButtonTitle,
             ),
-            16.verticalSpace,
-            SecondaryButton(
-              onPressed: () {},
-              label: "Cancel",
-            )
+            if (request.secondaryButtonTitle != null)
+              Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: SecondaryButton(
+                  onPressed: () => completer!(SheetResponse(confirmed: false)),
+                  label: request.secondaryButtonTitle,
+                ),
+              )
           ],
         ));
     // return Container(
