@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:stacked_services/stacked_services.dart';
+import 'package:thrivia_app/app/app.locator.dart';
+import 'package:thrivia_app/app/app.router.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/transaction_history/transaction_history_view.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_viewmodel.dart';
 
 class FinanceViewModel extends BaseViewModel {
   // final tabController = TabController(length: 2, vsync: vsync);
+
+  final _navigationService = locator<NavigationService>();
   FinanceViewModel() {
     loanCardController = LoanCardController(this);
     contributionCardController = ContributionCardController(this);
@@ -22,6 +28,16 @@ class FinanceViewModel extends BaseViewModel {
   late List<TransactionModel> _contributionHistory = _loanHistory;
 
   List<TransactionModel> get contributionHistory => _contributionHistory;
+
+  void viewAllContributions() {
+    _navigationService.navigateToTransactionHistoryView(
+        transactionHistoryType: TransactionHistoryType.savings);
+  }
+
+  void viewAllLoanHistory() {
+    _navigationService.navigateToTransactionHistoryView(
+        transactionHistoryType: TransactionHistoryType.loans);
+  }
 }
 
 class LoanCardController {

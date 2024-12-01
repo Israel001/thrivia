@@ -169,7 +169,7 @@ class SavingsBody extends StatelessWidget {
           child: TransactionList(
             title: "Contribution history",
             transactions: viewModel.contributionHistory,
-            viewAll: () {},
+            viewAll: viewModel.viewAllContributions,
           ),
         ),
       ],
@@ -210,7 +210,7 @@ class LoanBody extends StatelessWidget {
           child: TransactionList(
             title: "Loan history",
             transactions: viewModel.loanHistory,
-            viewAll: () {},
+            viewAll: viewModel.viewAllLoanHistory,
           ),
         ),
       ],

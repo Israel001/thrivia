@@ -31,6 +31,7 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_v
 import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_service.dart';
 import 'package:thrivia_app/feat_cooperative/ui/join_cooperative/join_cooperative_view.dart';
 
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/transaction_history/transaction_history_view.dart';
 // @stacked-import
 
 @StackedApp(routes: [
@@ -50,6 +51,7 @@ import 'package:thrivia_app/feat_cooperative/ui/join_cooperative/join_cooperativ
   // MaterialRoute(page: ForgotPasswordView),
   MaterialRoute(page: JoinCooperativeView),
   MaterialRoute(page: RegisterCooperativeView),
+  MaterialRoute(page: TransactionHistoryView),
 // @stacked-route
 ], dependencies: [
   LazySingleton(classType: BottomSheetService),

@@ -171,7 +171,7 @@ class ContributionPage extends StatelessWidget {
                   child: TransactionList(
                     title: "Recent Transactions",
                     transactions: viewModel.recentAccountTransactions,
-                    viewAll: () {},
+                    viewAll: viewModel.viewAllContributions,
                   ),
                 )
               : Expanded(
@@ -223,7 +223,7 @@ class LoanPage extends StatelessWidget {
                   child: TransactionList(
                     title: "Loan Transactions",
                     transactions: viewModel.recentLoanTransactions,
-                    viewAll: () {},
+                    viewAll: viewModel.viewAllLoanHistory,
                   ),
                 )
               : Expanded(

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:thrivia_app/common/ui_helpers.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_viewmodel.dart';
+import 'package:thrivia_app/ui/widgets/custom_button.dart';
 import 'package:thrivia_app/ui/widgets/item_card.dart';
 
 class TransactionList extends StatelessWidget {
@@ -36,13 +37,16 @@ class TransactionList extends StatelessWidget {
               ),
             ),
             if (viewAll != null)
-              Text(
-                'View all',
-                style: TextStyle(
-                  color: Color(0xFF03B98F),
-                  fontSize: 16,
-                  fontFamily: 'Onest',
-                  fontWeight: FontWeight.w500,
+              CollapsedTextButton(
+                onPressed: viewAll,
+                child: Text(
+                  'View all',
+                  style: TextStyle(
+                    color: Color(0xFF03B98F),
+                    fontSize: 16,
+                    fontFamily: 'Onest',
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
               ),
           ],

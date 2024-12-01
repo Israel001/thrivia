@@ -5,10 +5,10 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i16;
+import 'package:flutter/material.dart' as _i17;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i17;
+import 'package:stacked_services/stacked_services.dart' as _i18;
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.dart'
     as _i6;
 import 'package:thrivia_app/feat_auth/ui/forgot_password/forgot_password_view.dart'
@@ -17,12 +17,16 @@ import 'package:thrivia_app/feat_auth/ui/login/login_view.dart' as _i7;
 import 'package:thrivia_app/feat_auth/ui/otp/otp_view.dart' as _i9;
 import 'package:thrivia_app/feat_cooperative/ui/join_cooperative/join_cooperative_view.dart'
     as _i14;
+import 'package:thrivia_app/feat_cooperative/ui/register_cooperative/register_cooperative/register_cooperative_view.dart'
+    as _i15;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/bottomnav_view.dart'
     as _i2;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/community/community_view.dart'
     as _i12;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/finance_view.dart'
     as _i11;
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/transaction_history/transaction_history_view.dart'
+    as _i16;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart'
     as _i10;
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_view.dart'
@@ -32,8 +36,6 @@ import 'package:thrivia_app/feat_dashboard/ui/role_select/onboarding4_view.dart'
 import 'package:thrivia_app/feat_onboarding/ui/onboarding/onboarding_view.dart'
     as _i4;
 import 'package:thrivia_app/feat_startup/ui/splash/startup_view.dart' as _i3;
-import 'package:thrivia_app/feat_cooperative/ui/register_cooperative/register_cooperative/register_cooperative_view.dart'
-    as _i15;
 
 class Routes {
   static const bottomNavView = '/bottom-nav-view';
@@ -64,6 +66,8 @@ class Routes {
 
   static const registerCooperativeView = '/register-cooperative-view';
 
+  static const transactionHistoryView = '/transaction-history-view';
+
   static const all = <String>{
     bottomNavView,
     startupView,
@@ -79,6 +83,7 @@ class Routes {
     profileView,
     joinCooperativeView,
     registerCooperativeView,
+    transactionHistoryView,
   };
 }
 
@@ -140,47 +145,51 @@ class StackedRouter extends _i1.RouterBase {
       Routes.registerCooperativeView,
       page: _i15.RegisterCooperativeView,
     ),
+    _i1.RouteDef(
+      Routes.transactionHistoryView,
+      page: _i16.TransactionHistoryView,
+    ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.BottomNavView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.BottomNavView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
     _i4.OnboardingView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i4.OnboardingView(),
         settings: data,
       );
     },
     _i5.Onboarding4View: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i5.Onboarding4View(),
         settings: data,
       );
     },
     _i6.CreateAccountView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i6.CreateAccountView(),
         settings: data,
       );
     },
     _i7.LoginView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i7.LoginView(),
         settings: data,
       );
     },
     _i8.ForgotPasswordView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i8.ForgotPasswordView(),
         settings: data,
       );
@@ -189,45 +198,53 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<OtpViewArguments>(
         orElse: () => const OtpViewArguments(),
       );
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) =>
             _i9.OtpView(key: args.key, timerStarted: args.timerStarted),
         settings: data,
       );
     },
     _i10.HomeView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i10.HomeView(),
         settings: data,
       );
     },
     _i11.FinanceView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i11.FinanceView(),
         settings: data,
       );
     },
     _i12.CommunityView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i12.CommunityView(),
         settings: data,
       );
     },
     _i13.ProfileView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i13.ProfileView(),
         settings: data,
       );
     },
     _i14.JoinCooperativeView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i14.JoinCooperativeView(),
         settings: data,
       );
     },
     _i15.RegisterCooperativeView: (data) {
-      return _i16.MaterialPageRoute<dynamic>(
+      return _i17.MaterialPageRoute<dynamic>(
         builder: (context) => const _i15.RegisterCooperativeView(),
+        settings: data,
+      );
+    },
+    _i16.TransactionHistoryView: (data) {
+      final args = data.getArgs<TransactionHistoryViewArguments>(nullOk: false);
+      return _i17.MaterialPageRoute<dynamic>(
+        builder: (context) => _i16.TransactionHistoryView(
+            key: args.key, transactionHistoryType: args.transactionHistoryType),
         settings: data,
       );
     },
@@ -246,7 +263,7 @@ class OtpViewArguments {
     this.timerStarted = false,
   });
 
-  final _i16.Key? key;
+  final _i17.Key? key;
 
   final bool timerStarted;
 
@@ -267,7 +284,35 @@ class OtpViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i17.NavigationService {
+class TransactionHistoryViewArguments {
+  const TransactionHistoryViewArguments({
+    this.key,
+    required this.transactionHistoryType,
+  });
+
+  final _i17.Key? key;
+
+  final _i16.TransactionHistoryType transactionHistoryType;
+
+  @override
+  String toString() {
+    return '{"key": "$key", "transactionHistoryType": "$transactionHistoryType"}';
+  }
+
+  @override
+  bool operator ==(covariant TransactionHistoryViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key &&
+        other.transactionHistoryType == transactionHistoryType;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode ^ transactionHistoryType.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i18.NavigationService {
   Future<dynamic> navigateToBottomNavView([
     int? routerId,
     bool preventDuplicates = true,
@@ -367,7 +412,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> navigateToOtpView({
-    _i16.Key? key,
+    _i17.Key? key,
     bool timerStarted = false,
     int? routerId,
     bool preventDuplicates = true,
@@ -461,6 +506,24 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition,
   ]) async {
     return navigateTo<dynamic>(Routes.registerCooperativeView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToTransactionHistoryView({
+    _i17.Key? key,
+    required _i16.TransactionHistoryType transactionHistoryType,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.transactionHistoryView,
+        arguments: TransactionHistoryViewArguments(
+            key: key, transactionHistoryType: transactionHistoryType),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -566,7 +629,7 @@ extension NavigatorStateExtension on _i17.NavigationService {
   }
 
   Future<dynamic> replaceWithOtpView({
-    _i16.Key? key,
+    _i17.Key? key,
     bool timerStarted = false,
     int? routerId,
     bool preventDuplicates = true,
@@ -660,6 +723,24 @@ extension NavigatorStateExtension on _i17.NavigationService {
         transition,
   ]) async {
     return replaceWith<dynamic>(Routes.registerCooperativeView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithTransactionHistoryView({
+    _i17.Key? key,
+    required _i16.TransactionHistoryType transactionHistoryType,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.transactionHistoryView,
+        arguments: TransactionHistoryViewArguments(
+            key: key, transactionHistoryType: transactionHistoryType),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,

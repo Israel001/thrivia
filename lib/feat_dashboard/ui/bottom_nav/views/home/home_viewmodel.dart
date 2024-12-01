@@ -5,6 +5,7 @@ import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.router.dart';
 import 'package:thrivia_app/feat_auth/ui/login/login_viewmodel.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/transaction_history/transaction_history_view.dart';
 
 class HomeViewModel extends BaseViewModel {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
@@ -86,6 +87,16 @@ class HomeViewModel extends BaseViewModel {
 
   void joinCooperative() {
     _navigationService.navigateToJoinCooperativeView();
+  }
+
+  void viewAllContributions() {
+    _navigationService.navigateToTransactionHistoryView(
+        transactionHistoryType: TransactionHistoryType.savings);
+  }
+
+  void viewAllLoanHistory() {
+    _navigationService.navigateToTransactionHistoryView(
+        transactionHistoryType: TransactionHistoryType.loans);
   }
 }
 
