@@ -14,6 +14,10 @@ class DropdownFormField<T> extends FormField<T> {
             return DropdownMenu(
                 hintText: hintText,
                 trailingIcon: Icon(Icons.arrow_drop_down),
+                inputDecorationTheme: InputDecorationTheme().copyWith(
+                  contentPadding: EdgeInsets.zero,
+                  // constraints: BoxConstraints.tight(Size(24, 24)),
+                ),
                 expandedInsets: EdgeInsets.zero,
                 dropdownMenuEntries: values
                     .map((element) => DropdownMenuEntry(

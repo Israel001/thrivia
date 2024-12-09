@@ -29,6 +29,15 @@ abstract class AppTheme {
             colorScheme: colorScheme, textTheme: textTheme, useMaterial3: true)
         .copyWith(
             elevatedButtonTheme: elevatedButtonTheme,
+            checkboxTheme: CheckboxThemeData(
+              // shape:
+              //     RoundedRectangleBorder(side: BorderSide(color: Colors.green)),
+              side: WidgetStateBorderSide.resolveWith((states) => BorderSide(
+                    color: colorScheme.onPrimary,
+                  )),
+              checkColor: WidgetStatePropertyAll(AppColors.k_272816C),
+              // overlayColor: WidgetStatePropertyAll(Colors.indigo),
+            ),
             dividerTheme:
                 DividerThemeData(thickness: 0.5, color: Color(0xFF939090)),
             appBarTheme: AppBarTheme(

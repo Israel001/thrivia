@@ -118,10 +118,10 @@ class Page1 extends StatelessWidget with $JoinCooperativeView {
           child: TextFormField(
             decoration:
                 InputDecoration().copyWith(hintText: "Residential address"),
-            controller: residentialAddressController,
+            controller: residentialAddresController,
             keyboardType: TextInputType.streetAddress,
           ),
-          errorText: viewModel.residentialAddressValidationMessage,
+          errorText: viewModel.residentialAddresValidationMessage,
         ),
 
         20.verticalSpace,

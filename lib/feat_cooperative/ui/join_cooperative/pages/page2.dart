@@ -84,7 +84,7 @@ class Page2 extends StatelessWidget with $JoinCooperativeView {
             controller: bankController,
             values: ["First bank", "Union bank"],
           ),
-          errorText: viewModel.membershipNumberValidationMessage,
+          errorText: viewModel.bankValidationMessage,
         ),
 
         CustomInputField(
@@ -104,7 +104,7 @@ class Page2 extends StatelessWidget with $JoinCooperativeView {
             controller: accountNameController,
             keyboardType: TextInputType.name,
           ),
-          errorText: viewModel.accountNumberValidationMessage,
+          errorText: viewModel.accountNameValidationMessage,
         ),
       ],
     );

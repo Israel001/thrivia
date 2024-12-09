@@ -67,7 +67,7 @@ class Page3 extends StatelessWidget with $JoinCooperativeView {
         CustomInputField(
           padding: EdgeInsets.only(top: 0),
           iconPath: AppImagesSVG.id,
-          errorText: viewModel.cooperativeIdValidationMessage,
+          errorText: viewModel.idTypeValidationMessage,
           child: DropdownFormField(
               hintText: "ID type",
               controller: idTypeController,
@@ -82,9 +82,10 @@ class Page3 extends StatelessWidget with $JoinCooperativeView {
               suffixIcon: Icon(
                 Icons.arrow_drop_down,
               ),
+              contentPadding: EdgeInsets.zero,
               suffixIconConstraints: const BoxConstraints(
-                minWidth: 16.0,
-                minHeight: 16.0,
+                maxWidth: 24.0,
+                maxHeight: 24.0,
               ),
             ),
             controller: fileUploadController,
@@ -98,7 +99,7 @@ class Page3 extends StatelessWidget with $JoinCooperativeView {
           //   controller: fileUploadController,
           //   // values: ["First bank", "Union bank"],
           // ),
-          errorText: viewModel.membershipNumberValidationMessage,
+          errorText: viewModel.fileUploadValidationMessage,
         ),
 
         24.verticalSpace,
@@ -158,7 +159,7 @@ class Page3 extends StatelessWidget with $JoinCooperativeView {
                     TextSpan(
                       text: ' of this cooperative society',
                       style: TextStyle(
-                        color: Colors.white,
+                        // color: Colors.white,
                         fontSize: 12,
                         fontFamily: 'Onest',
                         fontWeight: FontWeight.w400,
@@ -171,6 +172,7 @@ class Page3 extends StatelessWidget with $JoinCooperativeView {
             )
           ],
         ),
+        ErrorTextWidget(errorText: viewModel.termsAcceptedValidationMessage),
       ],
     );
   }

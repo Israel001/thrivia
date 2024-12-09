@@ -98,17 +98,33 @@ class CustomInputField extends StatelessWidget {
               ),
             ),
           ),
-          if (errorText != null)
-            Padding(
-              padding: EdgeInsets.only(top: 8, left: 45),
-              child: Text(
-                errorText!,
-                style: theme.textTheme.bodyMedium!
-                    .copyWith(color: theme.colorScheme.error),
-              ),
-            ),
+          ErrorTextWidget(errorText: errorText),
         ],
       ),
     );
+  }
+}
+
+class ErrorTextWidget extends StatelessWidget {
+  const ErrorTextWidget({
+    super.key,
+    required this.errorText,
+  });
+
+  final String? errorText;
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return errorText == null
+        ? SizedBox.shrink()
+        : Padding(
+            padding: EdgeInsets.only(top: 8, left: 45),
+            child: Text(
+              errorText!,
+              style: theme.textTheme.bodyMedium!
+                  .copyWith(color: theme.colorScheme.error),
+            ),
+          );
   }
 }

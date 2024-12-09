@@ -16,6 +16,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   # google_fonts: 6.2.0
   google_fonts: ^6.2.0
+  intl: ^0.20.1
   logger: ^1.4.0
   percent_indicator: ^4.2.4
   sms_autodetect: ^1.1.0

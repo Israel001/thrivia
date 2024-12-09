@@ -38,23 +38,30 @@ enum PaymentMethod {
   fields: [
     FormTextField(
       name: "cooperativeId",
-      // validator: FormValidators.validateEmailOrPhoneNumber,
+      validator: FormValidators.validateCooperativeId,
     ),
     FormTextField(
-      name: "membershipNumber",
-      // validator: FormValidators.validatePassword,
-    ),
-    FormTextField(name: "fullName"),
-    FormTextField(name: "dateOfBirth"),
-    FormTextField(name: "phoneNumber"),
-    FormTextField(name: "emailAddress"),
-    FormTextField(name: "residentialAddress"),
-    FormTextField(name: "paymentMethod"),
-    FormTextField(name: "bank"),
-    FormTextField(name: "accountNumber"),
-    FormTextField(name: "accountName"),
-    FormTextField(name: "idType"),
-    FormTextField(name: "fileUpload"),
+        name: "membershipNumber",
+        validator: FormValidators.validateMembershipNumber),
+    FormTextField(name: "fullName", validator: FormValidators.validateFullName),
+    FormTextField(
+        name: "dateOfBirth", validator: FormValidators.validateDateOfBirth),
+    FormTextField(
+        name: "phoneNumber", validator: FormValidators.validatePhoneNumber),
+    FormTextField(
+        name: "emailAddress", validator: FormValidators.validateEmail),
+    FormTextField(
+        name: "residentialAddres",
+        validator: FormValidators.validateHouseAddress),
+    FormTextField(
+        name: "paymentMethod", validator: FormValidators.validateDropDown),
+    FormTextField(name: "bank", validator: FormValidators.validateDropDown),
+    FormTextField(
+        name: "accountNumber", validator: FormValidators.validatePhoneNumber),
+    FormTextField(name: "accountName", validator: FormValidators.validateName),
+    FormTextField(name: "idType", validator: FormValidators.validateDropDown),
+    FormTextField(
+        name: "fileUpload", validator: FormValidators.validateDropDown),
     // FormDropdownField(name: "idType", items: [StaticDropdownItem(title: "", value: value)],),
     // FormField(name: "fileUpload"),
     // FormField(name: "termsAndConditions"),
@@ -135,13 +142,13 @@ class JoinCooperativeView extends StackedView<JoinCooperativeViewModel>
   void onDispose(JoinCooperativeViewModel viewModel) {
     // TODO: implement onDispose
     super.onDispose(viewModel);
-    // disposeForm();
+    disposeForm();
   }
 
   @override
   void onViewModelReady(JoinCooperativeViewModel viewModel) {
     // TODO: implement onViewModelReady
     super.onViewModelReady(viewModel);
-    // syncFormWithViewModel(viewModel);
+    syncFormWithViewModel(viewModel);
   }
 }

@@ -14,9 +14,12 @@ class JoinCooperativeViewModel extends FormViewModel {
   void proceed() async {
     int currentPage = pageController.page!.toInt();
     final pageIsValid = validatePage(currentPage);
-    // if (!pageIsValid) {
-    //   return;
-    // }
+
+    if (!pageIsValid) {
+      return;
+    }
+
+    fieldsValidationMessages.clear();
     if (currentPage == 3) {
       confirmSubmitApplication();
       return;
@@ -52,7 +55,44 @@ class JoinCooperativeViewModel extends FormViewModel {
   }
 
   bool validatePage(int pageNumber) {
-    validateForm();
+    switch (pageNumber) {
+      case 0:
+        setValidationMessages({
+          CooperativeIdValueKey: getValidationMessage(CooperativeIdValueKey),
+          MembershipNumberValueKey:
+              getValidationMessage(MembershipNumberValueKey),
+        });
+        break;
+      case 1:
+        setValidationMessages({
+          FullNameValueKey: getValidationMessage(FullNameValueKey),
+          DateOfBirthValueKey: getValidationMessage(DateOfBirthValueKey),
+          PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
+          EmailAddressValueKey: getValidationMessage(EmailAddressValueKey),
+          ResidentialAddresValueKey:
+              getValidationMessage(ResidentialAddresValueKey),
+        });
+        break;
+
+      case 2:
+        setValidationMessages({
+          PaymentMethodValueKey: getValidationMessage(PaymentMethodValueKey),
+          BankValueKey: getValidationMessage(BankValueKey),
+          AccountNumberValueKey: getValidationMessage(AccountNumberValueKey),
+          AccountNameValueKey: getValidationMessage(AccountNameValueKey),
+          IdTypeValueKey: getValidationMessage(IdTypeValueKey),
+          FileUploadValueKey: getValidationMessage(FileUploadValueKey),
+        });
+        break;
+      case 3:
+        setValidationMessages({
+          IdTypeValueKey: getValidationMessage(IdTypeValueKey),
+          FileUploadValueKey: getValidationMessage(FileUploadValueKey),
+        });
+        termsAcceptedValidationMessage =
+            _termsAccepted ? null : "Please accept terms and conditions";
+        break;
+    }
     final pageValid = switch (pageNumber) {
       0 => allNull([
           cooperativeIdValidationMessage,
@@ -63,7 +103,7 @@ class JoinCooperativeViewModel extends FormViewModel {
           dateOfBirthValidationMessage,
           phoneNumberValidationMessage,
           emailAddressValidationMessage,
-          residentialAddressValidationMessage,
+          residentialAddresValidationMessage,
         ]),
       2 => allNull([
           paymentMethodValidationMessage,
@@ -95,7 +135,7 @@ class JoinCooperativeViewModel extends FormViewModel {
   }
 
   void selectDateOfBirth(BuildContext topContext) async {
-    var dateTime = DateTime.now();
+    var dateTime = DateTime.tryParse(dateOfBirthValue ?? "") ?? DateTime.now();
     final dateOfBirth = await showDatePicker(
       context: topContext,
       initialDate: dateTime,
@@ -133,8 +173,12 @@ class JoinCooperativeViewModel extends FormViewModel {
 
   bool get termsAccepted => _termsAccepted;
   bool _termsAccepted = false;
+
+  String? termsAcceptedValidationMessage;
 }
 
 extension Format on DateTime {
-  String get format => "$year-$month-$day";
+  String get format => toIso8601String().split('T').first;
+
+  //  "$year-$month-$day";
 }

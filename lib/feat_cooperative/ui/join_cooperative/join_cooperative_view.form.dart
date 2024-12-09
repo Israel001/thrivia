@@ -8,6 +8,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
+import 'package:thrivia_app/common/form_validators.dart';
 
 const bool _autoTextFieldValidation = false;
 
@@ -17,7 +18,7 @@ const String FullNameValueKey = 'fullName';
 const String DateOfBirthValueKey = 'dateOfBirth';
 const String PhoneNumberValueKey = 'phoneNumber';
 const String EmailAddressValueKey = 'emailAddress';
-const String ResidentialAddressValueKey = 'residentialAddress';
+const String ResidentialAddresValueKey = 'residentialAddres';
 const String PaymentMethodValueKey = 'paymentMethod';
 const String BankValueKey = 'bank';
 const String AccountNumberValueKey = 'accountNumber';
@@ -32,19 +33,19 @@ final Map<String, FocusNode> _JoinCooperativeViewFocusNodes = {};
 
 final Map<String, String? Function(String?)?>
     _JoinCooperativeViewTextValidations = {
-  CooperativeIdValueKey: null,
-  MembershipNumberValueKey: null,
-  FullNameValueKey: null,
-  DateOfBirthValueKey: null,
-  PhoneNumberValueKey: null,
-  EmailAddressValueKey: null,
-  ResidentialAddressValueKey: null,
-  PaymentMethodValueKey: null,
-  BankValueKey: null,
-  AccountNumberValueKey: null,
-  AccountNameValueKey: null,
-  IdTypeValueKey: null,
-  FileUploadValueKey: null,
+  CooperativeIdValueKey: FormValidators.validateCooperativeId,
+  MembershipNumberValueKey: FormValidators.validateMembershipNumber,
+  FullNameValueKey: FormValidators.validateFullName,
+  DateOfBirthValueKey: FormValidators.validateDateOfBirth,
+  PhoneNumberValueKey: FormValidators.validatePhoneNumber,
+  EmailAddressValueKey: FormValidators.validateEmail,
+  ResidentialAddresValueKey: FormValidators.validateHouseAddress,
+  PaymentMethodValueKey: FormValidators.validateDropDown,
+  BankValueKey: FormValidators.validateDropDown,
+  AccountNumberValueKey: FormValidators.validatePhoneNumber,
+  AccountNameValueKey: FormValidators.validateName,
+  IdTypeValueKey: FormValidators.validateDropDown,
+  FileUploadValueKey: FormValidators.validateDropDown,
 };
 
 mixin $JoinCooperativeView {
@@ -60,8 +61,8 @@ mixin $JoinCooperativeView {
       _getFormTextEditingController(PhoneNumberValueKey);
   TextEditingController get emailAddressController =>
       _getFormTextEditingController(EmailAddressValueKey);
-  TextEditingController get residentialAddressController =>
-      _getFormTextEditingController(ResidentialAddressValueKey);
+  TextEditingController get residentialAddresController =>
+      _getFormTextEditingController(ResidentialAddresValueKey);
   TextEditingController get paymentMethodController =>
       _getFormTextEditingController(PaymentMethodValueKey);
   TextEditingController get bankController =>
@@ -84,8 +85,8 @@ mixin $JoinCooperativeView {
   FocusNode get phoneNumberFocusNode => _getFormFocusNode(PhoneNumberValueKey);
   FocusNode get emailAddressFocusNode =>
       _getFormFocusNode(EmailAddressValueKey);
-  FocusNode get residentialAddressFocusNode =>
-      _getFormFocusNode(ResidentialAddressValueKey);
+  FocusNode get residentialAddresFocusNode =>
+      _getFormFocusNode(ResidentialAddresValueKey);
   FocusNode get paymentMethodFocusNode =>
       _getFormFocusNode(PaymentMethodValueKey);
   FocusNode get bankFocusNode => _getFormFocusNode(BankValueKey);
@@ -125,7 +126,7 @@ mixin $JoinCooperativeView {
     dateOfBirthController.addListener(() => _updateFormData(model));
     phoneNumberController.addListener(() => _updateFormData(model));
     emailAddressController.addListener(() => _updateFormData(model));
-    residentialAddressController.addListener(() => _updateFormData(model));
+    residentialAddresController.addListener(() => _updateFormData(model));
     paymentMethodController.addListener(() => _updateFormData(model));
     bankController.addListener(() => _updateFormData(model));
     accountNumberController.addListener(() => _updateFormData(model));
@@ -149,7 +150,7 @@ mixin $JoinCooperativeView {
     dateOfBirthController.addListener(() => _updateFormData(model));
     phoneNumberController.addListener(() => _updateFormData(model));
     emailAddressController.addListener(() => _updateFormData(model));
-    residentialAddressController.addListener(() => _updateFormData(model));
+    residentialAddresController.addListener(() => _updateFormData(model));
     paymentMethodController.addListener(() => _updateFormData(model));
     bankController.addListener(() => _updateFormData(model));
     accountNumberController.addListener(() => _updateFormData(model));
@@ -171,7 +172,7 @@ mixin $JoinCooperativeView {
           DateOfBirthValueKey: dateOfBirthController.text,
           PhoneNumberValueKey: phoneNumberController.text,
           EmailAddressValueKey: emailAddressController.text,
-          ResidentialAddressValueKey: residentialAddressController.text,
+          ResidentialAddresValueKey: residentialAddresController.text,
           PaymentMethodValueKey: paymentMethodController.text,
           BankValueKey: bankController.text,
           AccountNumberValueKey: accountNumberController.text,
@@ -230,8 +231,8 @@ extension ValueProperties on FormStateHelper {
       this.formValueMap[PhoneNumberValueKey] as String?;
   String? get emailAddressValue =>
       this.formValueMap[EmailAddressValueKey] as String?;
-  String? get residentialAddressValue =>
-      this.formValueMap[ResidentialAddressValueKey] as String?;
+  String? get residentialAddresValue =>
+      this.formValueMap[ResidentialAddresValueKey] as String?;
   String? get paymentMethodValue =>
       this.formValueMap[PaymentMethodValueKey] as String?;
   String? get bankValue => this.formValueMap[BankValueKey] as String?;
@@ -315,14 +316,14 @@ extension ValueProperties on FormStateHelper {
     }
   }
 
-  set residentialAddressValue(String? value) {
+  set residentialAddresValue(String? value) {
     this.setData(
-      this.formValueMap..addAll({ResidentialAddressValueKey: value}),
+      this.formValueMap..addAll({ResidentialAddresValueKey: value}),
     );
 
     if (_JoinCooperativeViewTextEditingControllers.containsKey(
-        ResidentialAddressValueKey)) {
-      _JoinCooperativeViewTextEditingControllers[ResidentialAddressValueKey]
+        ResidentialAddresValueKey)) {
+      _JoinCooperativeViewTextEditingControllers[ResidentialAddresValueKey]
           ?.text = value ?? '';
     }
   }
@@ -416,9 +417,9 @@ extension ValueProperties on FormStateHelper {
   bool get hasEmailAddress =>
       this.formValueMap.containsKey(EmailAddressValueKey) &&
       (emailAddressValue?.isNotEmpty ?? false);
-  bool get hasResidentialAddress =>
-      this.formValueMap.containsKey(ResidentialAddressValueKey) &&
-      (residentialAddressValue?.isNotEmpty ?? false);
+  bool get hasResidentialAddres =>
+      this.formValueMap.containsKey(ResidentialAddresValueKey) &&
+      (residentialAddresValue?.isNotEmpty ?? false);
   bool get hasPaymentMethod =>
       this.formValueMap.containsKey(PaymentMethodValueKey) &&
       (paymentMethodValue?.isNotEmpty ?? false);
@@ -451,8 +452,8 @@ extension ValueProperties on FormStateHelper {
       this.fieldsValidationMessages[PhoneNumberValueKey]?.isNotEmpty ?? false;
   bool get hasEmailAddressValidationMessage =>
       this.fieldsValidationMessages[EmailAddressValueKey]?.isNotEmpty ?? false;
-  bool get hasResidentialAddressValidationMessage =>
-      this.fieldsValidationMessages[ResidentialAddressValueKey]?.isNotEmpty ??
+  bool get hasResidentialAddresValidationMessage =>
+      this.fieldsValidationMessages[ResidentialAddresValueKey]?.isNotEmpty ??
       false;
   bool get hasPaymentMethodValidationMessage =>
       this.fieldsValidationMessages[PaymentMethodValueKey]?.isNotEmpty ?? false;
@@ -479,8 +480,8 @@ extension ValueProperties on FormStateHelper {
       this.fieldsValidationMessages[PhoneNumberValueKey];
   String? get emailAddressValidationMessage =>
       this.fieldsValidationMessages[EmailAddressValueKey];
-  String? get residentialAddressValidationMessage =>
-      this.fieldsValidationMessages[ResidentialAddressValueKey];
+  String? get residentialAddresValidationMessage =>
+      this.fieldsValidationMessages[ResidentialAddresValueKey];
   String? get paymentMethodValidationMessage =>
       this.fieldsValidationMessages[PaymentMethodValueKey];
   String? get bankValidationMessage =>
@@ -509,8 +510,8 @@ extension Methods on FormStateHelper {
       this.fieldsValidationMessages[PhoneNumberValueKey] = validationMessage;
   setEmailAddressValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[EmailAddressValueKey] = validationMessage;
-  setResidentialAddressValidationMessage(String? validationMessage) =>
-      this.fieldsValidationMessages[ResidentialAddressValueKey] =
+  setResidentialAddresValidationMessage(String? validationMessage) =>
+      this.fieldsValidationMessages[ResidentialAddresValueKey] =
           validationMessage;
   setPaymentMethodValidationMessage(String? validationMessage) =>
       this.fieldsValidationMessages[PaymentMethodValueKey] = validationMessage;
@@ -533,7 +534,7 @@ extension Methods on FormStateHelper {
     dateOfBirthValue = '';
     phoneNumberValue = '';
     emailAddressValue = '';
-    residentialAddressValue = '';
+    residentialAddresValue = '';
     paymentMethodValue = '';
     bankValue = '';
     accountNumberValue = '';
@@ -551,8 +552,8 @@ extension Methods on FormStateHelper {
       DateOfBirthValueKey: getValidationMessage(DateOfBirthValueKey),
       PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
       EmailAddressValueKey: getValidationMessage(EmailAddressValueKey),
-      ResidentialAddressValueKey:
-          getValidationMessage(ResidentialAddressValueKey),
+      ResidentialAddresValueKey:
+          getValidationMessage(ResidentialAddresValueKey),
       PaymentMethodValueKey: getValidationMessage(PaymentMethodValueKey),
       BankValueKey: getValidationMessage(BankValueKey),
       AccountNumberValueKey: getValidationMessage(AccountNumberValueKey),
@@ -584,8 +585,8 @@ void updateValidationData(FormStateHelper model) =>
       DateOfBirthValueKey: getValidationMessage(DateOfBirthValueKey),
       PhoneNumberValueKey: getValidationMessage(PhoneNumberValueKey),
       EmailAddressValueKey: getValidationMessage(EmailAddressValueKey),
-      ResidentialAddressValueKey:
-          getValidationMessage(ResidentialAddressValueKey),
+      ResidentialAddresValueKey:
+          getValidationMessage(ResidentialAddresValueKey),
       PaymentMethodValueKey: getValidationMessage(PaymentMethodValueKey),
       BankValueKey: getValidationMessage(BankValueKey),
       AccountNumberValueKey: getValidationMessage(AccountNumberValueKey),
