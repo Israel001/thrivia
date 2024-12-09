@@ -16,6 +16,7 @@ import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart'
     as _i2;
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart'
     as _i12;
+import 'package:thrivia_app/feat_auth/services/auth_service.dart' as _i17;
 import 'package:thrivia_app/feat_cooperative/data_models/data_models.dart'
     as _i5;
 import 'package:thrivia_app/feat_cooperative/data_models/transactionResponse.dart'
@@ -23,6 +24,7 @@ import 'package:thrivia_app/feat_cooperative/data_models/transactionResponse.dar
 import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_service.dart'
     as _i15;
 import 'package:thrivia_app/feat_loan/data_models/loanResponse.dart' as _i16;
+
 import 'package:thrivia_app/services/dio_service.dart' as _i13;
 import 'package:thrivia_app/services/storage_service.dart' as _i14;
 
@@ -1527,3 +1529,8 @@ class MockCooperativeRepository extends _i1.Mock
         )),
       ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
 }
+
+/// A class which mocks [AuthServiceService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthService extends _i1.Mock implements _i17.AuthService {}
