@@ -199,7 +199,7 @@ class CooperativeRepository {
     return list.map((model) => Wallet.fromJson(model)).toList();
   }
 
-  Future<List<Withdrawalrequest>> getWithdrawalRequests(String uuid) async {
+  Future<List<WithdrawalRequest>> getWithdrawalRequests(String uuid) async {
     final response = await _dio.getUri(
       Uri.https(ApiConstants.authority,
           '${ApiConstants.cooperatives}/$uuid/${ApiConstants.withdrawals}'),
@@ -211,10 +211,10 @@ class CooperativeRepository {
           prettyDetails: "Could not get withdrawal requests");
     }
     Iterable list = response.data;
-    return list.map((model) => Withdrawalrequest.fromJson(model)).toList();
+    return list.map((model) => WithdrawalRequest.fromJson(model)).toList();
   }
 
-  Future<Withdrawalrequest> getWithdrawalReuest(
+  Future<WithdrawalRequest> getWithdrawalReuest(
       {required String uuid, required String requestUuid}) async {
     final response = await _dio.getUri(
       Uri.https(ApiConstants.authority,
@@ -226,7 +226,7 @@ class CooperativeRepository {
           devDetails: "$response",
           prettyDetails: "Could not get withdrawal request");
     }
-    return Withdrawalrequest.fromJson(response.data);
+    return WithdrawalRequest.fromJson(response.data);
   }
 
   Future<RejectApplicationResponse> rejectApplication(

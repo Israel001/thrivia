@@ -87,13 +87,13 @@ class MockCooperativeRepository implements CooperativeRepository {
   }
 
   @override
-  Future<List<Withdrawalrequest>> getWithdrawalRequests(String uuid) {
+  Future<List<WithdrawalRequest>> getWithdrawalRequests(String uuid) {
     // TODO: implement getWithdrawalRequests
     throw UnimplementedError();
   }
 
   @override
-  Future<Withdrawalrequest> getWithdrawalReuest(
+  Future<WithdrawalRequest> getWithdrawalReuest(
       {required String uuid, required String requestUuid}) {
     // TODO: implement getWithdrawalReuest
     throw UnimplementedError();

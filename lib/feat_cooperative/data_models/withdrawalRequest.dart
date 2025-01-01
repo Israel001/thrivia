@@ -1,3 +1,3 @@
-class Withdrawalrequest {
-  Withdrawalrequest.fromJson(Map<String, dynamic> json);
+class WithdrawalRequest {
+  WithdrawalRequest.fromJson(Map<String, dynamic> json);
 }

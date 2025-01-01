@@ -3,7 +3,7 @@ import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/common/exceptions.dart';
 import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart';
 import 'package:thrivia_app/feat_auth/data_models/login_user_response.dart';
-import 'package:thrivia_app/feat_auth/data_models/user.dart';
+import 'package:thrivia_app/feat_users/data_models/user.dart';
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 

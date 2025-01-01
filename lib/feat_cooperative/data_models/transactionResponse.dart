@@ -3,7 +3,7 @@ import 'dart:convert';
 
 import 'package:thrivia_app/feat_cooperative/data_models/data_models.dart';
 
-import '../../feat_auth/data_models/user.dart';
+import '../../feat_users/data_models/user.dart';
 
 class TransactionResponse {
   final String uuid;

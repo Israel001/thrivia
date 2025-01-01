@@ -32,7 +32,7 @@ import 'package:thrivia_app/feat_cooperative/ui/join_cooperative/join_cooperativ
 
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/transaction_history/transaction_history_view.dart';
 
-import 'package:thrivia_app/services/users_repository_service.dart';
+import 'package:thrivia_app/feat_users/repository/users_repository.dart';
 // @stacked-import
 
 @StackedApp(routes: [
@@ -73,7 +73,7 @@ import 'package:thrivia_app/services/users_repository_service.dart';
         : CooperativeRepository,
   ),
   LazySingleton(classType: AuthService),
-  LazySingleton(classType: UsersRepositoryService),
+  LazySingleton(classType: UsersRepository),
 // @stacked-service
 ], bottomsheets: [
   StackedBottomsheet(classType: NoticeSheet),

@@ -1,6 +1,6 @@
 import 'package:meta/meta.dart';
 import 'package:thrivia_app/feat_auth/data_models/data_models.dart';
-import 'package:thrivia_app/feat_auth/data_models/user.dart';
+import 'package:thrivia_app/feat_users/data_models/user.dart';
 import 'package:thrivia_app/feat_cooperative/data_models/data_models.dart';
 import 'dart:convert';
 

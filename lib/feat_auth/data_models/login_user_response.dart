@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:thrivia_app/feat_auth/data_models/user.dart';
+import 'package:thrivia_app/feat_users/data_models/user.dart';
 
 class LoginResponse {
   final String accessToken;
