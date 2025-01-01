@@ -13,9 +13,14 @@ class ModelErrorDisplay extends StatelessWidget {
     final theme = Theme.of(context);
     String text;
     try {
-      text = viewModel.modelError?.prettyDetails;
+      if (viewModel.hasError) {
+        text =
+            viewModel.modelError?.prettyDetails ?? "Unexpected error occured";
+      } else {
+        text = "";
+      }
     } catch (e) {
-      text = "Unexpected Error Occured";
+      text = "Unexpected Error";
     }
     return viewModel.hasError
         ? Padding(

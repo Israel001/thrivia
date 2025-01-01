@@ -39,6 +39,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => StorageService());
   locator.registerLazySingleton<CooperativeRepository>(
       () => MockCooperativeRepository());
-  locator.registerLazySingleton(() => AuthService());
   locator.registerLazySingleton(() => UsersRepository());
 }

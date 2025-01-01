@@ -8,8 +8,10 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/finance_v
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/profile/profile_view.dart';
 
+final GlobalKey<ScaffoldState> bottomNavScaffoldKey = GlobalKey<ScaffoldState>();
 class BottomNavViewModel extends IndexTrackingViewModel {
   // final log = getLogger('BottomNavExampleViewModel');
+  
   final _navigationService = locator<NavigationService>();
   final logger = getLogger("BottomNavViewModel");
   // void handleNavigation(int index) {
@@ -81,5 +83,8 @@ class BottomNavViewModel extends IndexTrackingViewModel {
       default:
         return SizedBox();
     }
+  }
+
+  void joinCooperative() {
   }
 }

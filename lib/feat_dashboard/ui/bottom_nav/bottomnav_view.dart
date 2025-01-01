@@ -7,6 +7,8 @@ import 'package:thrivia_app/app/app.router.dart';
 
 import 'package:thrivia_app/common/constants.dart';
 import 'package:thrivia_app/common/ui_helpers.dart';
+import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/home/home_view.dart';
+import 'package:thrivia_app/ui/widgets/primary_button.dart';
 
 import 'bottomnav_viewmodel.dart';
 
@@ -19,55 +21,20 @@ class BottomNavView extends StackedView<BottomNavViewModel> {
     BottomNavViewModel viewModel,
     Widget? child,
   ) {
-    final views = [
-      Container(
-          // color: Colors.blue,
-          ),
-      Container(
-        color: Colors.red,
-      ),
-      Container(
-        color: Colors.blue,
-      ),
-      Container(
-        color: Colors.red,
-      )
-    ];
     return Scaffold(
       // backgroundColor: Theme.of(context).colorScheme.background,
+      key: bottomNavScaffoldKey,
+
       bottomNavigationBar: CustomBottomNav(
         setMethod: viewModel.setIndex,
         currentIndex: viewModel.currentIndex,
       ),
-      //   type: BottomNavigationBarType.fixed,
-      //   backgroundColor: Colors.grey[800],
-      //   currentIndex: viewModel.currentIndex,
-      //   onTap: viewModel.setIndex,
-      //   items: [
-      //     BottomNavigationBarItem(
-      //       label: 'Home',
-      //       icon: Icon(Icons.art_track),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       label: 'Finance',
-      //       icon: Icon(Icons.list),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       label: 'Community',
-      //       icon: Icon(Icons.list),
-      //     ),
-      //     BottomNavigationBarItem(
-      //       label: 'Profile',
-      //       icon: Icon(Icons.list),
-      //     ),
-      //   ],
-      // ),
-      // body: ExtendedNavigator(
-      //   navigatorKey: StackedService.nestedNavigationKey(1),
-      //   initialRoute: Routes.homeView,
-      //   router: StackedRouter(),
-      // ),
-      body: SafeArea(child: viewModel.getViewForIndex(viewModel.currentIndex)),
+
+      body: SafeArea(
+        child: viewModel.getViewForIndex(
+          viewModel.currentIndex,
+        ),
+      ),
     );
   }
 
@@ -100,7 +67,7 @@ class CustomBottomNav extends StatelessWidget {
       ),
       decoration: BoxDecoration(
         color: lightMode(context) ? Colors.white : Color(0xFF0D1015),
-        borderRadius: BorderRadius.only(
+        borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(30),
           topRight: Radius.circular(30),
         ),
@@ -144,6 +111,71 @@ class CustomBottomNav extends StatelessWidget {
             currentIndex: currentIndex,
           ),
         ],
+      ),
+    );
+  }
+}
+
+class CoopertivesDrawer extends StatelessWidget {
+  final BottomNavViewModel viewModel;
+  const CoopertivesDrawer({
+    super.key,
+    required this.viewModel,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      width: 240,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            23.verticalSpace,
+            Text(
+              'Cooperative Societies',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'Onest',
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            15.verticalSpace,
+            Divider(
+              color: Color(0xFFDADADA),
+            ),
+            ...List.generate(
+              4,
+              (index) => CooperativeCard(
+                  cooperativeLink: "cooperativeLink",
+                  cooperativeName: "cooperativeName",
+                  cooperativeImageUrl: "cooperativeImageUrl"),
+            ),
+            23.verticalSpace,
+            PrimaryButton(
+              onPressed: viewModel.joinCooperative,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.add),
+                  12.horizontalSpace,
+                  Text(
+                    'Add another cooperative',
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontFamily: 'Onest',
+                      fontWeight: FontWeight.w400,
+                      height: 0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

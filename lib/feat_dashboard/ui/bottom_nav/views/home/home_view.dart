@@ -2,6 +2,7 @@
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 
 import 'package:thrivia_app/common/app_colors.dart';
@@ -282,7 +283,7 @@ class TopBar extends StatelessWidget {
           ),
           child: InkWell(
             onTap: () {
-              viewModel.openEndDrawer();
+              viewModel.openEndDrawer(context);
             },
             child: SvgPicture.asset(
               AppImagesSVG.profile_circle,
@@ -424,24 +425,26 @@ class ContributionCardBody extends StatelessWidget {
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'N',
+                    text: '₦',
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 30,
                       fontFamily: 'Onest',
                       fontWeight: FontWeight.w400,
-                      decoration: TextDecoration.lineThrough,
+                      // decoration: TextDecoration.lineThrough,
                       decorationColor: Colors.white,
                       height: 0,
                     ),
                   ),
                   TextSpan(
                     text: viewModel.contributionBalanceText,
-                    style: TextStyle(
+                    style: GoogleFonts.robotoMono(
                       color: Colors.white,
                       fontSize: 30,
-                      fontFamily: 'Onest',
+                      // fontFamily: 'Onest',
                       fontWeight: FontWeight.w400,
+                      decorationStyle: TextDecorationStyle.solid,
+
                       height: 0,
                     ),
                   ),
@@ -463,8 +466,8 @@ class ContributionCardBody extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            SizedBox(
-              width: 148,
+            Expanded(
+              // width: 148,
               child: PrimaryButton(
                 onPressed: viewModel.addMoney,
                 child: Row(
@@ -486,10 +489,13 @@ class ContributionCardBody extends StatelessWidget {
               ),
             ),
             if (viewModel.showWithdrawButton)
-              SizedBox(
-                width: 148,
-                child: PrimaryButton(
-                    onPressed: viewModel.withdrawMoney, label: "Withdraw"),
+              Expanded(
+                // width: 148,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 12.0),
+                  child: PrimaryButton(
+                      onPressed: viewModel.withdrawMoney, label: "Withdraw"),
+                ),
               )
           ],
         ),

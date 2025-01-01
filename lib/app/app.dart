@@ -49,7 +49,7 @@ import 'package:thrivia_app/feat_users/repository/users_repository.dart';
   MaterialRoute(page: FinanceView),
   MaterialRoute(page: CommunityView),
   MaterialRoute(page: ProfileView),
-  // MaterialRoute(page: ForgotPasswordView),
+
   MaterialRoute(page: JoinCooperativeView),
   MaterialRoute(page: RegisterCooperativeView),
   MaterialRoute(page: TransactionHistoryView),
@@ -60,9 +60,10 @@ import 'package:thrivia_app/feat_users/repository/users_repository.dart';
   LazySingleton(asType: NavigationService, classType: NavigationService),
   LazySingleton(classType: AuthService),
   LazySingleton(
-      asType: AuthRepository,
-      classType:
-          Overides.mockAuthRepository ? MockedAuthRepository : AuthRepository),
+    asType: AuthRepository,
+    classType:
+        Overides.mockAuthRepository ? MockedAuthRepository : AuthRepository,
+  ),
   // LazySingleton(asType: AuthRepository, classType: BackendAuthRepository),
   LazySingleton(classType: DioService),
   LazySingleton(classType: StorageService),
@@ -72,7 +73,7 @@ import 'package:thrivia_app/feat_users/repository/users_repository.dart';
         ? MockCooperativeRepository
         : CooperativeRepository,
   ),
-  LazySingleton(classType: AuthService),
+
   LazySingleton(classType: UsersRepository),
 // @stacked-service
 ], bottomsheets: [

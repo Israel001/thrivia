@@ -39,6 +39,8 @@ class AuthService with ListenableServiceMixin {
   String? _accessToken;
   String? _refreshToken;
 
+  DateTime? _expiresIn;
+
   FutureOr<void> createAccount(CreateUserRequest newUser) async {
     final response = await _authRepository.createAccount(newUser);
     _authState = AuthState.pendingVerifyOTP;
@@ -64,15 +66,18 @@ class AuthService with ListenableServiceMixin {
     } on LoginResponse catch (loginResponse) {
       _authState = AuthState.loggedIn;
       // final loginResponse = response as LoginResponse;
-      _user = response.user;
-      _accessToken = response.accessToken;
-      _refreshToken = response.refreshToken;
+      _user = loginResponse.user;
+      _accessToken = loginResponse.accessToken;
+      _refreshToken = loginResponse.refreshToken;
+
+      _expiresIn =
+          DateTime.now().add(Duration(milliseconds: loginResponse.expiresIn));
 
       //saveresponse
       // _accessToken = response.accessToken;
       return;
     } on CreateAccountResponse catch (createAccountResponse) {
-      _storeVerifyAccountOTPDetails(response);
+      _storeVerifyAccountOTPDetails(createAccountResponse);
       return;
     } catch (e) {
       logger.wtf(
