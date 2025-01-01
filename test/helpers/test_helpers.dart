@@ -8,6 +8,7 @@ import 'package:thrivia_app/services/dio_service.dart';
 import 'package:thrivia_app/services/storage_service.dart';
 import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_service.dart';
 
+import 'package:thrivia_app/services/users_repository_service.dart';
 // @stacked-import
 
 import 'test_helpers.mocks.dart';
@@ -22,6 +23,7 @@ import 'test_helpers.mocks.dart';
   MockSpec<CooperativeRepository>(onMissingStub: OnMissingStub.returnDefault),
   // MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
   MockSpec<AuthService>(onMissingStub: OnMissingStub.returnDefault),
+  MockSpec<UsersRepositoryService>(onMissingStub: OnMissingStub.returnDefault),
 // @stacked-mock-spec
 ])
 void registerServices() {
@@ -34,6 +36,7 @@ void registerServices() {
 
   // getAndRegisterCooperativesRepositoryService();
   getAndRegisterAuthServiceService();
+  getAndRegisterUsersRepositoryService();
 // @stacked-mock-register
 }
 
@@ -119,6 +122,13 @@ MockAuthService getAndRegisterAuthServiceService() {
   _removeRegistrationIfExists<AuthService>();
   final service = MockAuthService();
   locator.registerSingleton<AuthService>(service);
+  return service;
+}
+
+MockUsersRepositoryService getAndRegisterUsersRepositoryService() {
+  _removeRegistrationIfExists<UsersRepositoryService>();
+  final service = MockUsersRepositoryService();
+  locator.registerSingleton<UsersRepositoryService>(service);
   return service;
 }
 // @stacked-mock-create

@@ -7,33 +7,33 @@ import 'package:thrivia_app/feat_loan/data_models/loanResponse.dart';
 
 class MockCooperativeRepository implements CooperativeRepository {
   @override
-  FutureOr<void> approveApplication(
+  Future<void> approveApplication(
       {required String uuid, required String applicationUuid}) {
     // TODO: implement approveApplication
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<void> approveLoan({required String uuid, required String loanUuid}) {
+  Future<void> approveLoan({required String uuid, required String loanUuid}) {
     // TODO: implement approveLoan
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<Payment> approveWithdrawalRequest(
+  Future<Payment> approveWithdrawalRequest(
       {required String uuid, required String requestUuid}) {
     // TODO: implement approveWithdrawalRequest
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<Cooperative> createCooperative(CreateCooperativeRequest request) {
+  Future<Cooperative> createCooperative(CreateCooperativeRequest request) {
     // TODO: implement createCooperative
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<TransactionResponse> deposit(
+  Future<TransactionResponse> deposit(
       {required String uuid,
       required String walletUuid,
       required DepositMoneyRequest depositMoneyRequest}) {
@@ -42,86 +42,86 @@ class MockCooperativeRepository implements CooperativeRepository {
   }
 
   @override
-  FutureOr<Application> getApplication(
+  Future<Application> getApplication(
       {required String uuid, required String requestUuid}) {
     // TODO: implement getApplication
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<List<Application>> getApplications(String uuid) {
+  Future<List<Application>> getApplications(String uuid) {
     // TODO: implement getApplications
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<List<Members>> getMembers(String uuid) {
+  Future<List<Members>> getMembers(String uuid) {
     // TODO: implement getMembers
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<List<LoanResponse>> getPendingLoans(String uuid) {
+  Future<List<LoanResponse>> getPendingLoans(String uuid) {
     // TODO: implement getPendingLoans
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<List<LoanResponse>> getUserLoans(
+  Future<List<LoanResponse>> getUserLoans(
       {required String uuid, required LoanStatus loanStatus}) {
     // TODO: implement getUserLoans
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<List<TransactionResponse>> getWalletTransactions(
+  Future<List<TransactionResponse>> getWalletTransactions(
       {required String uuid, required String walletUuid}) {
     // TODO: implement getWalletTransactions
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<List<Wallet>> getWallets(String uuid) {
+  Future<List<Wallet>> getWallets(String uuid) {
     // TODO: implement getWallets
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<List<Withdrawalrequest>> getWithdrawalRequests(String uuid) {
+  Future<List<Withdrawalrequest>> getWithdrawalRequests(String uuid) {
     // TODO: implement getWithdrawalRequests
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<Withdrawalrequest> getWithdrawalReuest(
+  Future<Withdrawalrequest> getWithdrawalReuest(
       {required String uuid, required String requestUuid}) {
     // TODO: implement getWithdrawalReuest
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<RejectApplicationResponse> rejectApplication(
+  Future<RejectApplicationResponse> rejectApplication(
       {required String uuid, required String requestUuid}) {
     // TODO: implement rejectApplication
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<RejectApplicationResponse> rejectLoan(
+  Future<RejectApplicationResponse> rejectLoan(
       {required String uuid, required String loanUuid}) {
     // TODO: implement rejectLoan
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<RejectApplicationResponse> rejectWithdrawalRequest(
+  Future<RejectApplicationResponse> rejectWithdrawalRequest(
       {required String uuid, required String requestUuid}) {
     // TODO: implement rejectWithdrawalRequest
     throw UnimplementedError();
   }
 
   @override
-  FutureOr<Payment> verifyTransaction(
+  Future<Payment> verifyTransaction(
       {required String transactionId,
       required PaymentInfoRequest paymentInfo}) {
     // TODO: implement verifyTransaction
@@ -129,7 +129,7 @@ class MockCooperativeRepository implements CooperativeRepository {
   }
 
   @override
-  FutureOr<Payment> withdraw(
+  Future<Payment> withdraw(
       {required String uuid,
       required String walletUuid,
       required PaymentInfoRequest paymentInfo}) {

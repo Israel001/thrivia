@@ -10,4 +10,12 @@ abstract class ApiConstants {
 
   static const authChagePassword = 'auth/change-password';
   static const authResetPassword = 'auth/reset-password';
+
+  static const cooperatives = 'cooperatives';
+  static const applications = 'applications';
+  static const loans = 'loans';
+  static const withdrawals = 'withdrawals';
+  static const wallets = 'wallets';
+  static const transactions = 'transactions';
+  static const members = 'members';
 }

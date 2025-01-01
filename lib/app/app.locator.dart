@@ -17,6 +17,7 @@ import '../feat_cooperative/repository/cooperatives_repository_service.dart';
 import '../feat_cooperative/repository/mock_cooperative_repository.dart';
 import '../services/dio_service.dart';
 import '../services/storage_service.dart';
+import '../services/users_repository_service.dart';
 
 final locator = StackedLocator.instance;
 
@@ -39,4 +40,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton<CooperativeRepository>(
       () => MockCooperativeRepository());
   locator.registerLazySingleton(() => AuthService());
+  locator.registerLazySingleton(() => UsersRepositoryService());
 }

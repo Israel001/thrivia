@@ -26,6 +26,7 @@ import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_
 import 'package:thrivia_app/feat_loan/data_models/loanResponse.dart' as _i16;
 import 'package:thrivia_app/services/dio_service.dart' as _i13;
 import 'package:thrivia_app/services/storage_service.dart' as _i14;
+import 'package:thrivia_app/services/users_repository_service.dart' as _i18;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -997,7 +998,7 @@ class MockStorageService extends _i1.Mock implements _i14.StorageService {
 class MockCooperativeRepository extends _i1.Mock
     implements _i15.CooperativeRepository {
   @override
-  _i10.FutureOr<void> approveApplication({
+  _i10.Future<void> approveApplication({
     required String? uuid,
     required String? applicationUuid,
   }) =>
@@ -1010,11 +1011,12 @@ class MockCooperativeRepository extends _i1.Mock
             #applicationUuid: applicationUuid,
           },
         ),
-        returnValueForMissingStub: null,
-      ) as _i10.FutureOr<void>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
 
   @override
-  _i10.FutureOr<void> approveLoan({
+  _i10.Future<void> approveLoan({
     required String? uuid,
     required String? loanUuid,
   }) =>
@@ -1027,11 +1029,12 @@ class MockCooperativeRepository extends _i1.Mock
             #loanUuid: loanUuid,
           },
         ),
-        returnValueForMissingStub: null,
-      ) as _i10.FutureOr<void>);
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
 
   @override
-  _i10.FutureOr<_i5.Payment> approveWithdrawalRequest({
+  _i10.Future<_i5.Payment> approveWithdrawalRequest({
     required String? uuid,
     required String? requestUuid,
   }) =>
@@ -1067,10 +1070,10 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.Payment>);
+      ) as _i10.Future<_i5.Payment>);
 
   @override
-  _i10.FutureOr<_i5.Cooperative> createCooperative(
+  _i10.Future<_i5.Cooperative> createCooperative(
           _i5.CreateCooperativeRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1092,10 +1095,10 @@ class MockCooperativeRepository extends _i1.Mock
             [request],
           ),
         )),
-      ) as _i10.FutureOr<_i5.Cooperative>);
+      ) as _i10.Future<_i5.Cooperative>);
 
   @override
-  _i10.FutureOr<_i6.TransactionResponse> deposit({
+  _i10.Future<_i6.TransactionResponse> deposit({
     required String? uuid,
     required String? walletUuid,
     required _i5.DepositMoneyRequest? depositMoneyRequest,
@@ -1136,10 +1139,10 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i6.TransactionResponse>);
+      ) as _i10.Future<_i6.TransactionResponse>);
 
   @override
-  _i10.FutureOr<_i5.Application> getApplication({
+  _i10.Future<_i5.Application> getApplication({
     required String? uuid,
     required String? requestUuid,
   }) =>
@@ -1175,10 +1178,10 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.Application>);
+      ) as _i10.Future<_i5.Application>);
 
   @override
-  _i10.FutureOr<List<_i5.Application>> getApplications(String? uuid) =>
+  _i10.Future<List<_i5.Application>> getApplications(String? uuid) =>
       (super.noSuchMethod(
         Invocation.method(
           #getApplications,
@@ -1188,10 +1191,10 @@ class MockCooperativeRepository extends _i1.Mock
             _i10.Future<List<_i5.Application>>.value(<_i5.Application>[]),
         returnValueForMissingStub:
             _i10.Future<List<_i5.Application>>.value(<_i5.Application>[]),
-      ) as _i10.FutureOr<List<_i5.Application>>);
+      ) as _i10.Future<List<_i5.Application>>);
 
   @override
-  _i10.FutureOr<List<_i5.Members>> getMembers(String? uuid) =>
+  _i10.Future<List<_i5.Members>> getMembers(String? uuid) =>
       (super.noSuchMethod(
         Invocation.method(
           #getMembers,
@@ -1200,10 +1203,10 @@ class MockCooperativeRepository extends _i1.Mock
         returnValue: _i10.Future<List<_i5.Members>>.value(<_i5.Members>[]),
         returnValueForMissingStub:
             _i10.Future<List<_i5.Members>>.value(<_i5.Members>[]),
-      ) as _i10.FutureOr<List<_i5.Members>>);
+      ) as _i10.Future<List<_i5.Members>>);
 
   @override
-  _i10.FutureOr<List<_i16.LoanResponse>> getPendingLoans(String? uuid) =>
+  _i10.Future<List<_i16.LoanResponse>> getPendingLoans(String? uuid) =>
       (super.noSuchMethod(
         Invocation.method(
           #getPendingLoans,
@@ -1213,10 +1216,10 @@ class MockCooperativeRepository extends _i1.Mock
             _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
         returnValueForMissingStub:
             _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
-      ) as _i10.FutureOr<List<_i16.LoanResponse>>);
+      ) as _i10.Future<List<_i16.LoanResponse>>);
 
   @override
-  _i10.FutureOr<List<_i16.LoanResponse>> getUserLoans({
+  _i10.Future<List<_i16.LoanResponse>> getUserLoans({
     required String? uuid,
     required _i2.LoanStatus? loanStatus,
   }) =>
@@ -1233,10 +1236,10 @@ class MockCooperativeRepository extends _i1.Mock
             _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
         returnValueForMissingStub:
             _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
-      ) as _i10.FutureOr<List<_i16.LoanResponse>>);
+      ) as _i10.Future<List<_i16.LoanResponse>>);
 
   @override
-  _i10.FutureOr<List<_i6.TransactionResponse>> getWalletTransactions({
+  _i10.Future<List<_i6.TransactionResponse>> getWalletTransactions({
     required String? uuid,
     required String? walletUuid,
   }) =>
@@ -1254,11 +1257,10 @@ class MockCooperativeRepository extends _i1.Mock
         returnValueForMissingStub:
             _i10.Future<List<_i6.TransactionResponse>>.value(
                 <_i6.TransactionResponse>[]),
-      ) as _i10.FutureOr<List<_i6.TransactionResponse>>);
+      ) as _i10.Future<List<_i6.TransactionResponse>>);
 
   @override
-  _i10.FutureOr<List<_i5.Wallet>> getWallets(String? uuid) =>
-      (super.noSuchMethod(
+  _i10.Future<List<_i5.Wallet>> getWallets(String? uuid) => (super.noSuchMethod(
         Invocation.method(
           #getWallets,
           [uuid],
@@ -1266,10 +1268,10 @@ class MockCooperativeRepository extends _i1.Mock
         returnValue: _i10.Future<List<_i5.Wallet>>.value(<_i5.Wallet>[]),
         returnValueForMissingStub:
             _i10.Future<List<_i5.Wallet>>.value(<_i5.Wallet>[]),
-      ) as _i10.FutureOr<List<_i5.Wallet>>);
+      ) as _i10.Future<List<_i5.Wallet>>);
 
   @override
-  _i10.FutureOr<List<_i5.Withdrawalrequest>> getWithdrawalRequests(
+  _i10.Future<List<_i5.Withdrawalrequest>> getWithdrawalRequests(
           String? uuid) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -1281,10 +1283,10 @@ class MockCooperativeRepository extends _i1.Mock
         returnValueForMissingStub:
             _i10.Future<List<_i5.Withdrawalrequest>>.value(
                 <_i5.Withdrawalrequest>[]),
-      ) as _i10.FutureOr<List<_i5.Withdrawalrequest>>);
+      ) as _i10.Future<List<_i5.Withdrawalrequest>>);
 
   @override
-  _i10.FutureOr<_i5.Withdrawalrequest> getWithdrawalReuest({
+  _i10.Future<_i5.Withdrawalrequest> getWithdrawalReuest({
     required String? uuid,
     required String? requestUuid,
   }) =>
@@ -1321,10 +1323,10 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.Withdrawalrequest>);
+      ) as _i10.Future<_i5.Withdrawalrequest>);
 
   @override
-  _i10.FutureOr<_i5.RejectApplicationResponse> rejectApplication({
+  _i10.Future<_i5.RejectApplicationResponse> rejectApplication({
     required String? uuid,
     required String? requestUuid,
   }) =>
@@ -1362,10 +1364,10 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
+      ) as _i10.Future<_i5.RejectApplicationResponse>);
 
   @override
-  _i10.FutureOr<_i5.RejectApplicationResponse> rejectLoan({
+  _i10.Future<_i5.RejectApplicationResponse> rejectLoan({
     required String? uuid,
     required String? loanUuid,
   }) =>
@@ -1403,10 +1405,10 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
+      ) as _i10.Future<_i5.RejectApplicationResponse>);
 
   @override
-  _i10.FutureOr<_i5.RejectApplicationResponse> rejectWithdrawalRequest({
+  _i10.Future<_i5.RejectApplicationResponse> rejectWithdrawalRequest({
     required String? uuid,
     required String? requestUuid,
   }) =>
@@ -1444,10 +1446,10 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
+      ) as _i10.Future<_i5.RejectApplicationResponse>);
 
   @override
-  _i10.FutureOr<_i5.Payment> verifyTransaction({
+  _i10.Future<_i5.Payment> verifyTransaction({
     required String? transactionId,
     required _i5.PaymentInfoRequest? paymentInfo,
   }) =>
@@ -1483,10 +1485,10 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.Payment>);
+      ) as _i10.Future<_i5.Payment>);
 
   @override
-  _i10.FutureOr<_i5.Payment> withdraw({
+  _i10.Future<_i5.Payment> withdraw({
     required String? uuid,
     required String? walletUuid,
     required _i5.PaymentInfoRequest? paymentInfo,
@@ -1526,7 +1528,7 @@ class MockCooperativeRepository extends _i1.Mock
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.Payment>);
+      ) as _i10.Future<_i5.Payment>);
 }
 
 /// A class which mocks [AuthService].
@@ -1664,3 +1666,9 @@ class MockAuthService extends _i1.Mock implements _i17.AuthService {
         returnValueForMissingStub: null,
       );
 }
+
+/// A class which mocks [UsersRepositoryService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockUsersRepositoryService extends _i1.Mock
+    implements _i18.UsersRepositoryService {}
