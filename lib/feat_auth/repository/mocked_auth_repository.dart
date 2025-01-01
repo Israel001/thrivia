@@ -8,7 +8,7 @@ import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 
 class MockedAuthRepository implements AuthRepository {
-  final logger = getLogger("MockAuthRepository");
+  final _logger = getLogger("MockAuthRepository");
 
   var createAccountResponse =
       CreateAccountResponse(pinId: "pinId", uuid: "uuid");
@@ -42,7 +42,7 @@ class MockedAuthRepository implements AuthRepository {
   @override
   FutureOr<CreateAccountResponse> createAccount(
       CreateUserRequest newUser) async {
-    logger.v("creating user");
+    _logger.v("creating user");
 
     final statusCode = 201;
 
@@ -51,7 +51,7 @@ class MockedAuthRepository implements AuthRepository {
     }
 
     if (statusCode == 409) {
-      logger.v("Account already exists");
+      _logger.v("Account already exists");
 
       throw BackendException(
           message: "Account already exists",
@@ -60,14 +60,14 @@ class MockedAuthRepository implements AuthRepository {
     }
 
     if (statusCode == 400) {
-      logger.v("Bad request");
+      _logger.v("Bad request");
 
       throw BackendException(
           message: "Bad request",
           devDetails: "response",
           prettyDetails: "Error creating account: ");
     }
-    logger.v("Could not create account");
+    _logger.v("Could not create account");
 
     throw BackendException(
         message: "Could not create account",
@@ -77,19 +77,19 @@ class MockedAuthRepository implements AuthRepository {
 
   @override
   FutureOr<dynamic> loginUser(LoginUserRequest userLogin) async {
-    logger.v("Logging in user");
+    _logger.v("Logging in user");
 
     final statusCode = 405;
 
     if (statusCode == 201) {
-      logger.v("user authorised");
+      _logger.v("user authorised");
 
       // return loginResponse;
       try {
-        logger.v("user not verified, received otp details");
+        _logger.v("user not verified, received otp details");
         return createAccountResponse;
       } catch (e) {
-        logger.wtf(
+        _logger.wtf(
             "Unexpected error, user logged in but response is not otp or login response");
         throw BackendException(
             message: "User login succesfull, but response is invalid",
@@ -116,12 +116,12 @@ class MockedAuthRepository implements AuthRepository {
     final statusCode = 201;
 
     if (statusCode == 201) {
-      logger.v("OTP verified successfully");
+      _logger.v("OTP verified successfully");
 
       return;
     }
     if (statusCode == 401) {
-      logger.v("OTP is not valid");
+      _logger.v("OTP is not valid");
       throw BackendException(
           message: "Invalid OTP",
           // devDetails: "$response",
@@ -140,7 +140,7 @@ class MockedAuthRepository implements AuthRepository {
     final statusCode = 301;
 
     if (statusCode == 201) {
-      logger.v("OTP sent successfully");
+      _logger.v("OTP sent successfully");
       return "response.data";
     }
     throw BackendException(

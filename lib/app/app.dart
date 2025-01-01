@@ -1,4 +1,3 @@
-import 'package:thrivia_app/feat_auth/repository/backend_auth_repository.dart';
 import 'package:thrivia_app/feat_auth/repository/mocked_auth_repository.dart';
 import 'package:thrivia_app/feat_auth/ui/otp/otp_view.dart';
 import 'package:thrivia_app/feat_cooperative/repository/mock_cooperative_repository.dart';
@@ -61,9 +60,8 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/transacti
   LazySingleton(classType: AuthService),
   LazySingleton(
       asType: AuthRepository,
-      classType: Overides.mockAuthRepository
-          ? MockedAuthRepository
-          : BackendAuthRepository),
+      classType:
+          Overides.mockAuthRepository ? MockedAuthRepository : AuthRepository),
   // LazySingleton(asType: AuthRepository, classType: BackendAuthRepository),
   LazySingleton(classType: DioService),
   LazySingleton(classType: StorageService),
@@ -71,7 +69,7 @@ import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/transacti
     asType: CooperativeRepository,
     classType: Overides.mockCooperativeRepository
         ? MockCooperativeRepository
-        : BackendAuthRepository,
+        : CooperativeRepository,
   ),
   LazySingleton(classType: AuthService),
 // @stacked-service

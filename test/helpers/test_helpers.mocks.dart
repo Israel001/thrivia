@@ -24,7 +24,6 @@ import 'package:thrivia_app/feat_cooperative/data_models/transactionResponse.dar
 import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_service.dart'
     as _i15;
 import 'package:thrivia_app/feat_loan/data_models/loanResponse.dart' as _i16;
-
 import 'package:thrivia_app/services/dio_service.dart' as _i13;
 import 'package:thrivia_app/services/storage_service.dart' as _i14;
 
@@ -82,8 +81,8 @@ class _FakeDio_3 extends _i1.SmartFake implements _i4.Dio {
         );
 }
 
-class _FakeCooperative_4 extends _i1.SmartFake implements _i5.Cooperative {
-  _FakeCooperative_4(
+class _FakePayment_4 extends _i1.SmartFake implements _i5.Payment {
+  _FakePayment_4(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -92,8 +91,8 @@ class _FakeCooperative_4 extends _i1.SmartFake implements _i5.Cooperative {
         );
 }
 
-class _FakePayment_5 extends _i1.SmartFake implements _i5.Payment {
-  _FakePayment_5(
+class _FakeCooperative_5 extends _i1.SmartFake implements _i5.Cooperative {
+  _FakeCooperative_5(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -102,9 +101,9 @@ class _FakePayment_5 extends _i1.SmartFake implements _i5.Payment {
         );
 }
 
-class _FakeRejectApplicationResponse_6 extends _i1.SmartFake
-    implements _i5.RejectApplicationResponse {
-  _FakeRejectApplicationResponse_6(
+class _FakeTransactionResponse_6 extends _i1.SmartFake
+    implements _i6.TransactionResponse {
+  _FakeTransactionResponse_6(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -134,9 +133,9 @@ class _FakeWithdrawalrequest_8 extends _i1.SmartFake
         );
 }
 
-class _FakeTransactionResponse_9 extends _i1.SmartFake
-    implements _i6.TransactionResponse {
-  _FakeTransactionResponse_9(
+class _FakeRejectApplicationResponse_9 extends _i1.SmartFake
+    implements _i5.RejectApplicationResponse {
+  _FakeRejectApplicationResponse_9(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -998,83 +997,6 @@ class MockStorageService extends _i1.Mock implements _i14.StorageService {
 class MockCooperativeRepository extends _i1.Mock
     implements _i15.CooperativeRepository {
   @override
-  _i10.FutureOr<_i5.Cooperative> createCooperative(
-          _i5.CreateCooperativeRequest? request) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #createCooperative,
-          [request],
-        ),
-        returnValue: _i10.Future<_i5.Cooperative>.value(_FakeCooperative_4(
-          this,
-          Invocation.method(
-            #createCooperative,
-            [request],
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<_i5.Cooperative>.value(_FakeCooperative_4(
-          this,
-          Invocation.method(
-            #createCooperative,
-            [request],
-          ),
-        )),
-      ) as _i10.FutureOr<_i5.Cooperative>);
-
-  @override
-  _i10.FutureOr<List<_i5.Wallet>> getWallets(String? uuid) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getWallets,
-          [uuid],
-        ),
-        returnValue: _i10.Future<List<_i5.Wallet>>.value(<_i5.Wallet>[]),
-        returnValueForMissingStub:
-            _i10.Future<List<_i5.Wallet>>.value(<_i5.Wallet>[]),
-      ) as _i10.FutureOr<List<_i5.Wallet>>);
-
-  @override
-  _i10.FutureOr<List<_i5.Application>> getApplications(String? uuid) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getApplications,
-          [uuid],
-        ),
-        returnValue:
-            _i10.Future<List<_i5.Application>>.value(<_i5.Application>[]),
-        returnValueForMissingStub:
-            _i10.Future<List<_i5.Application>>.value(<_i5.Application>[]),
-      ) as _i10.FutureOr<List<_i5.Application>>);
-
-  @override
-  _i10.FutureOr<List<_i5.Members>> getMembers(String? uuid) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getMembers,
-          [uuid],
-        ),
-        returnValue: _i10.Future<List<_i5.Members>>.value(<_i5.Members>[]),
-        returnValueForMissingStub:
-            _i10.Future<List<_i5.Members>>.value(<_i5.Members>[]),
-      ) as _i10.FutureOr<List<_i5.Members>>);
-
-  @override
-  _i10.FutureOr<List<_i5.Withdrawalrequest>> getWithdrawalRequests(
-          String? uuid) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getWithdrawalRequests,
-          [uuid],
-        ),
-        returnValue: _i10.Future<List<_i5.Withdrawalrequest>>.value(
-            <_i5.Withdrawalrequest>[]),
-        returnValueForMissingStub:
-            _i10.Future<List<_i5.Withdrawalrequest>>.value(
-                <_i5.Withdrawalrequest>[]),
-      ) as _i10.FutureOr<List<_i5.Withdrawalrequest>>);
-
-  @override
   _i10.FutureOr<void> approveApplication({
     required String? uuid,
     required String? applicationUuid,
@@ -1086,6 +1008,23 @@ class MockCooperativeRepository extends _i1.Mock
           {
             #uuid: uuid,
             #applicationUuid: applicationUuid,
+          },
+        ),
+        returnValueForMissingStub: null,
+      ) as _i10.FutureOr<void>);
+
+  @override
+  _i10.FutureOr<void> approveLoan({
+    required String? uuid,
+    required String? loanUuid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #approveLoan,
+          [],
+          {
+            #uuid: uuid,
+            #loanUuid: loanUuid,
           },
         ),
         returnValueForMissingStub: null,
@@ -1105,7 +1044,7 @@ class MockCooperativeRepository extends _i1.Mock
             #requestUuid: requestUuid,
           },
         ),
-        returnValue: _i10.Future<_i5.Payment>.value(_FakePayment_5(
+        returnValue: _i10.Future<_i5.Payment>.value(_FakePayment_4(
           this,
           Invocation.method(
             #approveWithdrawalRequest,
@@ -1117,7 +1056,7 @@ class MockCooperativeRepository extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i10.Future<_i5.Payment>.value(_FakePayment_5(
+            _i10.Future<_i5.Payment>.value(_FakePayment_4(
           this,
           Invocation.method(
             #approveWithdrawalRequest,
@@ -1131,86 +1070,73 @@ class MockCooperativeRepository extends _i1.Mock
       ) as _i10.FutureOr<_i5.Payment>);
 
   @override
-  _i10.FutureOr<_i5.RejectApplicationResponse> rejectApplication({
-    required String? uuid,
-    required String? requestUuid,
-  }) =>
+  _i10.FutureOr<_i5.Cooperative> createCooperative(
+          _i5.CreateCooperativeRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
-          #rejectApplication,
-          [],
-          {
-            #uuid: uuid,
-            #requestUuid: requestUuid,
-          },
+          #createCooperative,
+          [request],
         ),
-        returnValue: _i10.Future<_i5.RejectApplicationResponse>.value(
-            _FakeRejectApplicationResponse_6(
+        returnValue: _i10.Future<_i5.Cooperative>.value(_FakeCooperative_5(
           this,
           Invocation.method(
-            #rejectApplication,
-            [],
-            {
-              #uuid: uuid,
-              #requestUuid: requestUuid,
-            },
+            #createCooperative,
+            [request],
           ),
         )),
         returnValueForMissingStub:
-            _i10.Future<_i5.RejectApplicationResponse>.value(
-                _FakeRejectApplicationResponse_6(
+            _i10.Future<_i5.Cooperative>.value(_FakeCooperative_5(
           this,
           Invocation.method(
-            #rejectApplication,
-            [],
-            {
-              #uuid: uuid,
-              #requestUuid: requestUuid,
-            },
+            #createCooperative,
+            [request],
           ),
         )),
-      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
+      ) as _i10.FutureOr<_i5.Cooperative>);
 
   @override
-  _i10.FutureOr<_i5.RejectApplicationResponse> rejectWithdrawalRequest({
+  _i10.FutureOr<_i6.TransactionResponse> deposit({
     required String? uuid,
-    required String? requestUuid,
+    required String? walletUuid,
+    required _i5.DepositMoneyRequest? depositMoneyRequest,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #rejectWithdrawalRequest,
+          #deposit,
           [],
           {
             #uuid: uuid,
-            #requestUuid: requestUuid,
+            #walletUuid: walletUuid,
+            #depositMoneyRequest: depositMoneyRequest,
           },
         ),
-        returnValue: _i10.Future<_i5.RejectApplicationResponse>.value(
-            _FakeRejectApplicationResponse_6(
+        returnValue: _i10.Future<_i6.TransactionResponse>.value(
+            _FakeTransactionResponse_6(
           this,
           Invocation.method(
-            #rejectWithdrawalRequest,
+            #deposit,
             [],
             {
               #uuid: uuid,
-              #requestUuid: requestUuid,
+              #walletUuid: walletUuid,
+              #depositMoneyRequest: depositMoneyRequest,
             },
           ),
         )),
-        returnValueForMissingStub:
-            _i10.Future<_i5.RejectApplicationResponse>.value(
-                _FakeRejectApplicationResponse_6(
+        returnValueForMissingStub: _i10.Future<_i6.TransactionResponse>.value(
+            _FakeTransactionResponse_6(
           this,
           Invocation.method(
-            #rejectWithdrawalRequest,
+            #deposit,
             [],
             {
               #uuid: uuid,
-              #requestUuid: requestUuid,
+              #walletUuid: walletUuid,
+              #depositMoneyRequest: depositMoneyRequest,
             },
           ),
         )),
-      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
+      ) as _i10.FutureOr<_i6.TransactionResponse>);
 
   @override
   _i10.FutureOr<_i5.Application> getApplication({
@@ -1250,6 +1176,112 @@ class MockCooperativeRepository extends _i1.Mock
           ),
         )),
       ) as _i10.FutureOr<_i5.Application>);
+
+  @override
+  _i10.FutureOr<List<_i5.Application>> getApplications(String? uuid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getApplications,
+          [uuid],
+        ),
+        returnValue:
+            _i10.Future<List<_i5.Application>>.value(<_i5.Application>[]),
+        returnValueForMissingStub:
+            _i10.Future<List<_i5.Application>>.value(<_i5.Application>[]),
+      ) as _i10.FutureOr<List<_i5.Application>>);
+
+  @override
+  _i10.FutureOr<List<_i5.Members>> getMembers(String? uuid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getMembers,
+          [uuid],
+        ),
+        returnValue: _i10.Future<List<_i5.Members>>.value(<_i5.Members>[]),
+        returnValueForMissingStub:
+            _i10.Future<List<_i5.Members>>.value(<_i5.Members>[]),
+      ) as _i10.FutureOr<List<_i5.Members>>);
+
+  @override
+  _i10.FutureOr<List<_i16.LoanResponse>> getPendingLoans(String? uuid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getPendingLoans,
+          [uuid],
+        ),
+        returnValue:
+            _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
+        returnValueForMissingStub:
+            _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
+      ) as _i10.FutureOr<List<_i16.LoanResponse>>);
+
+  @override
+  _i10.FutureOr<List<_i16.LoanResponse>> getUserLoans({
+    required String? uuid,
+    required _i2.LoanStatus? loanStatus,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getUserLoans,
+          [],
+          {
+            #uuid: uuid,
+            #loanStatus: loanStatus,
+          },
+        ),
+        returnValue:
+            _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
+        returnValueForMissingStub:
+            _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
+      ) as _i10.FutureOr<List<_i16.LoanResponse>>);
+
+  @override
+  _i10.FutureOr<List<_i6.TransactionResponse>> getWalletTransactions({
+    required String? uuid,
+    required String? walletUuid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getWalletTransactions,
+          [],
+          {
+            #uuid: uuid,
+            #walletUuid: walletUuid,
+          },
+        ),
+        returnValue: _i10.Future<List<_i6.TransactionResponse>>.value(
+            <_i6.TransactionResponse>[]),
+        returnValueForMissingStub:
+            _i10.Future<List<_i6.TransactionResponse>>.value(
+                <_i6.TransactionResponse>[]),
+      ) as _i10.FutureOr<List<_i6.TransactionResponse>>);
+
+  @override
+  _i10.FutureOr<List<_i5.Wallet>> getWallets(String? uuid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getWallets,
+          [uuid],
+        ),
+        returnValue: _i10.Future<List<_i5.Wallet>>.value(<_i5.Wallet>[]),
+        returnValueForMissingStub:
+            _i10.Future<List<_i5.Wallet>>.value(<_i5.Wallet>[]),
+      ) as _i10.FutureOr<List<_i5.Wallet>>);
+
+  @override
+  _i10.FutureOr<List<_i5.Withdrawalrequest>> getWithdrawalRequests(
+          String? uuid) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getWithdrawalRequests,
+          [uuid],
+        ),
+        returnValue: _i10.Future<List<_i5.Withdrawalrequest>>.value(
+            <_i5.Withdrawalrequest>[]),
+        returnValueForMissingStub:
+            _i10.Future<List<_i5.Withdrawalrequest>>.value(
+                <_i5.Withdrawalrequest>[]),
+      ) as _i10.FutureOr<List<_i5.Withdrawalrequest>>);
 
   @override
   _i10.FutureOr<_i5.Withdrawalrequest> getWithdrawalReuest({
@@ -1292,6 +1324,129 @@ class MockCooperativeRepository extends _i1.Mock
       ) as _i10.FutureOr<_i5.Withdrawalrequest>);
 
   @override
+  _i10.FutureOr<_i5.RejectApplicationResponse> rejectApplication({
+    required String? uuid,
+    required String? requestUuid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #rejectApplication,
+          [],
+          {
+            #uuid: uuid,
+            #requestUuid: requestUuid,
+          },
+        ),
+        returnValue: _i10.Future<_i5.RejectApplicationResponse>.value(
+            _FakeRejectApplicationResponse_9(
+          this,
+          Invocation.method(
+            #rejectApplication,
+            [],
+            {
+              #uuid: uuid,
+              #requestUuid: requestUuid,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i10.Future<_i5.RejectApplicationResponse>.value(
+                _FakeRejectApplicationResponse_9(
+          this,
+          Invocation.method(
+            #rejectApplication,
+            [],
+            {
+              #uuid: uuid,
+              #requestUuid: requestUuid,
+            },
+          ),
+        )),
+      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
+
+  @override
+  _i10.FutureOr<_i5.RejectApplicationResponse> rejectLoan({
+    required String? uuid,
+    required String? loanUuid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #rejectLoan,
+          [],
+          {
+            #uuid: uuid,
+            #loanUuid: loanUuid,
+          },
+        ),
+        returnValue: _i10.Future<_i5.RejectApplicationResponse>.value(
+            _FakeRejectApplicationResponse_9(
+          this,
+          Invocation.method(
+            #rejectLoan,
+            [],
+            {
+              #uuid: uuid,
+              #loanUuid: loanUuid,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i10.Future<_i5.RejectApplicationResponse>.value(
+                _FakeRejectApplicationResponse_9(
+          this,
+          Invocation.method(
+            #rejectLoan,
+            [],
+            {
+              #uuid: uuid,
+              #loanUuid: loanUuid,
+            },
+          ),
+        )),
+      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
+
+  @override
+  _i10.FutureOr<_i5.RejectApplicationResponse> rejectWithdrawalRequest({
+    required String? uuid,
+    required String? requestUuid,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #rejectWithdrawalRequest,
+          [],
+          {
+            #uuid: uuid,
+            #requestUuid: requestUuid,
+          },
+        ),
+        returnValue: _i10.Future<_i5.RejectApplicationResponse>.value(
+            _FakeRejectApplicationResponse_9(
+          this,
+          Invocation.method(
+            #rejectWithdrawalRequest,
+            [],
+            {
+              #uuid: uuid,
+              #requestUuid: requestUuid,
+            },
+          ),
+        )),
+        returnValueForMissingStub:
+            _i10.Future<_i5.RejectApplicationResponse>.value(
+                _FakeRejectApplicationResponse_9(
+          this,
+          Invocation.method(
+            #rejectWithdrawalRequest,
+            [],
+            {
+              #uuid: uuid,
+              #requestUuid: requestUuid,
+            },
+          ),
+        )),
+      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
+
+  @override
   _i10.FutureOr<_i5.Payment> verifyTransaction({
     required String? transactionId,
     required _i5.PaymentInfoRequest? paymentInfo,
@@ -1305,7 +1460,7 @@ class MockCooperativeRepository extends _i1.Mock
             #paymentInfo: paymentInfo,
           },
         ),
-        returnValue: _i10.Future<_i5.Payment>.value(_FakePayment_5(
+        returnValue: _i10.Future<_i5.Payment>.value(_FakePayment_4(
           this,
           Invocation.method(
             #verifyTransaction,
@@ -1317,7 +1472,7 @@ class MockCooperativeRepository extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i10.Future<_i5.Payment>.value(_FakePayment_5(
+            _i10.Future<_i5.Payment>.value(_FakePayment_4(
           this,
           Invocation.method(
             #verifyTransaction,
@@ -1329,50 +1484,6 @@ class MockCooperativeRepository extends _i1.Mock
           ),
         )),
       ) as _i10.FutureOr<_i5.Payment>);
-
-  @override
-  _i10.FutureOr<_i6.TransactionResponse> deposit({
-    required String? uuid,
-    required String? walletUuid,
-    required _i5.DepositMoneyRequest? depositMoneyRequest,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #deposit,
-          [],
-          {
-            #uuid: uuid,
-            #walletUuid: walletUuid,
-            #depositMoneyRequest: depositMoneyRequest,
-          },
-        ),
-        returnValue: _i10.Future<_i6.TransactionResponse>.value(
-            _FakeTransactionResponse_9(
-          this,
-          Invocation.method(
-            #deposit,
-            [],
-            {
-              #uuid: uuid,
-              #walletUuid: walletUuid,
-              #depositMoneyRequest: depositMoneyRequest,
-            },
-          ),
-        )),
-        returnValueForMissingStub: _i10.Future<_i6.TransactionResponse>.value(
-            _FakeTransactionResponse_9(
-          this,
-          Invocation.method(
-            #deposit,
-            [],
-            {
-              #uuid: uuid,
-              #walletUuid: walletUuid,
-              #depositMoneyRequest: depositMoneyRequest,
-            },
-          ),
-        )),
-      ) as _i10.FutureOr<_i6.TransactionResponse>);
 
   @override
   _i10.FutureOr<_i5.Payment> withdraw({
@@ -1390,7 +1501,7 @@ class MockCooperativeRepository extends _i1.Mock
             #paymentInfo: paymentInfo,
           },
         ),
-        returnValue: _i10.Future<_i5.Payment>.value(_FakePayment_5(
+        returnValue: _i10.Future<_i5.Payment>.value(_FakePayment_4(
           this,
           Invocation.method(
             #withdraw,
@@ -1403,7 +1514,7 @@ class MockCooperativeRepository extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i10.Future<_i5.Payment>.value(_FakePayment_5(
+            _i10.Future<_i5.Payment>.value(_FakePayment_4(
           this,
           Invocation.method(
             #withdraw,
@@ -1416,121 +1527,140 @@ class MockCooperativeRepository extends _i1.Mock
           ),
         )),
       ) as _i10.FutureOr<_i5.Payment>);
+}
+
+/// A class which mocks [AuthService].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAuthService extends _i1.Mock implements _i17.AuthService {
+  @override
+  _i3.Logger get logger => (super.noSuchMethod(
+        Invocation.getter(#logger),
+        returnValue: _FakeLogger_2(
+          this,
+          Invocation.getter(#logger),
+        ),
+        returnValueForMissingStub: _FakeLogger_2(
+          this,
+          Invocation.getter(#logger),
+        ),
+      ) as _i3.Logger);
 
   @override
-  _i10.FutureOr<List<_i6.TransactionResponse>> getWalletTransactions({
-    required String? uuid,
-    required String? walletUuid,
+  _i2.AuthState get authState => (super.noSuchMethod(
+        Invocation.getter(#authState),
+        returnValue: _i2.AuthState.loggedIn,
+        returnValueForMissingStub: _i2.AuthState.loggedIn,
+      ) as _i2.AuthState);
+
+  @override
+  bool get goToOTPScreen => (super.noSuchMethod(
+        Invocation.getter(#goToOTPScreen),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
+  int get listenersCount => (super.noSuchMethod(
+        Invocation.getter(#listenersCount),
+        returnValue: 0,
+        returnValueForMissingStub: 0,
+      ) as int);
+
+  @override
+  _i10.FutureOr<void> createAccount(_i2.CreateUserRequest? newUser) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #createAccount,
+          [newUser],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i10.FutureOr<void>);
+
+  @override
+  _i10.FutureOr<void> loginUser({
+    required String? emailOrPhone,
+    required String? password,
+    _i2.Role? role,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
-          #getWalletTransactions,
+          #loginUser,
           [],
           {
-            #uuid: uuid,
-            #walletUuid: walletUuid,
-          },
-        ),
-        returnValue: _i10.Future<List<_i6.TransactionResponse>>.value(
-            <_i6.TransactionResponse>[]),
-        returnValueForMissingStub:
-            _i10.Future<List<_i6.TransactionResponse>>.value(
-                <_i6.TransactionResponse>[]),
-      ) as _i10.FutureOr<List<_i6.TransactionResponse>>);
-
-  @override
-  _i10.FutureOr<List<_i16.LoanResponse>> getUserLoans({
-    required String? uuid,
-    required _i2.LoanStatus? loanStatus,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getUserLoans,
-          [],
-          {
-            #uuid: uuid,
-            #loanStatus: loanStatus,
-          },
-        ),
-        returnValue:
-            _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
-        returnValueForMissingStub:
-            _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
-      ) as _i10.FutureOr<List<_i16.LoanResponse>>);
-
-  @override
-  _i10.FutureOr<List<_i16.LoanResponse>> getPendingLoans(String? uuid) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #getPendingLoans,
-          [uuid],
-        ),
-        returnValue:
-            _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
-        returnValueForMissingStub:
-            _i10.Future<List<_i16.LoanResponse>>.value(<_i16.LoanResponse>[]),
-      ) as _i10.FutureOr<List<_i16.LoanResponse>>);
-
-  @override
-  _i10.FutureOr<void> approveLoan({
-    required String? uuid,
-    required String? loanUuid,
-  }) =>
-      (super.noSuchMethod(
-        Invocation.method(
-          #approveLoan,
-          [],
-          {
-            #uuid: uuid,
-            #loanUuid: loanUuid,
+            #emailOrPhone: emailOrPhone,
+            #password: password,
+            #role: role,
           },
         ),
         returnValueForMissingStub: null,
       ) as _i10.FutureOr<void>);
 
   @override
-  _i10.FutureOr<_i5.RejectApplicationResponse> rejectLoan({
-    required String? uuid,
-    required String? loanUuid,
-  }) =>
+  _i10.Future<void> verifyOTP(String? otp) => (super.noSuchMethod(
+        Invocation.method(
+          #verifyOTP,
+          [otp],
+        ),
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
+
+  @override
+  _i10.Future<void> requestOTP() => (super.noSuchMethod(
+        Invocation.method(
+          #requestOTP,
+          [],
+        ),
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
+
+  @override
+  _i10.Future<void> resetPassword(String? emailPhoneNumberValue) =>
       (super.noSuchMethod(
         Invocation.method(
-          #rejectLoan,
-          [],
-          {
-            #uuid: uuid,
-            #loanUuid: loanUuid,
-          },
+          #resetPassword,
+          [emailPhoneNumberValue],
         ),
-        returnValue: _i10.Future<_i5.RejectApplicationResponse>.value(
-            _FakeRejectApplicationResponse_6(
-          this,
-          Invocation.method(
-            #rejectLoan,
-            [],
-            {
-              #uuid: uuid,
-              #loanUuid: loanUuid,
-            },
-          ),
-        )),
-        returnValueForMissingStub:
-            _i10.Future<_i5.RejectApplicationResponse>.value(
-                _FakeRejectApplicationResponse_6(
-          this,
-          Invocation.method(
-            #rejectLoan,
-            [],
-            {
-              #uuid: uuid,
-              #loanUuid: loanUuid,
-            },
-          ),
-        )),
-      ) as _i10.FutureOr<_i5.RejectApplicationResponse>);
-}
+        returnValue: _i10.Future<void>.value(),
+        returnValueForMissingStub: _i10.Future<void>.value(),
+      ) as _i10.Future<void>);
 
-/// A class which mocks [AuthServiceService].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockAuthService extends _i1.Mock implements _i17.AuthService {}
+  @override
+  void listenToReactiveValues(List<dynamic>? reactiveValues) =>
+      super.noSuchMethod(
+        Invocation.method(
+          #listenToReactiveValues,
+          [reactiveValues],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void addListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #addListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void removeListener(void Function()? listener) => super.noSuchMethod(
+        Invocation.method(
+          #removeListener,
+          [listener],
+        ),
+        returnValueForMissingStub: null,
+      );
+
+  @override
+  void notifyListeners() => super.noSuchMethod(
+        Invocation.method(
+          #notifyListeners,
+          [],
+        ),
+        returnValueForMissingStub: null,
+      );
+}

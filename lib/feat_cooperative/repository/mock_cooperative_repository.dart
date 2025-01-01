@@ -5,7 +5,7 @@ import 'package:thrivia_app/feat_cooperative/data_models/transactionResponse.dar
 import 'package:thrivia_app/feat_cooperative/repository/cooperatives_repository_service.dart';
 import 'package:thrivia_app/feat_loan/data_models/loanResponse.dart';
 
-class MockCooperativeRepository extends CooperativeRepository {
+class MockCooperativeRepository implements CooperativeRepository {
   @override
   FutureOr<void> approveApplication(
       {required String uuid, required String applicationUuid}) {
