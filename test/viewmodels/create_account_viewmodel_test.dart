@@ -3,6 +3,7 @@ import 'package:mockito/mockito.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.router.dart';
+import 'package:thrivia_app/common/exceptions.dart';
 import 'package:thrivia_app/feat_auth/data_models/data_models.barrel.dart';
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 import 'package:thrivia_app/feat_auth/services/auth_service.dart';
@@ -11,11 +12,12 @@ import 'package:thrivia_app/feat_auth/ui/create_account/create_account_view.form
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_viewmodel.dart';
 
 import '../helpers/test_helpers.dart';
+import '../helpers/test_helpers.mocks.dart';
 
 void main() {
   group('CreateAccountViewModel Tests -', () {
     late NavigationService mockNavigationService;
-    late AuthService mockAuthService;
+    late MockAuthService mockAuthService;
     late CreateAccountViewModel model;
     late CreateAccountView view;
 
@@ -57,10 +59,9 @@ void main() {
 
         test('should show validation message when form is invalid', () {
           model.buttonPress();
-          expect(model.firstNameValidationMessage, "Please enter a valid name" );
-          expect(model.lastNameValidationMessage, null );
-          expect(model.emailAddressValidationMessage, "Invalid email format" );
-          
+          expect(model.firstNameValidationMessage, "Please enter a valid name");
+          expect(model.lastNameValidationMessage, null);
+          expect(model.emailAddressValidationMessage, "Invalid email format");
         });
       });
     });
@@ -104,6 +105,41 @@ void main() {
 
     group('Create Account - go to Login', () {
       // Add tests for navigation to login if needed
+    });
+
+    group('Create Account backend exception', () {
+      setUp(() {
+        model.firstNameValue = 'John';
+        model.lastNameValue = 'Doe';
+        model.emailAddressValue = 'john.doe@example.com';
+        model.phoneNumberValue = '08088989889';
+        model.pinValue = '123456';
+        model.pinConfirmValue = '123456';
+
+        model.bvnValue = '12345678901';
+        model.ninValue = '12345678901';
+      });
+
+      test('do not navigate when backend exception thrown', () async {
+        CreateUserRequest(
+          firstName: model.firstNameValue!,
+          lastName: model.lastNameValue!,
+          email: model.emailAddressValue!,
+          phoneNumber: model.phoneNumberValue!,
+          password: model.pinValue!,
+          bvn: model.bvnValue!,
+          nin: model.ninValue!,
+        );
+        when(
+          mockAuthService.createAccount(any),
+        ).thenThrow(BackendException(message: "User already registered"));
+        model.buttonPress();
+
+        await Future.delayed(Duration(seconds: 1));
+        verifyNever(mockNavigationService.navigateToOtpView(
+          timerStarted: true,
+        ));
+      });
     });
   });
 }

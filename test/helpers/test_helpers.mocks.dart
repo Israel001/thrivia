@@ -700,6 +700,8 @@ class MockDialogService extends _i1.Mock implements _i9.DialogService {
     String? buttonTitle = r'Ok',
     _i13.Color? buttonTitleColor,
     bool? barrierDismissible = false,
+    _i11.RouteSettings? routeSettings,
+    _i11.GlobalKey<_i11.NavigatorState>? navigatorKey,
     _i9.DialogPlatform? dialogPlatform,
   }) =>
       (super.noSuchMethod(
@@ -714,6 +716,8 @@ class MockDialogService extends _i1.Mock implements _i9.DialogService {
             #buttonTitle: buttonTitle,
             #buttonTitleColor: buttonTitleColor,
             #barrierDismissible: barrierDismissible,
+            #routeSettings: routeSettings,
+            #navigatorKey: navigatorKey,
             #dialogPlatform: dialogPlatform,
           },
         ),
@@ -740,6 +744,9 @@ class MockDialogService extends _i1.Mock implements _i9.DialogService {
     bool? barrierDismissible = false,
     String? barrierLabel = r'',
     bool? useSafeArea = true,
+    _i11.RouteSettings? routeSettings,
+    _i11.GlobalKey<_i11.NavigatorState>? navigatorKey,
+    _i11.RouteTransitionsBuilder? transitionBuilder,
     dynamic customData,
     R? data,
   }) =>
@@ -764,6 +771,9 @@ class MockDialogService extends _i1.Mock implements _i9.DialogService {
             #barrierDismissible: barrierDismissible,
             #barrierLabel: barrierLabel,
             #useSafeArea: useSafeArea,
+            #routeSettings: routeSettings,
+            #navigatorKey: navigatorKey,
+            #transitionBuilder: transitionBuilder,
             #customData: customData,
             #data: data,
           },
@@ -781,6 +791,7 @@ class MockDialogService extends _i1.Mock implements _i9.DialogService {
     String? confirmationTitle = r'Ok',
     _i13.Color? confirmationTitleColor,
     bool? barrierDismissible = false,
+    _i11.RouteSettings? routeSettings,
     _i9.DialogPlatform? dialogPlatform,
   }) =>
       (super.noSuchMethod(
@@ -795,6 +806,7 @@ class MockDialogService extends _i1.Mock implements _i9.DialogService {
             #confirmationTitle: confirmationTitle,
             #confirmationTitleColor: confirmationTitleColor,
             #barrierDismissible: barrierDismissible,
+            #routeSettings: routeSettings,
             #dialogPlatform: dialogPlatform,
           },
         ),

@@ -15,7 +15,7 @@ class LoginViewModel extends FormViewModel {
   final _authService = locator<AuthService>();
   final _navigationService = locator<NavigationService>();
   final logger = getLogger("LoginViewModel");
-  void buttonPress() {
+  void buttonPress() async{
     logger.v("login button pressed");
     validateForm();
 
@@ -24,10 +24,10 @@ class LoginViewModel extends FormViewModel {
       return;
     }
 
-    runBusyFuture(_login());
+    await runBusyFuture(_login());
   }
 
-  _login() async {
+  Future<void> _login() async {
     logger.v("Login user");
     await _authService.loginUser(
       emailOrPhone: emailPhoneNumberValue!,
