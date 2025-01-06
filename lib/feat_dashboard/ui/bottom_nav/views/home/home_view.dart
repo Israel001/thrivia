@@ -93,6 +93,7 @@ class CoopertivesDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final userCooperatives = viewModel.userCooperatives;
     return Drawer(
       width: 240,
       child: Padding(
@@ -115,13 +116,12 @@ class CoopertivesDrawer extends StatelessWidget {
             Divider(
               color: Color(0xFFDADADA),
             ),
-            ...List.generate(
-              4,
-              (index) => CooperativeCard(
-                  cooperativeLink: "cooperativeLink",
-                  cooperativeName: "cooperativeName",
-                  cooperativeImageUrl: "cooperativeImageUrl"),
-            ),
+            ...userCooperatives.map((item) {
+              return CooperativeCard(
+                  cooperativeLink: "${item.name}.thrivia.com",
+                  cooperativeName: item.name,
+                  cooperativeImageUrl: item.profilePic);
+            }).toList(),
             23.verticalSpace,
             PrimaryButton(
               onPressed: viewModel.joinCooperative,

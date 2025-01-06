@@ -72,4 +72,6 @@ abstract class Overides {
   static const bool mockAuthRepository = false;
 
   static const bool mockCooperativeRepository = true;
+
+  static const bool showOverideAuthButton = false;
 }

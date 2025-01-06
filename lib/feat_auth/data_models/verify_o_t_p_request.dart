@@ -4,7 +4,7 @@ import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 
 class VerifyOTPBody {
   final String? otp;
-  final OtpActionType otpActionType;
+  final OtpActionType? otpActionType;
   final String pinId;
   final String userUuid;
 
@@ -35,7 +35,7 @@ class VerifyOTPBody {
 
   factory VerifyOTPBody.fromJson(Map<String, dynamic> json) => VerifyOTPBody(
         otp: json["otp"],
-        otpActionType: otpActionTypeValues.map[json["otpActionType"]]!,
+        otpActionType: otpActionTypeValues.map[json["otpActionType"]],
         pinId: json["pinId"],
         userUuid: json["userUuid"],
       );

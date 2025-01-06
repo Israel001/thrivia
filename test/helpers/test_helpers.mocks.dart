@@ -914,10 +914,17 @@ class MockAuthRepository extends _i1.Mock implements _i14.AuthRepository {
       ) as _i12.FutureOr<_i2.VerifyOTPBody>);
 
   @override
-  _i12.FutureOr<void> resetPassword(String? newPassword) => (super.noSuchMethod(
+  _i12.FutureOr<void> resetPassword(
+    String? newPassword,
+    String? accessToken,
+  ) =>
+      (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
-          [newPassword],
+          [
+            newPassword,
+            accessToken,
+          ],
         ),
         returnValueForMissingStub: null,
       ) as _i12.FutureOr<void>);
@@ -1641,11 +1648,21 @@ class MockAuthService extends _i1.Mock implements _i19.AuthService {
       ) as _i12.Future<void>);
 
   @override
-  _i12.Future<void> resetPassword(String? emailPhoneNumberValue) =>
+  _i12.Future<void> initiateResetPassword(String? emailPhoneNumberValue) =>
       (super.noSuchMethod(
         Invocation.method(
-          #resetPassword,
+          #initiateResetPassword,
           [emailPhoneNumberValue],
+        ),
+        returnValue: _i12.Future<void>.value(),
+        returnValueForMissingStub: _i12.Future<void>.value(),
+      ) as _i12.Future<void>);
+
+  @override
+  _i12.Future<void> resetPassword(String? password) => (super.noSuchMethod(
+        Invocation.method(
+          #resetPassword,
+          [password],
         ),
         returnValue: _i12.Future<void>.value(),
         returnValueForMissingStub: _i12.Future<void>.value(),

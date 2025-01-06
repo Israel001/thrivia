@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.logger.dart';
 import 'package:thrivia_app/common/api_constants.dart';
@@ -15,7 +16,6 @@ class AuthRepository {
   final _dio = locator<DioService>().dio;
   final _logger = getLogger("AuthRepository");
 
-  @override
   FutureOr<CreateAccountResponse> createAccount(
       CreateUserRequest newUser) async {
     _logger.v("creating user");
@@ -65,7 +65,6 @@ class AuthRepository {
         prettyDetails: "An error occured while trying to create your account");
   }
 
-  @override
   FutureOr<MultipleJsonType> loginUser(LoginUserRequest userLogin) async {
     _logger.v("Logging in user");
 
@@ -95,7 +94,6 @@ class AuthRepository {
             "Unexpected error encountered while trying to log you in");
   }
 
-  @override
   FutureOr<MultipleJsonType> verifyOTP(VerifyOTPBody tokenData) async {
     final response = await _dio.postUri(
         Uri.https(
@@ -124,7 +122,6 @@ class AuthRepository {
             "Unexpected error encountered while trying to verify your OTP");
   }
 
-  @override
   FutureOr<String> requestOTP(SendOTPRequest sendOTPData) async {
     final response = await _dio.postUri(
         Uri.https(
@@ -152,7 +149,6 @@ class AuthRepository {
         prettyDetails: "Unexpected error encountered while sending your OTP");
   }
 
-  @override
   FutureOr<VerifyOTPBody> intiateResetPassword(
       String emailOrPhoneNumber) async {
     _logger.v("intiate reset password");
@@ -165,9 +161,9 @@ class AuthRepository {
         data: data);
 
     if (response.statusCode == 201) {
-      // return response.data;
       try {
-        return VerifyOTPBody.fromJson(response.data);
+        return VerifyOTPBody.fromJson(response.data)
+            .copyWith(otpActionType: OtpActionType.RESET_PASSWORD);
       } catch (e) {
         throw InternalExcpetion(
           message: "Unexpected response",
@@ -183,15 +179,20 @@ class AuthRepository {
         prettyDetails: "An error occured while trying to reset your password");
   }
 
-  @override
-  FutureOr<void> resetPassword(String newPassword) async {
+  FutureOr<void> resetPassword(
+    String newPassword,
+    String accessToken,
+  ) async {
     final data = jsonEncode({"password": newPassword});
     final response = await _dio.postUri(
         Uri.https(
           ApiConstants.authority,
           ApiConstants.authResetPassword,
         ),
-        data: data);
+        data: data,
+        options: Options(
+          headers: {"Authority": "Bearer $accessToken"},
+        ));
 
     if (response.statusCode == 201) {
       _logger.v("Password reset successfully");

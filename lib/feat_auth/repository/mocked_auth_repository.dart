@@ -112,13 +112,13 @@ class MockedAuthRepository implements AuthRepository {
   }
 
   @override
-  FutureOr<void> verifyOTP(VerifyOTPBody tokenData) async {
+  FutureOr<dynamic> verifyOTP(VerifyOTPBody tokenData) async {
     final statusCode = 201;
 
     if (statusCode == 201) {
       _logger.v("OTP verified successfully");
 
-      return;
+      return "otp";
     }
     if (statusCode == 401) {
       _logger.v("OTP is not valid");
@@ -161,7 +161,7 @@ class MockedAuthRepository implements AuthRepository {
   }
 
   @override
-  FutureOr<void> resetPassword(String newPassword) {
+  FutureOr<void> resetPassword(String newPassword, String accessToken) {
     // TODO: implement resetPassword
     return null;
   }

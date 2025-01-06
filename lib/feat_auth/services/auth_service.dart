@@ -21,6 +21,7 @@ class AuthService with ListenableServiceMixin {
   }
 
   User? _user;
+  User? get user => _user;
 
   AuthState _authState = AuthState.newUser;
   AuthState get authState => _authState;
@@ -118,7 +119,7 @@ class AuthService with ListenableServiceMixin {
 
     logger.v("otp request: ${verifyRequest.toString()}");
     final response = await _authRepository.verifyOTP(verifyRequest);
-
+    _passwordChangeToken = response;
     if (verifyRequest.otpActionType == OtpActionType.VERIFY_ACCOUNT) {
       //save user response
 
@@ -126,11 +127,8 @@ class AuthService with ListenableServiceMixin {
     }
 
     if (verifyRequest.otpActionType == OtpActionType.RESET_PASSWORD) {
-      //TODO investigate
-      _authState =
-          _userResponse == null ? AuthState.logggedOut : AuthState.loggedIn;
+      _authState = AuthState.validPasswordResetOTP;
     }
-    return;
   }
 
   //send otp
@@ -138,7 +136,7 @@ class AuthService with ListenableServiceMixin {
   Future<void> requestOTP() async {
     logger.v("Requesting OTP");
     SendOTPRequest sendOTPData = SendOTPRequest(
-      otpActionType: _pendingOTPDetails!.otpActionType,
+      otpActionType: _pendingOTPDetails!.otpActionType!,
       userUuid: _pendingOTPDetails!.userUuid,
     );
     _authState = sendOTPData.otpActionType == OtpActionType.VERIFY_ACCOUNT
@@ -159,12 +157,20 @@ class AuthService with ListenableServiceMixin {
         userUuid: _pendingOTPDetails!.userUuid);
   }
 
-  Future<void> resetPassword(String emailPhoneNumberValue) async {
+  Future<void> initiateResetPassword(String emailPhoneNumberValue) async {
     logger.v("Initiate reset password");
     final otpDetails =
         await _authRepository.intiateResetPassword(emailPhoneNumberValue);
     _authState = AuthState.pendingPasswordResetOTP;
     _pendingOTPDetails = otpDetails;
+  }
+
+  Future<void> resetPassword(String password) async {
+    logger.v('Reset password');
+
+    await _authRepository.resetPassword(password, _passwordChangeToken!);
+    _authState = AuthState.logggedOut;
+    _pendingOTPDetails = null;
   }
 
   // logout

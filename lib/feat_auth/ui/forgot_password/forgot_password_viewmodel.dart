@@ -13,8 +13,8 @@ class ForgotPasswordViewModel extends FormViewModel {
   final logger = getLogger("ForgotPasswordViewModel");
 
   final PageController controller = PageController();
-  void resetPassword() async {
-    logger.v("reset password button pressed");
+  void intiateResetPassword() async {
+    logger.v("intiate reset password button pressed");
 
     // validateForm();
     setValidationMessages({
@@ -26,7 +26,8 @@ class ForgotPasswordViewModel extends FormViewModel {
       return;
     }
 
-    await runBusyFuture(_authService.resetPassword(emailPhoneNumberValue!));
+    await runBusyFuture(
+        _authService.initiateResetPassword(emailPhoneNumberValue!));
 
     if (hasError) {
       return;
@@ -34,8 +35,26 @@ class ForgotPasswordViewModel extends FormViewModel {
     final otpValid = await runBusyFuture(
         _navigationService.navigateToOtpView(timerStarted: true),
         busyObject: null);
-    if (otpValid) {
+    if (otpValid != null && otpValid) {
       controller.nextPage(duration: Durations.medium1, curve: Curves.easeIn);
     }
+  }
+
+  void resetPassword() async {
+    logger.v(" reset password button pressed");
+
+    // validateForm();
+    setValidationMessages({
+      PasswordValueKey: getValidationMessage(PasswordValueKey),
+    });
+
+    if (hasAnyValidationMessage) {
+      logger.v("password has validation errors - return");
+      return;
+    }
+
+    await runBusyFuture(_authService.resetPassword(emailPhoneNumberValue!));
+
+    _navigationService.navigateToLoginView();
   }
 }

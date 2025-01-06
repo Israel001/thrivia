@@ -4,6 +4,7 @@ import 'package:stacked/stacked_annotations.dart';
 import 'package:thrivia_app/common/form_validators.dart';
 import 'package:thrivia_app/feat_auth/ui/create_account/create_account_viewmodel.dart';
 import 'package:thrivia_app/feat_auth/ui/login/login_view.form.dart';
+import 'package:thrivia_app/main.dart';
 import 'package:thrivia_app/ui/widgets/model_error_display.dart';
 import 'package:thrivia_app/ui/widgets/switch_sign_in_type.dart';
 
@@ -110,14 +111,15 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                           ),
                     )),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 30.0),
-                child: PrimaryButton(
-                  color: Colors.red,
-                  onPressed: viewModel.shortCut,
-                  label: "Override Auth",
+              if (Overides.showOverideAuthButton)
+                Padding(
+                  padding: const EdgeInsets.only(top: 30.0),
+                  child: PrimaryButton(
+                    color: Colors.red,
+                    onPressed: viewModel.shortCut,
+                    label: "Override Auth",
+                  ),
                 ),
-              ),
               ModelErrorDisplay(viewModel: viewModel),
               Spacer(),
               PrimaryButton(

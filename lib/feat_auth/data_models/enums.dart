@@ -14,6 +14,7 @@ enum AuthState {
   logggedOut,
   pendingVerifyOTP,
   pendingPasswordResetOTP,
+  validPasswordResetOTP,
   newUser
 }
 

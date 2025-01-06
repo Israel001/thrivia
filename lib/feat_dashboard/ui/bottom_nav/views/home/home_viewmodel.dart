@@ -4,13 +4,16 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:thrivia_app/app/app.locator.dart';
 import 'package:thrivia_app/app/app.router.dart';
+import 'package:thrivia_app/feat_auth/services/auth_service.dart';
 import 'package:thrivia_app/feat_auth/ui/login/login_viewmodel.dart';
+import 'package:thrivia_app/feat_cooperative/data_models/data_models.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/bottomnav_viewmodel.dart';
 import 'package:thrivia_app/feat_dashboard/ui/bottom_nav/views/finance/transaction_history/transaction_history_view.dart';
 
 class HomeViewModel extends BaseViewModel {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final _navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
   void openEndDrawer(BuildContext context) {
     // bottomNavScaffoldKey.currentState!.openDrawer();
     // Scaffold.of(context).openDrawer();
@@ -84,9 +87,11 @@ class HomeViewModel extends BaseViewModel {
   bool get hasContributionHistory => _recentAccountTransactions.isNotEmpty;
   bool get hasLoanHistory => _recentLoanTransactions.isNotEmpty;
 
-  String userName = "Chinoney";
+  String get userName => _authService.user!.firstName;
 
   bool get hasNotification => true;
+
+  List<Cooperative> get userCooperatives => [];
 
   void joinCooperative() {
     _navigationService.navigateToJoinCooperativeView();
