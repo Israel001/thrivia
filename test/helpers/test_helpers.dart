@@ -35,7 +35,7 @@ void registerServices() {
   getAndRegisterStorageService();
 
   getAndRegisterCooperativesRepositoryService();
-  getAndRegisterAuthServiceService();
+  getAndRegisterAuthService();
   getAndRegisterUsersRepositoryService();
 // @stacked-mock-register
 }
@@ -111,15 +111,14 @@ MockStorageService getAndRegisterStorageService() {
   return service;
 }
 
-MockCooperativeRepository
-    getAndRegisterCooperativesRepositoryService() {
+MockCooperativeRepository getAndRegisterCooperativesRepositoryService() {
   _removeRegistrationIfExists<CooperativeRepository>();
   final service = MockCooperativeRepository();
   locator.registerSingleton<CooperativeRepository>(service);
   return service;
 }
 
-MockAuthService getAndRegisterAuthServiceService() {
+MockAuthService getAndRegisterAuthService() {
   _removeRegistrationIfExists<AuthService>();
   final service = MockAuthService();
   locator.registerSingleton<AuthService>(service);

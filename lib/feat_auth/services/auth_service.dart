@@ -43,8 +43,9 @@ class AuthService with ListenableServiceMixin {
   DateTime? _expiresIn;
 
   FutureOr<void> createAccount(CreateUserRequest newUser) async {
+    logger.d("Create account ${newUser.toString()}");
     final response = await _authRepository.createAccount(newUser);
-    _authState = AuthState.pendingVerifyOTP;
+
     _storeVerifyAccountOTPDetails(response);
   }
 
