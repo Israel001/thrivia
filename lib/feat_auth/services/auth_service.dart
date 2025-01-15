@@ -161,7 +161,7 @@ class AuthService with ListenableServiceMixin {
   Future<void> initiateResetPassword(String emailPhoneNumberValue) async {
     logger.v("Initiate reset password");
     final otpDetails =
-        await _authRepository.intiateResetPassword(emailPhoneNumberValue);
+        await _authRepository.initiateResetPassword(emailPhoneNumberValue);
     _authState = AuthState.pendingPasswordResetOTP;
     _pendingOTPDetails = otpDetails;
   }
@@ -169,8 +169,9 @@ class AuthService with ListenableServiceMixin {
   Future<void> resetPassword(String password) async {
     logger.v('Reset password');
 
-    await _authRepository.resetPassword(password, _passwordChangeToken!);
-    _authState = AuthState.logggedOut;
+    await _authRepository.resetPassword(
+        newPassword: password, accessToken: _passwordChangeToken!);
+    _authState = AuthState.loggedOut;
     _pendingOTPDetails = null;
   }
 

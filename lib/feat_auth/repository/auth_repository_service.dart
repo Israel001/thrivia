@@ -65,7 +65,7 @@ class AuthRepository {
         prettyDetails: "An error occured while trying to create your account");
   }
 
-  FutureOr<MultipleJsonType> loginUser(LoginUserRequest userLogin) async {
+  FutureOr<MultipleJsonTypes> loginUser(LoginUserRequest userLogin) async {
     _logger.v("Logging in user");
 
     final response = await _dio.postUri(
@@ -94,7 +94,7 @@ class AuthRepository {
             "Unexpected error encountered while trying to log you in");
   }
 
-  FutureOr<MultipleJsonType> verifyOTP(VerifyOTPBody tokenData) async {
+  FutureOr<MultipleJsonTypes> verifyOTP(VerifyOTPBody tokenData) async {
     final response = await _dio.postUri(
         Uri.https(
           ApiConstants.authority,
@@ -104,8 +104,7 @@ class AuthRepository {
 
     if (response.statusCode == 201) {
       _logger.v("OTP verified successfully");
-      response.data;
-      return;
+      return response.data;
     }
     if (response.statusCode == 401) {
       _logger.v("OTP is not valid");
@@ -149,7 +148,7 @@ class AuthRepository {
         prettyDetails: "Unexpected error encountered while sending your OTP");
   }
 
-  FutureOr<VerifyOTPBody> intiateResetPassword(
+  FutureOr<VerifyOTPBody> initiateResetPassword(
       String emailOrPhoneNumber) async {
     _logger.v("intiate reset password");
     final data = jsonEncode({"emailOrPhone": emailOrPhoneNumber});
@@ -179,10 +178,10 @@ class AuthRepository {
         prettyDetails: "An error occured while trying to reset your password");
   }
 
-  FutureOr<void> resetPassword(
-    String newPassword,
-    String accessToken,
-  ) async {
+  FutureOr<void> resetPassword({
+    required String newPassword,
+    required String accessToken,
+  }) async {
     final data = jsonEncode({"password": newPassword});
     final response = await _dio.postUri(
         Uri.https(

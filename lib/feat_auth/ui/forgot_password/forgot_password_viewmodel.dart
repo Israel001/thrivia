@@ -13,8 +13,8 @@ class ForgotPasswordViewModel extends FormViewModel {
   final logger = getLogger("ForgotPasswordViewModel");
 
   final PageController controller = PageController();
-  void intiateResetPassword() async {
-    logger.v("intiate reset password button pressed");
+  void initiateResetPassword() async {
+    logger.v("initiate reset password button pressed");
 
     // validateForm();
     setValidationMessages({
@@ -41,7 +41,7 @@ class ForgotPasswordViewModel extends FormViewModel {
   }
 
   void resetPassword() async {
-    logger.v(" reset password button pressed");
+    logger.v("reset password button pressed");
 
     // validateForm();
     setValidationMessages({
@@ -53,8 +53,10 @@ class ForgotPasswordViewModel extends FormViewModel {
       return;
     }
 
-    await runBusyFuture(_authService.resetPassword(emailPhoneNumberValue!));
-
+    await runBusyFuture(_authService.resetPassword(passwordValue!));
+    if (hasError) {
+      return;
+    }
     _navigationService.navigateToLoginView();
   }
 }

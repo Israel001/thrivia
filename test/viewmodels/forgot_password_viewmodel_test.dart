@@ -7,30 +7,37 @@ import 'package:thrivia_app/feat_auth/ui/forgot_password/forgot_password_viewmod
 import 'package:thrivia_app/feat_auth/repository/auth_repository_service.dart';
 
 import '../helpers/test_helpers.dart';
-
-class MockAuthRepository extends Mock implements AuthRepository {}
+import '../helpers/test_helpers.mocks.dart';
 
 void main() {
   group('ForgotPasswordViewModel Tests -', () {
-    late AuthRepository mockAuthRepository;
+    late MockAuthRepository mockAuthRepository;
     late final ForgotPasswordViewModel viewModel;
     setUp(() {
       registerServices();
       viewModel = ForgotPasswordViewModel();
       locator.removeRegistrationIfExists<AuthRepository>();
-      locator.registerSingleton<AuthRepository>(MockAuthRepository());
-      mockAuthRepository = locator<AuthRepository>();
+
+      mockAuthRepository = MockAuthRepository();
+      locator.registerSingleton<AuthRepository>(mockAuthRepository);
     });
     tearDown(() => locator.reset());
 
     test('should call resetPassword on AuthRepository', () async {
-      String any = "any";
-      when(mockAuthRepository.resetPassword(any, any))
-          .thenAnswer((_) async => true);
+      when(
+        mockAuthRepository.resetPassword(
+          newPassword: anyNamed("newPassword"),
+          accessToken: anyNamed(
+            "accessToken",
+          ),
+        ),
+      ).thenAnswer((_) async => true);
 
       viewModel.resetPassword();
 
-      verify(mockAuthRepository.resetPassword(any, any)).called(1);
+      verify(mockAuthRepository.resetPassword(
+              newPassword: any, accessToken: any))
+          .called(1);
     });
 
     //   test('should set isBusy to true while resetting password', () async {

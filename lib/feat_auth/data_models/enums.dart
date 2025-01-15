@@ -11,7 +11,7 @@ final roleValues = EnumValues({"MANAGER": Role.MANAGER, "MEMBER": Role.MEMBER});
 
 enum AuthState {
   loggedIn,
-  logggedOut,
+  loggedOut,
   pendingVerifyOTP,
   pendingPasswordResetOTP,
   validPasswordResetOTP,

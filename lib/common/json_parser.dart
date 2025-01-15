@@ -27,4 +27,4 @@ Never parseMultipleTypes(
   );
 }
 
-typedef MultipleJsonType = dynamic;
+typedef MultipleJsonTypes = dynamic;

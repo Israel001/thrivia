@@ -150,7 +150,7 @@ class MockedAuthRepository implements AuthRepository {
   }
 
   @override
-  FutureOr<VerifyOTPBody> intiateResetPassword(String emailOrPhoneNumber) {
+  FutureOr<VerifyOTPBody> initiateResetPassword(String emailOrPhoneNumber) {
     final VerifyOTPBody otpData = VerifyOTPBody(
         otpActionType: OtpActionType.RESET_PASSWORD,
         // otpVerifyId: null,
@@ -161,7 +161,8 @@ class MockedAuthRepository implements AuthRepository {
   }
 
   @override
-  FutureOr<void> resetPassword(String newPassword, String accessToken) {
+  FutureOr<void> resetPassword(
+      {required String newPassword, required String accessToken}) {
     // TODO: implement resetPassword
     return null;
   }

@@ -122,7 +122,7 @@ class ResetPasswordWidget extends StatelessWidget {
         ModelErrorDisplay(viewModel: viewModel),
         verticalSpace(24),
         PrimaryButton(
-          onPressed: viewModel.intiateResetPassword,
+          onPressed: viewModel.initiateResetPassword,
           label: "Reset Password",
           loading: viewModel.isBusy,
         ),

@@ -901,7 +901,7 @@ class MockAuthRepository extends _i1.Mock implements _i14.AuthRepository {
       ) as _i12.FutureOr<String>);
 
   @override
-  _i12.FutureOr<_i2.VerifyOTPBody> intiateResetPassword(
+  _i12.FutureOr<_i2.VerifyOTPBody> initiateResetPassword(
           String? emailOrPhoneNumber) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -926,17 +926,18 @@ class MockAuthRepository extends _i1.Mock implements _i14.AuthRepository {
       ) as _i12.FutureOr<_i2.VerifyOTPBody>);
 
   @override
-  _i12.FutureOr<void> resetPassword(
-    String? newPassword,
-    String? accessToken,
-  ) =>
+  _i12.FutureOr<void> resetPassword({
+    required String? newPassword,
+    required String? accessToken,
+  }) =>
       (super.noSuchMethod(
         Invocation.method(
           #resetPassword,
-          [
-            newPassword,
-            accessToken,
-          ],
+          [],
+          {
+            #newPassword: newPassword,
+            #accessToken: accessToken,
+          },
         ),
         returnValueForMissingStub: null,
       ) as _i12.FutureOr<void>);

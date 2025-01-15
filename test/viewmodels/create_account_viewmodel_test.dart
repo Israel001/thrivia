@@ -25,7 +25,7 @@ void main() {
       registerServices();
       mockNavigationService = locator<NavigationService>();
 
-      mockAuthService = getAndRegisterAuthService();
+      mockAuthService = locator<AuthService>() as MockAuthService;
 
       // mockAuthService = AuthService();
       // locator.unregister<AuthService>();
